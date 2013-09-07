@@ -3,7 +3,7 @@ package esmj3dtes5.data.records;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.ESMByteConvert;
+import tools.io.ESMByteConvert;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.InstRECO;

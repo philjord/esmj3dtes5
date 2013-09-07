@@ -5,27 +5,21 @@ import java.util.ArrayList;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.CommonREFR;
-import esmj3dtes5.data.subrecords.XACT;
-import esmj3dtes5.data.subrecords.XCNT;
-import esmj3dtes5.data.subrecords.XESP;
-import esmj3dtes5.data.subrecords.XLCM;
-import esmj3dtes5.data.subrecords.XPCI;
-import esmj3dtes5.data.subrecords.XSED;
+import esmj3d.data.shared.subrecords.FormID;
+import esmj3d.data.shared.subrecords.XMBO;
+import esmj3d.data.shared.subrecords.XPRM;
 
 public class REFR extends CommonREFR
 {
+	//OCCLUSION DATA
+	public XPRM XPRM; // primitve data for bounds type objects, see occulsion in spacetrader
 
-	public XSED XSED;
+	//OCCLUSION DATA
+	public XMBO XMBO; // multi bounds objects info 
 
-	public XPCI XPCI;
+	public byte[] XRMR; //XRMR 	reference marker 	struct 	ubyte - count of following XLRM, ubyte[3] - seems to be flags 0x10000 - seen in 0x000C6B47, 48 
 
-	public XESP XESP;
-
-	public XLCM XLCM;
-
-	public XACT XACT;
-
-	public XCNT XCNT;
+	public ArrayList<FormID> XLMRs = new ArrayList<FormID>(); //XLRM 	location room marker 	formid 	REFR usually to a STAT
 
 	public REFR(Record recordData)
 	{
@@ -37,34 +31,24 @@ public class REFR extends CommonREFR
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("XSED"))
+			//also in fallout3
+			if (sr.getSubrecordType().equals("XPRM"))
 			{
-				XSED = new XSED(bs);
+				XPRM = new XPRM(bs);
 			}
-			else if (sr.getSubrecordType().equals("XPCI"))
+			else if (sr.getSubrecordType().equals("XMBO"))
 			{
-				XPCI = new XPCI(bs);
+				XMBO = new XMBO(bs);
 			}
-			else if (sr.getSubrecordType().equals("XESP"))
+			else if (sr.getSubrecordType().equals("XRMR"))
 			{
-				XESP = new XESP(bs);
+				XRMR = bs;
 			}
-			else if (sr.getSubrecordType().equals("XLCM"))
+			else if (sr.getSubrecordType().equals("XLRM"))
 			{
-				XLCM = new XLCM(bs);
-			}
-			else if (sr.getSubrecordType().equals("XACT"))
-			{
-				XACT = new XACT(bs);
-			}
-			else if (sr.getSubrecordType().equals("XCNT"))
-			{
-				XCNT = new XCNT(bs);
+				XLMRs.add(new FormID(bs));
 			}
 			else if (sr.getSubrecordType().equals("VMAD"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("XPRM"))
 			{
 			}
 			else if (sr.getSubrecordType().equals("XLCM"))
@@ -79,12 +63,6 @@ public class REFR extends CommonREFR
 			else if (sr.getSubrecordType().equals("XNDP"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XMBO"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("XRMR"))
-			{
-			}
 			else if (sr.getSubrecordType().equals("XPRD"))
 			{
 			}
@@ -95,15 +73,6 @@ public class REFR extends CommonREFR
 			{
 			}
 			else if (sr.getSubrecordType().equals("INAM"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("XLRM"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("XLCM"))
-			{
-			}
-			else if (sr.getSubrecordType().equals("XLKR"))
 			{
 			}
 			else if (sr.getSubrecordType().equals("XEMI"))
@@ -132,11 +101,9 @@ public class REFR extends CommonREFR
 			}
 			else if (sr.getSubrecordType().equals("XMBR"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XTRI"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XAPD"))
 			{
@@ -146,31 +113,24 @@ public class REFR extends CommonREFR
 			}
 			else if (sr.getSubrecordType().equals("XTNM"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XWCU"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XWCN"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XIS2"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XPWR"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XEZN"))
 			{
-
 			}
 			else if (sr.getSubrecordType().equals("XOCP"))
 			{
-
 			}
 			else
 			{
