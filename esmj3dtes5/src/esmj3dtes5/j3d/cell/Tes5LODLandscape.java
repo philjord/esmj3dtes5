@@ -2,7 +2,7 @@ package esmj3dtes5.j3d.cell;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
-import javax.media.j3d.IndexedGeometryArray;
+import javax.media.j3d.GeometryArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Texture;
 import javax.media.j3d.Transform3D;
@@ -44,7 +44,7 @@ public class Tes5LODLandscape extends BranchGroup
 			GeometryInfo gi = J3dNiTriShape.makeGeometryInfo(data);
 			if (gi != null)
 			{
-				IndexedGeometryArray baseItsa = J3dNiTriShape.makeGeometry(gi, true);
+				GeometryArray baseItsa = J3dNiTriShape.makeGeometry(gi, true);
 
 				Shape3D shape = new Shape3D();
 				shape.setGeometry(baseItsa);
