@@ -1,36 +1,18 @@
 package esmj3dtes5.data.records;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import tools.io.ESMByteConvert;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
-import esmj3d.data.shared.records.InstRECO;
+import esmj3d.data.shared.records.CommonCELL;
 import esmj3d.data.shared.subrecords.FormID;
-import esmj3d.data.shared.subrecords.ZString;
 
-public class CELL extends InstRECO
+public class CELL extends CommonCELL
 {
-	public ZString EDID;
-
-	public FormID FULL;
 
 	public DATA DATA;
 
-	public FormID XOWN = null;
-
 	public int XGLB = -1;
-
-	public FormID XCCM = null;
-
-	public FormID XCWT = null;
-
-	public byte[] XCLL = null; //Lighting for interior cell
-
-	public List<FormID> XCLRs = new ArrayList<FormID>(); // array of region ids
-
-	public float XCLW = 0; //water height if not 0
 
 	public FormID LTMP = null;
 
@@ -54,50 +36,19 @@ public class CELL extends InstRECO
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("EDID"))
-			{
-				EDID = new ZString(bs);
-			}
-			else if (sr.getSubrecordType().equals("FULL"))
-			{
-				FULL = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			if (sr.getSubrecordType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
-			}
-			else if (sr.getSubrecordType().equals("XCLC"))
-			{
-				x = ESMByteConvert.extractInt(bs, 0);
-				y = ESMByteConvert.extractInt(bs, 4);
-			}
-			else if (sr.getSubrecordType().equals("XCLL"))
-			{
-				XCLL = bs;
 			}
 			else if (sr.getSubrecordType().equals("TVDT"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XCLR"))
-			{
-				XCLRs.add(new FormID(bs));
-			}
-			else if (sr.getSubrecordType().equals("XCLW"))
-			{
-				XCLW = ESMByteConvert.extractFloat(bs, 0);
-			}
-
 			else if (sr.getSubrecordType().equals("MHDT"))
 			{
 			}
 			else if (sr.getSubrecordType().equals("LTMP"))
 			{
 				LTMP = new FormID(bs);
-			}
-
-			else if (sr.getSubrecordType().equals("XCWT"))
-			{
-				XCWT = new FormID(bs);
 			}
 			else if (sr.getSubrecordType().equals("XCMO"))
 			{
@@ -111,21 +62,12 @@ public class CELL extends InstRECO
 			{
 				XCAS = new FormID(bs);
 			}
-
 			else if (sr.getSubrecordType().equals("XWEM"))
 			{
 			}
 			else if (sr.getSubrecordType().equals("XILL"))
 			{
 				XILL = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("XOWN"))
-			{
-				XOWN = new FormID(bs);
-			}
-			else if (sr.getSubrecordType().equals("XCCM"))
-			{
-				XCCM = new FormID(bs);
 			}
 			else if (sr.getSubrecordType().equals("LNAM"))
 			{
@@ -152,7 +94,8 @@ public class CELL extends InstRECO
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				// no longer possible with CommonCELL
+				//System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
 			}
 
 		}
