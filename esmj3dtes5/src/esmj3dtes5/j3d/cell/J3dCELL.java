@@ -125,12 +125,14 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 	protected boolean isDistant(Record record)
 	{
 		// ALL stats are part of distant Lod only
-		if (record.getRecordType().equals("REFR"))
+		//TODO: how does this work without !makePhys &&
+		if ( record.getRecordType().equals("REFR"))
 		{
 			REFR refr = new REFR(record);
 			Record baseRecord = master.getRecord(refr.NAME.formId);
 			if (baseRecord.getRecordType().equals("STAT"))
 			{
+				//TODO: how do physics get set if these things at distant eh?
 				STAT stat = new STAT(baseRecord);
 				return stat.isFlagSet(0x00800000);
 			}

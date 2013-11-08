@@ -13,7 +13,7 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 public class J3dCELLDistant extends J3dCELL
 {
 	/*
-	 * Distant for Skyrim and FO3 are just   statics   that have lods, along with tree and flor
+	 * Distant for Skyrim and FO3 are just statics that have lods, along with tree and flor
 	 */
 	public J3dCELLDistant(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource, SoundSource soundSource)
