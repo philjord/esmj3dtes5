@@ -33,6 +33,8 @@ public class J3dNPC_ extends J3dRECOType
 
 	//private boolean female = false;
 
+	private NifCharacter nifCharacter;
+
 	public J3dNPC_(NPC_ npc_, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
 		super(npc_, null);
@@ -52,6 +54,11 @@ public class J3dNPC_ extends J3dRECOType
 			{
 				WEAP weap = new WEAP(rec);
 				addWEAP(weap);
+			}
+			else if (rec.getRecordType().equals("ARMA"))
+			{
+				System.out.println("ARMA seen");
+				//ARMO armo = new ARMO(rec);
 			}
 			else if (rec.getRecordType().equals("ARMO"))
 			{
@@ -149,11 +156,15 @@ public class J3dNPC_ extends J3dRECOType
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
 		//idleAnimations.add(ESConfig.TES_MESH_PATH + "\\actors\\character\\animations\\mt_idle_a_base.kf");
-//TODO: kf files are not being found
-		NifCharacter nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
-		addChild(nifCharacter);
+		//TODO: kf files are not being found
+		
+		
+		//FIXME: massive load time when enabled??
+		//nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+		//addChild(nifCharacter);
 
 	}
+	
 
 	private void addWEAP(WEAP weap)
 	{
