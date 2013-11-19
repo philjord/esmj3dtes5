@@ -1,8 +1,10 @@
 package esmj3dtes5.j3d.j3drecords.type;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nif.character.NifCharacter;
+import utils.ESConfig;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
 import utils.source.TextureSource;
@@ -99,7 +101,7 @@ public class J3dNPC_ extends J3dRECOType
 				if (baseRecord.getRecordType().equals("ARMO"))
 				{
 					ARMO armo = new ARMO(baseRecord);
-					armo.getClass();
+					Record arec = master.getRecord(armo.MODL.formId);
 				}
 				else if (baseRecord.getRecordType().equals("LVLI"))
 				{
@@ -136,16 +138,19 @@ public class J3dNPC_ extends J3dRECOType
 
 		}
 
-		String skeletonNifFile = "actors\\character\\character assets female\\skeleton_female.nif";
+		String skeletonNifFile = ESConfig.TES_MESH_PATH + "actors\\character\\character assets female\\skeleton_female.nif";
 
-		String[] fileNames = new String[5];
-		fileNames[0] = "actors\\character\\character assets\\femalebody_0.nif";
-		fileNames[1] = "actors\\character\\character assets\\femalehead.nif";
-		fileNames[2] = "actors\\character\\character assets\\femalehands_0.nif";
-		fileNames[3] = "actors\\character\\character assets\\femalefeet_0.nif";
-		fileNames[4] = "actors\\character\\character assets\\eyesfemale.nif";
+		ArrayList<String> fileNames = new ArrayList<String>();
+		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalebody_0.nif");
+		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif");
+		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehands_0.nif");
+		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalefeet_0.nif");
+		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesfemale.nif");
 
-		NifCharacter nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, "");
+		ArrayList<String> idleAnimations = new ArrayList<String>();
+		//idleAnimations.add(ESConfig.TES_MESH_PATH + "\\actors\\character\\animations\\mt_idle_a_base.kf");
+//TODO: kf files are not being found
+		NifCharacter nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
 		addChild(nifCharacter);
 
 	}

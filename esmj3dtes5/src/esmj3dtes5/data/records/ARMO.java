@@ -15,7 +15,7 @@ public class ARMO extends RECO
 
 	public FormID FULL;
 
-	public FormID MODL;;
+	public FormID MODL;
 
 	public MODL MOD2; // male ground
 
@@ -47,6 +47,7 @@ public class ARMO extends RECO
 			else if (sr.getSubrecordType().equals("MODL"))
 			{
 				MODL = new FormID(bs);
+				
 			}
 			else if (sr.getSubrecordType().equals("MOD2"))
 			{

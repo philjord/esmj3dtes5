@@ -6,6 +6,8 @@ import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
+import esmj3d.data.shared.subrecords.MODB;
+import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
 public class RACE extends RECO
@@ -14,9 +16,17 @@ public class RACE extends RECO
 
 	public FormID FULL = null;
 
+	public MODL[] MODLs = null;
+
+	public MODB[] MODBs = null;
+
+	public ZString[] ICONs = null;
+
 	public RACE(Record recordData)
 	{
 		super(recordData);
+
+		ArrayList<MODL> MODLsl = new ArrayList<MODL>();
 
 		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
@@ -33,6 +43,13 @@ public class RACE extends RECO
 				FULL = new FormID(bs);
 			}
 			else if (sr.getSubrecordType().equals("DESC"))
+			{
+			}
+			else if (sr.getSubrecordType().equals("MODL"))
+			{
+				MODLsl.add(new MODL(bs));
+			}
+			else if (sr.getSubrecordType().equals("MODT"))
 			{
 			}
 			else if (sr.getSubrecordType().equals("WNAM"))
@@ -56,9 +73,7 @@ public class RACE extends RECO
 			else if (sr.getSubrecordType().equals("ANAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("MODT"))
-			{
-			}
+
 			else if (sr.getSubrecordType().equals("FNAM"))
 			{
 			}
@@ -86,9 +101,7 @@ public class RACE extends RECO
 			else if (sr.getSubrecordType().equals("INDX"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("MODL"))
-			{
-			}
+
 			else if (sr.getSubrecordType().equals("GNAM"))
 			{
 			}
@@ -231,7 +244,13 @@ public class RACE extends RECO
 			{
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
 			}
+
 		}
+		// transfer to arrays
+
+		MODLs = new MODL[MODLsl.size()];
+		MODLsl.toArray(MODLs);
+
 	}
 
 }

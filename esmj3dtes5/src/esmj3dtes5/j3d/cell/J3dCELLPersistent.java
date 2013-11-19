@@ -15,6 +15,7 @@ import utils.source.TextureSource;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
+import esmj3d.data.shared.records.InstRECO;
 import esmj3d.j3d.cell.GridSpace;
 import esmj3d.j3d.cell.J3dICELLPersistent;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
@@ -98,19 +99,15 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 				}
 			}*/
 
-			float recordX = 0;
-			float recordY = 0;
 			if (record.getRecordType().equals("REFR"))
 			{
 				REFR refr = new REFR(record);
-				recordX = refr.x * ESConfig.ES_TO_METERS_SCALE;
-				recordY = refr.y * ESConfig.ES_TO_METERS_SCALE;
+				sortOutBucket(refr, record);
 			}
 			else if (record.getRecordType().equals("ACHR"))
 			{
 				ACHR achr = new ACHR(record);
-				recordX = achr.x * ESConfig.ES_TO_METERS_SCALE;
-				recordY = achr.y * ESConfig.ES_TO_METERS_SCALE;
+				sortOutBucket(achr, record);
 			}
 			else if (record.getRecordType().equals("PHZD"))
 			{
@@ -121,30 +118,31 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 				System.out.println("CELL_PERSISTENT Record type not converted to j3d " + record.getRecordType());
 			}
 
-			int xGridIdx = (int) Math.floor(recordX / BUCKET_RANGE);
-			int yGridIdx = (int) Math.floor(recordY / BUCKET_RANGE);
-
-			//maxX = xGridIdx > maxX ? xGridIdx : maxX;
-			//maxY = yGridIdx > maxY ? yGridIdx : maxY;
-			//minX = xGridIdx < minX ? xGridIdx : minX;
-			//minY = yGridIdx < minY ? yGridIdx : minY;
-
-			Point key = new Point(xGridIdx, yGridIdx);
-
-			GridSpace gs = allGridSpaces.get(key);
-			if (gs == null)
-			{
-				gs = new GridSpace(this, key);
-				allGridSpaces.put(key, gs);
-			}
-			gs.addRecord(record);
-			recordsById.put(new Integer(record.getFormID()), record);
-			gridSpaceByRecordId.put(new Integer(record.getFormID()), gs);
 		}
 
 		//System.out.println("maxX " + maxX + " maxY " + maxY);
 		//System.out.println("minX " + minX + " minY " + minY);
 
+	}
+
+	private void sortOutBucket(InstRECO reco, Record record)
+	{
+		float recordX = reco.getTrans().x * ESConfig.ES_TO_METERS_SCALE;
+		float recordY = reco.getTrans().y * ESConfig.ES_TO_METERS_SCALE;
+		int xGridIdx = (int) Math.floor(recordX / BUCKET_RANGE);
+		int yGridIdx = (int) Math.floor(recordY / BUCKET_RANGE);
+		Point key = new Point(xGridIdx, yGridIdx);
+
+		GridSpace gs = allGridSpaces.get(key);
+		if (gs == null)
+		{
+			gs = new GridSpace(this, key);
+			allGridSpaces.put(key, gs);
+		}
+
+		gs.addRecord(record);
+		recordsById.put(new Integer(record.getFormID()), record);
+		gridSpaceByRecordId.put(new Integer(record.getFormID()), gs);
 	}
 
 	public void update(float charX, float charY, float loadDist)
