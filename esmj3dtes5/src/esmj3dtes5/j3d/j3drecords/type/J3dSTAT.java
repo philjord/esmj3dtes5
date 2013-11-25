@@ -1,26 +1,31 @@
 package esmj3dtes5.j3d.j3drecords.type;
 
-import javax.media.j3d.BoundingSphere;
-import javax.media.j3d.DistanceLOD;
-import javax.media.j3d.Group;
-import javax.media.j3d.Node;
-import javax.media.j3d.Switch;
-import javax.vecmath.Point3d;
+import java.util.ArrayList;
 
+import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Node;
+
+import nif.j3d.J3dNiAVObject;
+import tools3d.utils.Utils3D;
+import tools3d.utils.scenegraph.BetterDistanceLOD;
 import utils.source.MeshSource;
 import utils.source.TextureSource;
+
+import com.sun.j3d.utils.geometry.ColorCube;
+
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
 import esmj3dtes5.data.records.STAT;
 
-public class J3dSTAT extends J3dRECOType 
+public class J3dSTAT extends J3dRECOType
 {
-	private Switch switchGroup;
 
-	private DistanceLOD dl;
+	public static boolean SHOW_FADE_OUT_MARKER = false;
 
-	private STAT stat;
+	private BetterDistanceLOD dl;
+
+	private ArrayList<BranchGroup> myNodes = new ArrayList<BranchGroup>();
 
 	/**
 	 * Has Tree LOD = 0x00000040
@@ -41,117 +46,114 @@ public class J3dSTAT extends J3dRECOType
 	{
 		super(stat, stat.MODL.model.str);
 
-		this.stat = stat;
-
-		//TEST! if return is not commentd mind you
-		if (makePhys || stat.MODL.model.str.toLowerCase().indexOf("impexttower03") == -1)
+		//TEST! if return is not commented mind you
+		//|| stat.MODL.model.str.indexOf("CliffSm01.nif") == -1 is fixed?
+		//if (stat.isFlagSet(0x00008000) || stat.MODL.model.str.indexOf("Firewood") == -1)
 		{
-		//	return;
+			//	return;
 		}
 
-		switchGroup = new Switch(0);
-		switchGroup.setCapability(Switch.ALLOW_SWITCH_WRITE);
-		addChild(switchGroup);
-
-		if (!stat.isFlagSet(0x00008000))
+		if (makePhys)
 		{
-			Node node = J3dRECOTypeGeneral.loadSharedGroup(stat.MODL.model.str, makePhys, meshSource, textureSource);
-
-			switchGroup.addChild(node);
-			switchGroup.addChild(new Group());
+			Node node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, meshSource, textureSource);
+			addChild(node);
 		}
 		else
 		{
 
-			Node node = J3dRECOTypeGeneral.loadSharedGroup(stat.MODL.model.str, makePhys, meshSource, textureSource);
-			switchGroup.addChild(node);
-
-			if (stat.lodModel1.length() > 0)
+			if (!stat.isFlagSet(0x00008000))
 			{
-				Node node1 = J3dRECOTypeGeneral.loadSharedGroup(stat.lodModel1, makePhys, meshSource, textureSource);
-				switchGroup.addChild(node1);
+				J3dNiAVObject node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, meshSource, textureSource);
+				myNodes.add(node);
+				BranchGroup bg = new BranchGroup();
+				bg.addChild(SHOW_FADE_OUT_MARKER ? new ColorCube(0.1) : new BranchGroup());
+				myNodes.add(bg);
+			}
+			else
+			{
+				J3dNiAVObject node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, meshSource, textureSource);
+				myNodes.add(node);
 
-				if (stat.lodModel2.length() > 0)
+				if (stat.lodModel1.length() > 0)
 				{
-					Node node2 = J3dRECOTypeGeneral.loadSharedGroup(stat.lodModel2, makePhys, meshSource, textureSource);
-					switchGroup.addChild(node2);
+					J3dNiAVObject node1 = J3dRECOTypeGeneral.loadNif(stat.lodModel1, makePhys, meshSource, textureSource);
+					myNodes.add(node1);
 
-					if (stat.lodModel3.length() > 0)
+					if (stat.lodModel2.length() > 0)
 					{
-						Node node3 = J3dRECOTypeGeneral.loadSharedGroup(stat.lodModel3, makePhys, meshSource, textureSource);
-						switchGroup.addChild(node3);
+						J3dNiAVObject node2 = J3dRECOTypeGeneral.loadNif(stat.lodModel2, makePhys, meshSource, textureSource);
+						myNodes.add(node2);
 
-						if (stat.lodModel4.length() > 0)
+						if (stat.lodModel3.length() > 0)
 						{
-							Node node4 = J3dRECOTypeGeneral.loadSharedGroup(stat.lodModel4, makePhys, meshSource, textureSource);
-							switchGroup.addChild(node4);
+							J3dNiAVObject node3 = J3dRECOTypeGeneral.loadNif(stat.lodModel3, makePhys, meshSource, textureSource);
+							myNodes.add(node3);
+
+							if (stat.lodModel4.length() > 0)
+							{
+								J3dNiAVObject node4 = J3dRECOTypeGeneral.loadNif(stat.lodModel4, makePhys, meshSource, textureSource);
+								myNodes.add(node4);
+							}
 						}
 					}
 				}
+
+				//add a blank if there's no lod 4
+				if (!(stat.lodModel4.length() > 0))
+				{
+					BranchGroup bg = new BranchGroup();
+					bg.addChild(SHOW_FADE_OUT_MARKER ? new ColorCube(0.1) : new BranchGroup());
+					myNodes.add(bg);
+				}
 			}
 
-			//add a blank if there's no lod 4
-			if (!(stat.lodModel4.length() > 0))
-			{
-				switchGroup.addChild(new Group());
-			}
+			dl = new BetterDistanceLOD(this, myNodes, calcDistances(BethRenderSettings.getItemFade()));
+			addChild(dl);
+			dl.setSchedulingBounds(Utils3D.defaultBounds);
+			dl.setEnable(true);
 		}
 
-		float[] dist = calcDistances(BethRenderSettings.getItemFade());
-
-		dl = new DistanceLOD(dist);
-		dl.addSwitch(switchGroup);
-		addChild(dl);
-		dl.setSchedulingBounds(new BoundingSphere(new Point3d(0.0, 0.0, 0.0), Double.POSITIVE_INFINITY));
-		dl.setEnable(true);
-
-		
 	}
 
 	@Override
 	public void renderSettingsUpdated()
 	{
-		float[] dist = calcDistances(BethRenderSettings.getItemFade());
-		for (int d = 0; d < dist.length; d++)
+		if (dl != null)
 		{
-			dl.setDistance(d, dist[d]);
+			float[] dist = calcDistances(BethRenderSettings.getItemFade());
+			for (int d = 0; d < dist.length; d++)
+			{
+				dl.setDistance(d, dist[d]);
+			}
+			dl.setSchedulingBounds(Utils3D.defaultBounds);
 		}
 	}
 
 	private float[] calcDistances(float baseDist)
 	{
-		float dist0 = baseDist;
-		float dist1 = baseDist * 2;
-		float dist2 = baseDist * 3;
-		float dist3 = baseDist * 4;
-
-		if (!stat.isFlagSet(0x00008000))
-		{
-			dist0 = baseDist * 3;
-		}
-
 		float[] dist = null;
-		if (switchGroup.numChildren() == 2)
+		if (myNodes.size() <= 2)
 		{
 			dist = new float[]
-			{ dist0 };
+			{ baseDist };
 		}
-		else if (switchGroup.numChildren() == 3)
+		else if (myNodes.size() == 3)
 		{
 			dist = new float[]
-			{ dist0, dist1 };
+			{ baseDist, baseDist * 2f };
 		}
-		else if (switchGroup.numChildren() == 4)
+		else if (myNodes.size() == 4)
 		{
 			dist = new float[]
-			{ dist0, dist1, dist2 };
+			{ baseDist, baseDist * 2f, baseDist * 3f };
 		}
-		else if (switchGroup.numChildren() == 5)
+		else if (myNodes.size() == 5)
 		{
 			dist = new float[]
-			{ dist0, dist1, dist2, dist3 };
+			{ baseDist, baseDist * 2f, baseDist * 3f, baseDist * 4f };
 		}
 
 		return dist;
 	}
+
 }

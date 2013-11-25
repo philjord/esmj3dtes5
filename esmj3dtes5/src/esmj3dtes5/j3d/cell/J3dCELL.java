@@ -44,9 +44,12 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 	@Override
 	public void renderSettingsUpdated()
 	{
-		for (J3dRECOInst j3dRECOInst : j3dRECOInsts)
+		if (!makePhys)
 		{
-			j3dRECOInst.renderSettingsUpdated();
+			for (J3dRECOInst j3dRECOInst : j3dRECOInsts)
+			{
+				j3dRECOInst.renderSettingsUpdated();
+			}
 		}
 	}
 
@@ -126,7 +129,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 	{
 		// ALL stats are part of distant Lod only
 		//TODO: how does this work without !makePhys &&
-		if ( record.getRecordType().equals("REFR"))
+		if (record.getRecordType().equals("REFR"))
 		{
 			REFR refr = new REFR(record);
 			Record baseRecord = master.getRecord(refr.NAME.formId);

@@ -155,16 +155,14 @@ public class J3dNPC_ extends J3dRECOType
 		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesfemale.nif");
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
-		//idleAnimations.add(ESConfig.TES_MESH_PATH + "\\actors\\character\\animations\\mt_idle_a_base.kf");
+		idleAnimations.add(ESConfig.TES_MESH_PATH + "actors\\character\\animations\\mt_idle_a_base.kf");
 		//TODO: kf files are not being found
-		
-		
+
 		//FIXME: massive load time when enabled??
 		//nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
 		//addChild(nifCharacter);
 
 	}
-	
 
 	private void addWEAP(WEAP weap)
 	{
