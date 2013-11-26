@@ -48,6 +48,7 @@ import esmj3dtes5.j3d.j3drecords.type.J3dSTAT;
 
 public class J3dREFRFactory
 {
+	//Note fader = true
 	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, ZString nifFileName, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource)
 	{
@@ -78,7 +79,6 @@ public class J3dREFRFactory
 			STAT stat = new STAT(baseRecord);
 			if (stat.MODL != null && (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers()))
 			{
-
 				// TODO: this stuff appears to refer to war like stuff enabled scenes
 				// but I still see capapults!
 				if (refr.XESP != null)
@@ -130,6 +130,7 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("APPA"))
 		{
+			//TODO: why?
 			//APPA appa = new APPA(baseRecord);
 			//return makeJ3dRECOInstFader(refr, appa, appa.MODL.model, makePhys, meshSource, textureSource);
 			return null;
@@ -213,41 +214,27 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("DOOR"))
 		{
-			DOOR door = new DOOR(baseRecord);
-			J3dDOOR j3dDoor = new J3dDOOR(door, door.MODL.model.str, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(j3dDoor);
-			return j3dinst;
+			return new J3dRECOStatInst(refr, new J3dDOOR(new DOOR(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
-			LIGH ligh = new LIGH(baseRecord);
-
-			J3dLIGH j3dLIGH = new J3dLIGH(ligh, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(j3dLIGH);
-			return j3dinst;
+			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
-			//TODO: trees have _lod_flat nif files next to the normal nif
-			// but I can't see how to make a lod switch thats give me that file name??
-			// further investigation says _ld_flat fixed is true, with has tree lod in teh refr
 			TREE tree = new TREE(baseRecord);
-
+			//TODO: tree models themselves have cool animated and nanimated version inside,
+			//must work out how to switch
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 
 			String treeNif = tree.MODL.model.str;
-			//Has Tree LOD = 0x00000040					
-
+			//Has Tree LOD = 0x00000040		
 			if (refr.isFlagSet(0x00000040))//meshSource.nifFileExists(treeLodFlat))
 			{
 				String treeLodFlat = treeNif.substring(0, treeNif.indexOf(".nif")) + "_lod_flat.nif";
-				//TODO: something very fruity about these far groups indeed, cross shapes are showing up close?
 				j3dinst.setJ3dRECOType(//
 						new J3dRECOTypeGeneral(refr, treeNif, makePhys, meshSource, textureSource),//
 						new J3dRECOTypeGeneral(refr, treeLodFlat, makePhys, meshSource, textureSource));
-
 			}
 			else
 			{
@@ -259,13 +246,7 @@ public class J3dREFRFactory
 		{
 			if (!makePhys)
 			{
-				if (!makePhys)
-				{
-					SOUN soun = new SOUN(baseRecord);
-					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
-					j3dinst.addNodeChild(new J3dSOUN(soun, master, soundSource));
-					return j3dinst;
-				}
+				return new J3dRECOStatInst(refr, new J3dSOUN(new SOUN(baseRecord), master, soundSource), false, makePhys);
 			}
 		}
 		else if (baseRecord.getRecordType().equals("LVLN"))
