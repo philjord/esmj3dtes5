@@ -37,7 +37,7 @@ public class PROJ extends RECO
 			else if (sr.getSubrecordType().equals("NAM2")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

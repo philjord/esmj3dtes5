@@ -54,7 +54,7 @@ public class SCEN extends RECO
 			else if (sr.getSubrecordType().equals("SCRO")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

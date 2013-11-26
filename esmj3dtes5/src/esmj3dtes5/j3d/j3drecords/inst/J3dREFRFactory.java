@@ -60,7 +60,7 @@ public class J3dREFRFactory
 	private static J3dRECOStatInst makeJ3dRECOStatInst(REFR refr, RECO reco, ZString nifFileName, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource)
 	{
-		J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+		J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 		j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, nifFileName.str, makePhys, meshSource, textureSource));
 
 		return j3dinst;
@@ -214,7 +214,7 @@ public class J3dREFRFactory
 		{
 			DOOR door = new DOOR(baseRecord);
 			J3dDOOR j3dDoor = new J3dDOOR(door, door.MODL.model.str, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 			j3dinst.setJ3dRECOType(j3dDoor);
 			return j3dinst;
 		}
@@ -223,7 +223,7 @@ public class J3dREFRFactory
 			LIGH ligh = new LIGH(baseRecord);
 
 			J3dLIGH j3dLIGH = new J3dLIGH(ligh, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 			j3dinst.setJ3dRECOType(j3dLIGH);
 			return j3dinst;
 		}
@@ -234,7 +234,7 @@ public class J3dREFRFactory
 			// further investigation says _ld_flat fixed is true, with has tree lod in teh refr
 			TREE tree = new TREE(baseRecord);
 
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 
 			String treeNif = tree.MODL.model.str;
 			//Has Tree LOD = 0x00000040					
@@ -272,7 +272,7 @@ public class J3dREFRFactory
 			if (!makePhys)
 			{
 				LVLN lvln = new LVLN(baseRecord);
-				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, makePhys);
+				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, false, makePhys);
 				j3dinst.setJ3dRECOType(makeLVLN(lvln, master, meshSource, textureSource, soundSource));
 				return j3dinst;
 			}
@@ -282,7 +282,7 @@ public class J3dREFRFactory
 			if (!makePhys)
 			{
 				LVLI lvli = new LVLI(baseRecord);
-				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, makePhys);
+				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, false, makePhys);
 				j3dinst.setJ3dRECOType(makeLVLI(lvli, master, meshSource, textureSource, soundSource));
 				return j3dinst;
 			}

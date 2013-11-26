@@ -33,7 +33,7 @@ public class S_PM extends RECO
 			else if (sr.getSubrecordType().equals("SNAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

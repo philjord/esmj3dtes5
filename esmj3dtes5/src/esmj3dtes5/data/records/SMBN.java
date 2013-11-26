@@ -33,7 +33,7 @@ public class SMBN extends RECO
 			else if (sr.getSubrecordType().equals("CIS2")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

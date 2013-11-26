@@ -32,7 +32,7 @@ public class MATT extends RECO
 			else if (sr.getSubrecordType().equals("PNAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

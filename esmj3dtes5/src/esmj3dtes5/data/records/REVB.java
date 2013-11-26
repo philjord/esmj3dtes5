@@ -27,7 +27,7 @@ public class REVB extends RECO
 			else if (sr.getSubrecordType().equals("DATA")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}
