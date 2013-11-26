@@ -8,8 +8,8 @@ import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.MODS;
 import esmj3d.data.shared.subrecords.MODT;
+import esmj3d.data.shared.subrecords.OBND;
 import esmj3d.data.shared.subrecords.ZString;
-import esmj3dtes5.data.shared.subrecords.OBND;
 
 public class STAT extends RECO
 {

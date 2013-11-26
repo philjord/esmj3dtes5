@@ -7,9 +7,9 @@ import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.FormID;
+import esmj3d.data.shared.subrecords.OBND;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes5.data.shared.subrecords.KeyWords;
-import esmj3dtes5.data.shared.subrecords.OBND;
 import esmj3dtes5.data.subrecords.AIDT;
 import esmj3dtes5.data.subrecords.SNAM;
 
