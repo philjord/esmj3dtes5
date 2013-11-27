@@ -31,7 +31,7 @@ public class J3dCELLDistant extends J3dCELL
 			// ALL stats are part of distant (Lod only?)
 			if (isDistant(record))
 			{
-				J3dRECOInst jri = makeJ3dRECO(record);
+				J3dRECOInst jri = makeJ3dRECO(record, true);
 				addJ3dRECOInst(jri);
 			}
 		}
