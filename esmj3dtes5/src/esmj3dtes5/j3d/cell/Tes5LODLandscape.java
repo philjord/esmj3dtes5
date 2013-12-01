@@ -65,12 +65,16 @@ public class Tes5LODLandscape extends BranchGroup
 				tg.addChild(shape);
 				addChild(tg);
 			}
+			else
+			{
+				System.out.println("Bad landscape GI " + meshName);
+			}
 
 		}
 		else
 		{
 			//ignore
-			//System.out.println("Bad landscape name " + meshName + " lodX " + lodX + " lodY " + lodY);
+			System.out.println("Bad landscape name " + meshName);
 		}
 
 	}
