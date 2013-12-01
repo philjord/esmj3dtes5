@@ -9,7 +9,7 @@ import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes5.data.subrecords.SNAM_d;
 
-public class __WRLD extends RECO
+public class WRLD extends RECO
 {
 	public ZString EDID = null;
 
@@ -27,7 +27,7 @@ public class __WRLD extends RECO
 
 	public byte DATA = 0;
 
-	public __WRLD(Record recordData)
+	public WRLD(Record recordData)
 	{
 		super(recordData);
 		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
@@ -81,6 +81,42 @@ public class __WRLD extends RECO
 				//
 			}
 			else if (sr.getSubrecordType().equals("MNAM"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("RNAM"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("NAM3"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("NAM4"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("DNAM"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("ONAM"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("NAMA"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("ZNAM"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("TNAM"))
+			{
+				//
+			}
+			else if (sr.getSubrecordType().equals("UNAM"))
 			{
 				//
 			}

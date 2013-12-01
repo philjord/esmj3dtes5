@@ -16,6 +16,7 @@ import esmLoader.common.data.record.Record;
 import esmLoader.loader.ESMManager;
 import esmLoader.loader.WRLDChildren;
 import esmj3d.j3d.cell.J3dICellFactory;
+import esmj3dtes5.data.records.WRLD;
 
 public class J3dCellFactory implements J3dICellFactory
 {
@@ -39,16 +40,18 @@ public class J3dCellFactory implements J3dICellFactory
 		this.soundSource = soundSource;
 	}
 
+	@Override
 	public BranchGroup makeLODLandscape(int lodX, int lodY, int scale, int worldFormId, String worldFormName)
 	{
 		return new Tes5LODLandscape(lodX, lodY, scale, worldFormName, meshSource, textureSource);
 	}
 
-	public boolean isWRLD(int formId)
+	@Override
+	public boolean isWRLD(int worldFormId)
 	{
 		try
 		{
-			return esmManager.getWRLD(new Integer(formId)) != null;
+			return esmManager.getWRLD(worldFormId) != null;
 		}
 		catch (DataFormatException e)
 		{
@@ -65,34 +68,52 @@ public class J3dCellFactory implements J3dICellFactory
 		return false;
 	}
 
+	@Override
 	public J3dCELLPersistent makeBGWRLDPersistent(int formId, boolean makePhys)
 	{
 
-		//PluginRecord record = master.getWRLD(formId);
-		//WRLD wrld = new WRLD(record);
-
-		WRLDChildren children = esmManager.getWRLDChildren(formId);
-
-		PluginRecord cell = children.getCell();
-		if (cell != null)
+		try
 		{
-			PluginGroup cellChildren = children.getCellChildren();
-			if (cellChildren != null)
+			PluginRecord record = esmManager.getWRLD(formId);
+
+			WRLD wrld = new WRLD(new Record(record, -1));
+
+			WRLDChildren children = esmManager.getWRLDChildren(formId);
+
+			PluginRecord cell = children.getCell();
+			if (cell != null)
 			{
-				return new J3dCELLPersistent(recordStore, new Record(cell, -1), ESMManager.getChildren(cellChildren,
-						PluginGroup.CELL_PERSISTENT), makePhys, meshSource, textureSource, soundSource);
+				PluginGroup cellChildren = children.getCellChildren();
+				if (cellChildren != null)
+				{
+					return new J3dCELLPersistent(wrld, recordStore, new Record(cell, -1), ESMManager.getChildren(cellChildren,
+							PluginGroup.CELL_PERSISTENT), makePhys, meshSource, textureSource, soundSource);
+				}
 			}
 		}
-
+		catch (DataFormatException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (PluginException e)
+		{
+			e.printStackTrace();
+		}
 		return null;
 	}
 
+	@Override
 	public J3dCELLTemporary makeBGWRLDTemporary(int wrldFormId, int x, int y, boolean makePhys)
 	{
 		int cellId = esmManager.getWRLDExtBlockCELLId(wrldFormId, x, y);
 		return makeBGWRLDTemporary(cellId, makePhys);
 	}
 
+	@Override
 	public J3dCELLTemporary makeBGWRLDTemporary(int cellId, boolean makePhys)
 	{
 		if (cellId == -1)
@@ -131,12 +152,14 @@ public class J3dCellFactory implements J3dICellFactory
 		return null;
 	}
 
+	@Override
 	public J3dCELLDistant makeBGWRLDDistant(int wrldFormId, int x, int y, boolean makePhys)
 	{
 		int cellId = esmManager.getWRLDExtBlockCELLId(wrldFormId, x, y);
 		return makeBGWRLDDistant(cellId, makePhys);
 	}
 
+	@Override
 	public J3dCELLDistant makeBGWRLDDistant(int cellId, boolean makePhys)
 	{
 		if (cellId == -1)
@@ -171,6 +194,7 @@ public class J3dCellFactory implements J3dICellFactory
 		return null;
 	}
 
+	@Override
 	public J3dCELLPersistent makeBGInteriorCELLPersistent(int cellId, boolean makePhys)
 	{
 		try
@@ -181,7 +205,7 @@ public class J3dCellFactory implements J3dICellFactory
 			{
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
-				return new J3dCELLPersistent(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
+				return new J3dCELLPersistent(null, recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
 						PluginGroup.CELL_PERSISTENT), makePhys, meshSource, textureSource, soundSource);
 			}
 		}
@@ -200,6 +224,7 @@ public class J3dCellFactory implements J3dICellFactory
 		return null;
 	}
 
+	@Override
 	public J3dCELLTemporary makeBGInteriorCELLTemporary(int cellId, boolean makePhys)
 	{
 
@@ -230,6 +255,7 @@ public class J3dCellFactory implements J3dICellFactory
 		return null;
 	}
 
+	@Override
 	public J3dCELLDistant makeBGInteriorCELLDistant(int cellId, boolean makePhys)
 	{
 
@@ -265,4 +291,5 @@ public class J3dCellFactory implements J3dICellFactory
 	{
 		return esmManager.getName();
 	}
+
 }

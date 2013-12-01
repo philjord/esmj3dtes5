@@ -14,10 +14,13 @@ import esmj3d.j3d.cell.GridSpaces;
 import esmj3d.j3d.cell.J3dICELLPersistent;
 import esmj3dtes5.data.records.ACHR;
 import esmj3dtes5.data.records.REFR;
+import esmj3dtes5.data.records.WRLD;
 
 public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 {
 	private GridSpaces gridSpaces = new GridSpaces(this);
+
+	private WRLD wrld;
 
 	/**
 	 * CELL presistent is differnt from temp and distant as it's dynamic refs and achar can move away
@@ -31,6 +34,7 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	 * TODO: I noticce skyrim has fixed grid of
 	 * maxX 60 maxY 38
 	 * minX -57 minY -41  so 118 * 80 = 9,440 array holds it all, I wonder about obliv and fallout??
+	 * @param wrld 
 	 * @param master
 	 * @param cellRecord
 	 * @param children
@@ -38,13 +42,14 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	 * @param recordToRECO
 	 */
 
-	public J3dCELLPersistent(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
-			TextureSource textureSource, SoundSource soundSource)
+	public J3dCELLPersistent(WRLD wrld, IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys,
+			MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
 		super(master, cellRecord, children, makePhys, meshSource, textureSource, soundSource);
-
+		this.wrld = wrld;
 		this.setCapability(Group.ALLOW_CHILDREN_EXTEND);
 		this.setCapability(Group.ALLOW_CHILDREN_WRITE);
+
 		indexRecords();
 	}
 
@@ -56,33 +61,6 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 		for (Iterator<Record> i = children.iterator(); i.hasNext();)
 		{
 			Record record = i.next();
-			// refr id = 89721
-			// 228606 DOOR
-			/*	if (!makePhys)
-			{
-				if (record.getRecordType().equals("REFR"))
-				{
-					REFR refr = new REFR(record);
-					Record baseRecord = master.getRecord(refr.NAME.formId);
-
-					if (baseRecord.getRecordType().equals("DOOR"))
-					{
-						//System.out.println("" + this.cell.formId + "pers is looking at " + record.getFormID() + " type "
-						//		+ record.getRecordType());
-
-						//System.out.println("base = " + baseRecord.getRecordType());
-						float recordX = 0;
-						float recordY = 0;
-						recordX = refr.x * ESConfig.ES_TO_METERS_SCALE;
-						recordY = refr.y * ESConfig.ES_TO_METERS_SCALE;
-						//System.out.println("recordX " + recordX + " recordY " + recordY);
-						int xGridIdx = (int) Math.floor(recordX / BUCKET_RANGE);
-						int yGridIdx = (int) Math.floor(recordY / BUCKET_RANGE);
-						Point key = new Point(xGridIdx, yGridIdx);
-						//System.out.println("grid bucket  = " + key);
-					}
-				}
-			}*/
 
 			if (record.getRecordType().equals("REFR"))
 			{
@@ -115,4 +93,6 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	{
 		return gridSpaces;
 	}
+
+	 
 }
