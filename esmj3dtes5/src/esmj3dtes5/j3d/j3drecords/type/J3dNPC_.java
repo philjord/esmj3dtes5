@@ -159,8 +159,8 @@ public class J3dNPC_ extends J3dRECOType
 		//TODO: kf files are not being found
 
 		//FIXME: massive load time when enabled??
-		//nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
-		//addChild(nifCharacter);
+		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+		addChild(nifCharacter);
 
 	}
 
