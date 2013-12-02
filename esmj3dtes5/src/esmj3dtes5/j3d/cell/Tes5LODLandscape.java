@@ -28,9 +28,6 @@ public class Tes5LODLandscape extends BranchGroup
 
 	public Tes5LODLandscape(int lodX, int lodY, int scale, String worldFormName, MeshSource meshSource, TextureSource textureSource)
 	{
-
-		//TODO:must do 4x4's 1 16x1 1 32 type thing
-
 		String meshName = "terrain\\" + worldFormName + "\\" + worldFormName + "." + scale + "." + lodX + "." + lodY + ".btr";
 
 		setCapability(BranchGroup.ALLOW_DETACH);
