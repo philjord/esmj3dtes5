@@ -77,17 +77,17 @@ public class J3dREFRFactory
 		if (baseRecord.getRecordType().equals("STAT"))
 		{
 			STAT stat = new STAT(baseRecord);
-			if (stat.MODL != null && (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers()))
+			if (stat.MODL != null )//&& (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers()))
 			{
 				// TODO: this stuff appears to refer to war like stuff enabled scenes
 				// but I still see capapults!
-				if (refr.XESP != null)
+				//if (refr.XESP != null)
 				{
 					//System.out.println("parent spotting " + refr.XESP.parentId);
 					//System.out.println("parent spotting " + refr.XESP.flags);
 					//System.out.println("parent spotting " + stat.MODL.model.str);
 				}
-				else
+			//	else
 				{
 					// fader handled by STAT
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
