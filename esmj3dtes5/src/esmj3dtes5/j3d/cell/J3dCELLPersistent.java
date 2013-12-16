@@ -52,6 +52,7 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 		this.setCapability(Group.ALLOW_CHILDREN_WRITE);
 
 		indexRecords();
+		addChild(gridSpaces);
 	}
 
 	private void indexRecords()
