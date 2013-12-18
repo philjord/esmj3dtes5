@@ -18,20 +18,20 @@ public class ASTP extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("MPRT")){}
-			else if (sr.getSubrecordType().equals("FPRT")){}
-			else if (sr.getSubrecordType().equals("MCHT")){}
-			else if (sr.getSubrecordType().equals("FCHT")){}
-			else if (sr.getSubrecordType().equals("DATA")){}
+			else if (sr.getType().equals("MPRT")){}
+			else if (sr.getType().equals("FPRT")){}
+			else if (sr.getType().equals("MCHT")){}
+			else if (sr.getType().equals("FCHT")){}
+			else if (sr.getType().equals("DATA")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

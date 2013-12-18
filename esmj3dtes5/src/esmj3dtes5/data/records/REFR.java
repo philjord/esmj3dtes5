@@ -29,107 +29,107 @@ public class REFR extends CommonREFR
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
 			//also in fallout3
-			if (sr.getSubrecordType().equals("XPRM"))
+			if (sr.getType().equals("XPRM"))
 			{
 				XPRM = new XPRM(bs);
 			}
-			else if (sr.getSubrecordType().equals("XMBO"))
+			else if (sr.getType().equals("XMBO"))
 			{
 				XMBO = new XMBO(bs);
 			}
-			else if (sr.getSubrecordType().equals("XRMR"))
+			else if (sr.getType().equals("XRMR"))
 			{
 				XRMR = bs;
 			}
-			else if (sr.getSubrecordType().equals("XLRM"))
+			else if (sr.getType().equals("XLRM"))
 			{
 				XLMRs.add(new FormID(bs));
 			}
-			else if (sr.getSubrecordType().equals("VMAD"))
+			else if (sr.getType().equals("VMAD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLCM"))
+			else if (sr.getType().equals("XLCM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLKR"))
+			else if (sr.getType().equals("XLKR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLCN"))
+			else if (sr.getType().equals("XLCN"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XNDP"))
+			else if (sr.getType().equals("XNDP"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XPRD"))
+			else if (sr.getType().equals("XPRD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XPPA"))
+			else if (sr.getType().equals("XPPA"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("PDTO"))
+			else if (sr.getType().equals("PDTO"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("INAM"))
+			else if (sr.getType().equals("INAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XEMI"))
+			else if (sr.getType().equals("XEMI"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLIB"))
+			else if (sr.getType().equals("XLIB"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XRDS"))
+			else if (sr.getType().equals("XRDS"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLIG"))
+			else if (sr.getType().equals("XLIG"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XALP"))
+			else if (sr.getType().equals("XALP"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XRGD"))
+			else if (sr.getType().equals("XRGD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XPOD"))
+			else if (sr.getType().equals("XPOD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLRT"))
+			else if (sr.getType().equals("XLRT"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XMBR"))
+			else if (sr.getType().equals("XMBR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XTRI"))
+			else if (sr.getType().equals("XTRI"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XAPD"))
+			else if (sr.getType().equals("XAPD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XAPR"))
+			else if (sr.getType().equals("XAPR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XTNM"))
+			else if (sr.getType().equals("XTNM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XWCU"))
+			else if (sr.getType().equals("XWCU"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XWCN"))
+			else if (sr.getType().equals("XWCN"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XIS2"))
+			else if (sr.getType().equals("XIS2"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XPWR"))
+			else if (sr.getType().equals("XPWR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XEZN"))
+			else if (sr.getType().equals("XEZN"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XOCP"))
+			else if (sr.getType().equals("XOCP"))
 			{
 			}
 			else

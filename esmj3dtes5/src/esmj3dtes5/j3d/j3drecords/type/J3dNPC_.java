@@ -11,7 +11,9 @@ import utils.source.TextureSource;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
+import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
+import esmj3dtes5.data.records.ARMA;
 import esmj3dtes5.data.records.ARMO;
 import esmj3dtes5.data.records.LVLI;
 import esmj3dtes5.data.records.NPC_;
@@ -21,17 +23,21 @@ import esmj3dtes5.data.subrecords.LVLO;
 
 public class J3dNPC_ extends J3dRECOType
 {
-	//private boolean upper = false;
+	private String helmetStr = null;
 
-	//private boolean lower = false;
+	private String headStr = null;
 
-	//private boolean hand = false;
+	private String eyesStr = null;
 
-	//private boolean foot = false;
+	private String bodyStr = null;
 
-	//private boolean shield = false;
+	private String handsStr = null;
 
-	//private boolean female = false;
+	private String feetStr = null;
+
+	private String weapStr = null;
+
+	private boolean female = false;
 
 	private NifCharacter nifCharacter;
 
@@ -40,10 +46,28 @@ public class J3dNPC_ extends J3dRECOType
 		super(npc_, null);
 		//String path = npc_.MODL.getPath();
 
-		//female = npc_.ACBS.isFemale();
+		female = npc_.ACBS.isFemale();
 
 		Record rrec = master.getRecord(npc_.RNAM.formId);
 		RACE race = new RACE(rrec);
+		if (female)
+		{
+			headStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif";
+			//All beast races are just humans with a different texture
+			bodyStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalebody_0.nif";
+			handsStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehands_0.nif";
+			feetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalefeet_0.nif";
+			eyesStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesfemale.nif";
+		}
+		else
+		{
+			headStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malehead.nif";
+			//All beast races are just humans with a different texture
+			bodyStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malebody_0.nif";
+			handsStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malehands_0.nif";
+			feetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malefeet_0.nif";
+			eyesStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesmale.nif";
+		}
 
 		List<CNTO> cntos = npc_.CNTOs;
 		for (int i = 0; i < cntos.size(); i++)
@@ -55,14 +79,10 @@ public class J3dNPC_ extends J3dRECOType
 				WEAP weap = new WEAP(rec);
 				addWEAP(weap);
 			}
-			else if (rec.getRecordType().equals("ARMA"))
-			{
-				System.out.println("ARMA seen");
-				//ARMO armo = new ARMO(rec);
-			}
 			else if (rec.getRecordType().equals("ARMO"))
 			{
-				//ARMO armo = new ARMO(rec);
+				ARMO armo = new ARMO(rec);
+				addARMO(armo, master);
 			}
 			else if (rec.getRecordType().equals("AMMO"))
 			{
@@ -108,7 +128,12 @@ public class J3dNPC_ extends J3dRECOType
 				if (baseRecord.getRecordType().equals("ARMO"))
 				{
 					ARMO armo = new ARMO(baseRecord);
-					Record arec = master.getRecord(armo.MODL.formId);
+					addARMO(armo, master);
+				}
+				else if (baseRecord.getRecordType().equals("WEAP"))
+				{
+					WEAP weap = new WEAP(baseRecord);
+					addWEAP(weap);
 				}
 				else if (baseRecord.getRecordType().equals("LVLI"))
 				{
@@ -128,11 +153,7 @@ public class J3dNPC_ extends J3dRECOType
 				else if (baseRecord.getRecordType().equals("BOOK"))
 				{
 				}
-				else if (baseRecord.getRecordType().equals("WEAP"))
-				{
-					WEAP weap = new WEAP(baseRecord);
-					addWEAP(weap);
-				}
+
 				else
 				{
 					System.out.println("LVLI record type not converted to j3d " + baseRecord.getRecordType());
@@ -145,28 +166,46 @@ public class J3dNPC_ extends J3dRECOType
 
 		}
 
-		String skeletonNifFile = ESConfig.TES_MESH_PATH + "actors\\character\\character assets female\\skeleton_female.nif";
+		//String skeletonNifFile =  ESConfig.TES_MESH_PATH + "actors\\character\\character assets female\\skeleton_female.nif";
+
+		String skeletonNifFile = ESConfig.TES_MESH_PATH + (female ? race.femaleSkeleton.str : race.maleSkeleton.str);//"actors\\character\\character assets female\\skeleton_female.nif";
 
 		ArrayList<String> fileNames = new ArrayList<String>();
-		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalebody_0.nif");
-		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif");
-		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehands_0.nif");
-		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalefeet_0.nif");
-		fileNames.add(ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesfemale.nif");
+
+		fileNames.add(headStr);
+		//fileNames.add(eyesStr);//freaky foot level eyes
+		fileNames.add(helmetStr);
+		fileNames.add(bodyStr);
+		fileNames.add(handsStr);
+		fileNames.add(feetStr);
+		fileNames.add(weapStr);
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
 		idleAnimations.add(ESConfig.TES_MESH_PATH + "actors\\character\\animations\\mt_idle_a_base.kf");
-		//TODO: kf files are not being found
 
-		//FIXME: massive load time when enabled??
 		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
 		addChild(nifCharacter);
 
 	}
 
+	private void addARMO(ARMO armo, IRecordStore master)
+	{
+		ARMA arma = new ARMA(master.getRecord(armo.MODL.formId));
+		String nifStr = arma.MOD2.model.str;
+		if (female && arma.MOD3 != null)
+		{
+			nifStr = arma.MOD3.model.str;
+		}
+
+		helmetStr = arma.BODT.isHair() ? nifStr : helmetStr;
+		bodyStr = arma.BODT.isBody() ? nifStr : bodyStr;
+		handsStr = arma.BODT.isHand() ? nifStr : handsStr;
+		feetStr = arma.BODT.isHand() ? nifStr : feetStr;
+	}
+
 	private void addWEAP(WEAP weap)
 	{
-		weap.getClass();
+		weapStr = weap.MODL.model.str;
 	}
 
 }

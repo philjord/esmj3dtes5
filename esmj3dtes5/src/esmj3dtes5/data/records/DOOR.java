@@ -23,21 +23,21 @@ public class DOOR extends GenericDOOR
 		{
 
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("FULL"))
+			if (sr.getType().equals("FULL"))
 			{
 				FULL = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("OBND"))
+			else if (sr.getType().equals("OBND"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("TNAM"))
+			else if (sr.getType().equals("TNAM"))
 			{
 				TNAM = ESMByteConvert.extractInt(bs, 0);
 			}
-			else if (sr.getSubrecordType().equals("VMAD"))
+			else if (sr.getType().equals("VMAD"))
 			{
 
 			}

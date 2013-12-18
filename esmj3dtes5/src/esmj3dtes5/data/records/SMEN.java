@@ -18,21 +18,21 @@ public class SMEN extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("PNAM")){}
-			else if (sr.getSubrecordType().equals("SNAM")){}
-			else if (sr.getSubrecordType().equals("CITC")){}
-			else if (sr.getSubrecordType().equals("DNAM")){}
-			else if (sr.getSubrecordType().equals("XNAM")){}
-			else if (sr.getSubrecordType().equals("ENAM")){}
+			else if (sr.getType().equals("PNAM")){}
+			else if (sr.getType().equals("SNAM")){}
+			else if (sr.getType().equals("CITC")){}
+			else if (sr.getType().equals("DNAM")){}
+			else if (sr.getType().equals("XNAM")){}
+			else if (sr.getType().equals("ENAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

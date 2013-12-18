@@ -18,43 +18,43 @@ public class SCEN extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("VMAD")){}
-			else if (sr.getSubrecordType().equals("FNAM")){}
-			else if (sr.getSubrecordType().equals("HNAM")){}
-			else if (sr.getSubrecordType().equals("NAM0")){}
-			else if (sr.getSubrecordType().equals("NEXT")){}
-			else if (sr.getSubrecordType().equals("WNAM")){}
-			else if (sr.getSubrecordType().equals("ALID")){}
-			else if (sr.getSubrecordType().equals("LNAM")){}
-			else if (sr.getSubrecordType().equals("DNAM")){}
-			else if (sr.getSubrecordType().equals("ANAM")){}
-			else if (sr.getSubrecordType().equals("INAM")){}
-			else if (sr.getSubrecordType().equals("SNAM")){}
-			else if (sr.getSubrecordType().equals("ENAM")){}
-			else if (sr.getSubrecordType().equals("DATA")){}
-			else if (sr.getSubrecordType().equals("HTID")){}
-			else if (sr.getSubrecordType().equals("DMAX")){}
-			else if (sr.getSubrecordType().equals("DMIN")){}
-			else if (sr.getSubrecordType().equals("DEMO")){}
-			else if (sr.getSubrecordType().equals("DEVA")){}
-			else if (sr.getSubrecordType().equals("PNAM")){}
-			else if (sr.getSubrecordType().equals("VNAM")){}
-			else if (sr.getSubrecordType().equals("CTDA")){}
-			else if (sr.getSubrecordType().equals("CIS2")){}
-			else if (sr.getSubrecordType().equals("SCHR")){}
-			else if (sr.getSubrecordType().equals("QNAM")){}
-			else if (sr.getSubrecordType().equals("SCTX")){}
-			else if (sr.getSubrecordType().equals("SCDA")){}
-			else if (sr.getSubrecordType().equals("SCRO")){}
+			else if (sr.getType().equals("VMAD")){}
+			else if (sr.getType().equals("FNAM")){}
+			else if (sr.getType().equals("HNAM")){}
+			else if (sr.getType().equals("NAM0")){}
+			else if (sr.getType().equals("NEXT")){}
+			else if (sr.getType().equals("WNAM")){}
+			else if (sr.getType().equals("ALID")){}
+			else if (sr.getType().equals("LNAM")){}
+			else if (sr.getType().equals("DNAM")){}
+			else if (sr.getType().equals("ANAM")){}
+			else if (sr.getType().equals("INAM")){}
+			else if (sr.getType().equals("SNAM")){}
+			else if (sr.getType().equals("ENAM")){}
+			else if (sr.getType().equals("DATA")){}
+			else if (sr.getType().equals("HTID")){}
+			else if (sr.getType().equals("DMAX")){}
+			else if (sr.getType().equals("DMIN")){}
+			else if (sr.getType().equals("DEMO")){}
+			else if (sr.getType().equals("DEVA")){}
+			else if (sr.getType().equals("PNAM")){}
+			else if (sr.getType().equals("VNAM")){}
+			else if (sr.getType().equals("CTDA")){}
+			else if (sr.getType().equals("CIS2")){}
+			else if (sr.getType().equals("SCHR")){}
+			else if (sr.getType().equals("QNAM")){}
+			else if (sr.getType().equals("SCTX")){}
+			else if (sr.getType().equals("SCDA")){}
+			else if (sr.getType().equals("SCRO")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

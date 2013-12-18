@@ -18,22 +18,22 @@ public class S_PM extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAM1")){}
-			else if (sr.getSubrecordType().equals("MNAM")){}
-			else if (sr.getSubrecordType().equals("ANAM")){}
-			else if (sr.getSubrecordType().equals("ONAM")){}
-			else if (sr.getSubrecordType().equals("FNAM")){}
-			else if (sr.getSubrecordType().equals("CNAM")){}
-			else if (sr.getSubrecordType().equals("SNAM")){}
+			else if (sr.getType().equals("NAM1")){}
+			else if (sr.getType().equals("MNAM")){}
+			else if (sr.getType().equals("ANAM")){}
+			else if (sr.getType().equals("ONAM")){}
+			else if (sr.getType().equals("FNAM")){}
+			else if (sr.getType().equals("CNAM")){}
+			else if (sr.getType().equals("SNAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

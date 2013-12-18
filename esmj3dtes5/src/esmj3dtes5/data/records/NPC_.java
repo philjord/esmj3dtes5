@@ -10,6 +10,7 @@ import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.OBND;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes5.data.shared.subrecords.KeyWords;
+import esmj3dtes5.data.subrecords.ACBS;
 import esmj3dtes5.data.subrecords.AIDT;
 import esmj3dtes5.data.subrecords.SNAM;
 
@@ -87,263 +88,263 @@ public class NPC_ extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("VMAD"))
+			else if (sr.getType().equals("VMAD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("OBND"))
+			else if (sr.getType().equals("OBND"))
 			{
 				OBND = new OBND(bs);
 			}
-			else if (sr.getSubrecordType().equals("ACBS"))
+			else if (sr.getType().equals("ACBS"))
 			{
 				ACBS = new ACBS(bs);
 			}
-			else if (sr.getSubrecordType().equals("SNAM"))
+			else if (sr.getType().equals("SNAM"))
 			{
 				SNAMs.add(new SNAM(bs));
 			}
-			else if (sr.getSubrecordType().equals("INAM"))
+			else if (sr.getType().equals("INAM"))
 			{
 				INAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("VTCK"))
+			else if (sr.getType().equals("VTCK"))
 			{
 				VTCK = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("TPLT"))
+			else if (sr.getType().equals("TPLT"))
 			{
 				TPLT = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("RNAM"))
+			else if (sr.getType().equals("RNAM"))
 			{
 				RNAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("WNAM"))
+			else if (sr.getType().equals("WNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("ANAM"))
+			else if (sr.getType().equals("ANAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("ATKR"))
+			else if (sr.getType().equals("ATKR"))
 			{
 				ATKR = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("ATKD"))
+			else if (sr.getType().equals("ATKD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("ATKE"))
+			else if (sr.getType().equals("ATKE"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SPOR"))
+			else if (sr.getType().equals("SPOR"))
 			{
 				SPOR = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("OCOR"))
+			else if (sr.getType().equals("OCOR"))
 			{
 				OCOR = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("GWOR"))
+			else if (sr.getType().equals("GWOR"))
 			{
 				GWOR = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("ECOR"))
+			else if (sr.getType().equals("ECOR"))
 			{
 				ECOR = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("COCT"))
+			else if (sr.getType().equals("COCT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CNTO"))
+			else if (sr.getType().equals("CNTO"))
 			{
 				CNTOs.add(new CNTO(bs));
 
 			}
-			else if (sr.getSubrecordType().equals("COED"))
+			else if (sr.getType().equals("COED"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("AIDT"))
+			else if (sr.getType().equals("AIDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKID"))
+			else if (sr.getType().equals("PKID"))
 			{
 				PKIDs.add(new FormID(bs));
 			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
+			else if (sr.getType().equals("KSIZ"))
 			{
 				keyWords.setKSIZ(bs);
 			}
-			else if (sr.getSubrecordType().equals("KWDA"))
+			else if (sr.getType().equals("KWDA"))
 			{
 				keyWords.setKWDA(bs);
 			}
-			else if (sr.getSubrecordType().equals("CNAM"))
+			else if (sr.getType().equals("CNAM"))
 			{
 				CNAM = new FormID(bs);
 			}
 
-			else if (sr.getSubrecordType().equals("SPCT"))
+			else if (sr.getType().equals("SPCT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SPLO"))
+			else if (sr.getType().equals("SPLO"))
 			{
 				SPLOs.add(new FormID(bs));
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 				FULL = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("SHRT"))
+			else if (sr.getType().equals("SHRT"))
 			{
 				SHRT = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("DNAM"))
+			else if (sr.getType().equals("DNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PNAM"))
+			else if (sr.getType().equals("PNAM"))
 			{
 				PNAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("HCLF"))
+			else if (sr.getType().equals("HCLF"))
 			{
 				HCLF = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("ZNAM"))
+			else if (sr.getType().equals("ZNAM"))
 			{
 				ZNAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("GNAM"))
+			else if (sr.getType().equals("GNAM"))
 			{
 				GNAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAM5"))
+			else if (sr.getType().equals("NAM5"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM6"))
+			else if (sr.getType().equals("NAM6"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM7"))
+			else if (sr.getType().equals("NAM7"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM8"))
+			else if (sr.getType().equals("NAM8"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CSDT"))
+			else if (sr.getType().equals("CSDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CSDI"))
+			else if (sr.getType().equals("CSDI"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CSDC"))
+			else if (sr.getType().equals("CSDC"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CSCR"))
+			else if (sr.getType().equals("CSCR"))
 			{
 				CSCR = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("DOFT"))
+			else if (sr.getType().equals("DOFT"))
 			{
 				DOFT = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("SOFT"))
+			else if (sr.getType().equals("SOFT"))
 			{
 				SOFT = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("DLPT"))
+			else if (sr.getType().equals("DLPT"))
 			{
 				DLPT = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("CRIF"))
+			else if (sr.getType().equals("CRIF"))
 			{
 				CRIF = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("FTST"))
+			else if (sr.getType().equals("FTST"))
 			{
 				FTST = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("QNAM"))
+			else if (sr.getType().equals("QNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM9"))
+			else if (sr.getType().equals("NAM9"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAMA"))
+			else if (sr.getType().equals("NAMA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("TINI"))
+			else if (sr.getType().equals("TINI"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("TINC"))
+			else if (sr.getType().equals("TINC"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("TINV"))
+			else if (sr.getType().equals("TINV"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("TIAS"))
+			else if (sr.getType().equals("TIAS"))
 			{
 
 			}
 
-			else if (sr.getSubrecordType().equals("DPLT"))
+			else if (sr.getType().equals("DPLT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PRKR"))
+			else if (sr.getType().equals("PRKR"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PRKZ"))
+			else if (sr.getType().equals("PRKZ"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("DEST"))
+			else if (sr.getType().equals("DEST"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("DSTD"))
+			else if (sr.getType().equals("DSTD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("DSTF"))
+			else if (sr.getType().equals("DSTF"))
 			{
 
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}
@@ -359,13 +360,4 @@ public class NPC_ extends RECO
 		}
 	}
 
-	public class ACBS
-	{
-		public byte[] data;
-
-		private ACBS(byte[] bytes)
-		{
-			data = bytes;
-		}
-	}
 }

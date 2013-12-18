@@ -32,79 +32,79 @@ public class ACHR extends InstRECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAME"))
+			else if (sr.getType().equals("NAME"))
 			{
 				NAME = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XESP"))
+			else if (sr.getType().equals("XESP"))
 			{
 				XESP = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XHRS"))
+			else if (sr.getType().equals("XHRS"))
 			{
 				XHRS = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XMRC"))
+			else if (sr.getType().equals("XMRC"))
 			{
 				XMRC = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XRGD"))
+			else if (sr.getType().equals("XRGD"))
 			{
 				XRGD = new XRGD(bs);
 			}
-			else if (sr.getSubrecordType().equals("XSCL"))
+			else if (sr.getType().equals("XSCL"))
 			{
 				scale = ESMByteConvert.extractFloat(bs, 0);
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 				this.extractInstData(bs);
 			}
-			else if (sr.getSubrecordType().equals("XLCM"))
+			else if (sr.getType().equals("XLCM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLKR"))
-			{
-
-			}
-			else if (sr.getSubrecordType().equals("XLCN"))
+			else if (sr.getType().equals("XLKR"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("XLRT"))
+			else if (sr.getType().equals("XLCN"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("VMAD"))
+			else if (sr.getType().equals("XLRT"))
+			{
+
+			}
+			else if (sr.getType().equals("VMAD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XAPD"))
+			else if (sr.getType().equals("XAPD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XAPR"))
+			else if (sr.getType().equals("XAPR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XRGB"))
+			else if (sr.getType().equals("XRGB"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XEZN"))
+			else if (sr.getType().equals("XEZN"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XOWN"))
+			else if (sr.getType().equals("XOWN"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XHOR"))
+			else if (sr.getType().equals("XHOR"))
 			{
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

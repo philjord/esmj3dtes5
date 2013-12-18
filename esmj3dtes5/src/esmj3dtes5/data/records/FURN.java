@@ -27,84 +27,84 @@ public class FURN extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("OBND"))
+			else if (sr.getType().equals("OBND"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 				FULL = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODL"))
+			else if (sr.getType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODT"))
+			else if (sr.getType().equals("MODT"))
 			{
 				MODL.addMODTSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODS"))
+			else if (sr.getType().equals("MODS"))
 			{
 				MODL.addMODSSub(bs);
 			}
 
-			else if (sr.getSubrecordType().equals("PNAM"))
+			else if (sr.getType().equals("PNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("FNAM"))
+			else if (sr.getType().equals("FNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("KNAM"))
+			else if (sr.getType().equals("KNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("MNAM"))
+			else if (sr.getType().equals("MNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("WBDT"))
+			else if (sr.getType().equals("WBDT"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("ENAM"))
+			else if (sr.getType().equals("ENAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("NAM0"))
+			else if (sr.getType().equals("NAM0"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("FNPR"))
+			else if (sr.getType().equals("FNPR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
+			else if (sr.getType().equals("KSIZ"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("KWDA"))
+			else if (sr.getType().equals("KWDA"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("VMAD"))
+			else if (sr.getType().equals("VMAD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XMRK"))
+			else if (sr.getType().equals("XMRK"))
 			{
 			}
 
-			else if (sr.getSubrecordType().equals("FNMK"))
+			else if (sr.getType().equals("FNMK"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("DEST"))
+			else if (sr.getType().equals("DEST"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("DSTD"))
+			else if (sr.getType().equals("DSTD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("DSTF"))
+			else if (sr.getType().equals("DSTF"))
 			{
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

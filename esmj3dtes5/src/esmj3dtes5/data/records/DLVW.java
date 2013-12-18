@@ -18,20 +18,20 @@ public class DLVW extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("QNAM")){}
-			else if (sr.getSubrecordType().equals("BNAM")){}
-			else if (sr.getSubrecordType().equals("ENAM")){}
-			else if (sr.getSubrecordType().equals("DNAM")){}
-			else if (sr.getSubrecordType().equals("TNAM")){}
+			else if (sr.getType().equals("QNAM")){}
+			else if (sr.getType().equals("BNAM")){}
+			else if (sr.getType().equals("ENAM")){}
+			else if (sr.getType().equals("DNAM")){}
+			else if (sr.getType().equals("TNAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

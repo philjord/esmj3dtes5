@@ -18,51 +18,51 @@ public class LSCR extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("DESC"))
+			else if (sr.getType().equals("DESC"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CTDA"))
+			else if (sr.getType().equals("CTDA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NNAM"))
+			else if (sr.getType().equals("NNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SNAM"))
+			else if (sr.getType().equals("SNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("RNAM"))
+			else if (sr.getType().equals("RNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("ONAM"))
+			else if (sr.getType().equals("ONAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("XNAM"))
+			else if (sr.getType().equals("XNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("MOD2"))
+			else if (sr.getType().equals("MOD2"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CIS2"))
+			else if (sr.getType().equals("CIS2"))
 			{
 
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

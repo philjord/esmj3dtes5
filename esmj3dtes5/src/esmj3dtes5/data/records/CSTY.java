@@ -19,36 +19,36 @@ public class CSTY extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("CSGD"))
+			else if (sr.getType().equals("CSGD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("CSME"))
+			else if (sr.getType().equals("CSME"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("CSCR"))
+			else if (sr.getType().equals("CSCR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("CSLR"))
+			else if (sr.getType().equals("CSLR"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("CSFL"))
+			else if (sr.getType().equals("CSFL"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("CSMD"))
+			else if (sr.getType().equals("CSMD"))
 			{
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

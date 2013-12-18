@@ -34,61 +34,61 @@ public class CELL extends CommonCELL
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("DATA"))
+			if (sr.getType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("TVDT"))
+			else if (sr.getType().equals("TVDT"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("MHDT"))
+			else if (sr.getType().equals("MHDT"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("LTMP"))
+			else if (sr.getType().equals("LTMP"))
 			{
 				LTMP = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XCMO"))
+			else if (sr.getType().equals("XCMO"))
 			{
 				XCMO = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XCIM"))
+			else if (sr.getType().equals("XCIM"))
 			{
 				XCIM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XCAS"))
+			else if (sr.getType().equals("XCAS"))
 			{
 				XCAS = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XWEM"))
+			else if (sr.getType().equals("XWEM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XILL"))
+			else if (sr.getType().equals("XILL"))
 			{
 				XILL = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("LNAM"))
+			else if (sr.getType().equals("LNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XNAM"))
+			else if (sr.getType().equals("XNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XWCS"))
+			else if (sr.getType().equals("XWCS"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XWCU"))
+			else if (sr.getType().equals("XWCU"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XWCN"))
+			else if (sr.getType().equals("XWCN"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("XLCN"))
+			else if (sr.getType().equals("XLCN"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("XEZN"))
+			else if (sr.getType().equals("XEZN"))
 			{
 				XEZN = new FormID(bs);
 			}

@@ -18,21 +18,21 @@ public class COBJ extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("COCT")){}
-			else if (sr.getSubrecordType().equals("CNTO")){}
-			else if (sr.getSubrecordType().equals("CTDA")){}
-			else if (sr.getSubrecordType().equals("CNAM")){}
-			else if (sr.getSubrecordType().equals("BNAM")){}
-			else if (sr.getSubrecordType().equals("NAM1")){}
+			else if (sr.getType().equals("COCT")){}
+			else if (sr.getType().equals("CNTO")){}
+			else if (sr.getType().equals("CTDA")){}
+			else if (sr.getType().equals("CNAM")){}
+			else if (sr.getType().equals("BNAM")){}
+			else if (sr.getType().equals("NAM1")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

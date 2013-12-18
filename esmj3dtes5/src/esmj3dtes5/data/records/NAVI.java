@@ -18,22 +18,22 @@ public class NAVI extends RECO
 			Subrecord sr = subrecords.get(i);
 			//byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("NVER"))
+			if (sr.getType().equals("NVER"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NVMI"))
+			else if (sr.getType().equals("NVMI"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NVPP"))
+			else if (sr.getType().equals("NVPP"))
 			{
 
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

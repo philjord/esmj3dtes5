@@ -35,35 +35,35 @@ public class LVSP extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("OBND"))
+			else if (sr.getType().equals("OBND"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("LVLD"))
+			else if (sr.getType().equals("LVLD"))
 			{
 				LVLD = new LVLD(bs);
 			}
-			else if (sr.getSubrecordType().equals("LVLF"))
+			else if (sr.getType().equals("LVLF"))
 			{
 				LVLF = new LVLF(bs);
 			}
-			else if (sr.getSubrecordType().equals("LVLO"))
+			else if (sr.getType().equals("LVLO"))
 			{
 				LVLOsl.add(new LVLO(bs));
 			}
-			else if (sr.getSubrecordType().equals("LLCT"))
+			else if (sr.getType().equals("LLCT"))
 			{
 
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 			// transfer to arrays

@@ -22,60 +22,60 @@ public class BPTD extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODL"))
+			else if (sr.getType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODT"))
+			else if (sr.getType().equals("MODT"))
 			{
 				MODL.addMODTSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("BPTN"))
+			else if (sr.getType().equals("BPTN"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("BPNN"))
+			else if (sr.getType().equals("BPNN"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("BPNT"))
+			else if (sr.getType().equals("BPNT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("BPNI"))
+			else if (sr.getType().equals("BPNI"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("BPND"))
+			else if (sr.getType().equals("BPND"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM1"))
+			else if (sr.getType().equals("NAM1"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM4"))
+			else if (sr.getType().equals("NAM4"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("NAM5"))
+			else if (sr.getType().equals("NAM5"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("RAGA"))
+			else if (sr.getType().equals("RAGA"))
 			{
 
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

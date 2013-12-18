@@ -18,31 +18,31 @@ public class LCTN extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("LCSR")){}
-			else if (sr.getSubrecordType().equals("FULL")){}
-			else if (sr.getSubrecordType().equals("KSIZ")){}
-			else if (sr.getSubrecordType().equals("KWDA")){}
-			else if (sr.getSubrecordType().equals("PNAM")){}
-			else if (sr.getSubrecordType().equals("CNAM")){}
-			else if (sr.getSubrecordType().equals("MNAM")){}
-			else if (sr.getSubrecordType().equals("RNAM")){}
-			else if (sr.getSubrecordType().equals("LCEC")){}
-			else if (sr.getSubrecordType().equals("LCID")){}
-			else if (sr.getSubrecordType().equals("LCPR")){}
-			else if (sr.getSubrecordType().equals("NAM1")){}
-			else if (sr.getSubrecordType().equals("LCEP")){}
-			else if (sr.getSubrecordType().equals("LCUN")){}
-			else if (sr.getSubrecordType().equals("NAM0")){}
-			else if (sr.getSubrecordType().equals("FNAM")){}
+			else if (sr.getType().equals("LCSR")){}
+			else if (sr.getType().equals("FULL")){}
+			else if (sr.getType().equals("KSIZ")){}
+			else if (sr.getType().equals("KWDA")){}
+			else if (sr.getType().equals("PNAM")){}
+			else if (sr.getType().equals("CNAM")){}
+			else if (sr.getType().equals("MNAM")){}
+			else if (sr.getType().equals("RNAM")){}
+			else if (sr.getType().equals("LCEC")){}
+			else if (sr.getType().equals("LCID")){}
+			else if (sr.getType().equals("LCPR")){}
+			else if (sr.getType().equals("NAM1")){}
+			else if (sr.getType().equals("LCEP")){}
+			else if (sr.getType().equals("LCUN")){}
+			else if (sr.getType().equals("NAM0")){}
+			else if (sr.getType().equals("FNAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

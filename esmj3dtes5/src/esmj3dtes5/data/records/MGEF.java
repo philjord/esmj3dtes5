@@ -19,42 +19,42 @@ public class MGEF extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("MDOB"))
+			else if (sr.getType().equals("MDOB"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("SNDD"))
+			else if (sr.getType().equals("SNDD"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("DNAM"))
+			else if (sr.getType().equals("DNAM"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("CTDA"))
+			else if (sr.getType().equals("CTDA"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
+			else if (sr.getType().equals("KSIZ"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("KWDA"))
+			else if (sr.getType().equals("KWDA"))
 			{
 			}
-			else if (sr.getSubrecordType().equals("VMAD"))
+			else if (sr.getType().equals("VMAD"))
 			{
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

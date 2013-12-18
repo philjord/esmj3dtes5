@@ -24,72 +24,72 @@ public class SCRL extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("OBND"))
+			else if (sr.getType().equals("OBND"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 				FULL = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("MDOB"))
+			else if (sr.getType().equals("MDOB"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("ETYP"))
+			else if (sr.getType().equals("ETYP"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("DESC"))
+			else if (sr.getType().equals("DESC"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("MODL"))
+			else if (sr.getType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODT"))
+			else if (sr.getType().equals("MODT"))
 			{
 				MODL.addMODTSub(bs);
 			}
 
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SPIT"))
+			else if (sr.getType().equals("SPIT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("EFID"))
+			else if (sr.getType().equals("EFID"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("EFIT"))
+			else if (sr.getType().equals("EFIT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CTDA"))
+			else if (sr.getType().equals("CTDA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("KSIZ"))
+			else if (sr.getType().equals("KSIZ"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("KWDA"))
+			else if (sr.getType().equals("KWDA"))
 			{
 
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

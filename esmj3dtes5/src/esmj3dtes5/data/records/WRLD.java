@@ -18,55 +18,55 @@ public class WRLD extends CommonWRLD
 			Subrecord sr = subrecords.get(i);
 			//byte[] bs = sr.getSubrecordData();
 
-			if (sr.getSubrecordType().equals("NAM0"))
+			if (sr.getType().equals("NAM0"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("NAM9"))
+			else if (sr.getType().equals("NAM9"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("OFST"))
+			else if (sr.getType().equals("OFST"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("MNAM"))
+			else if (sr.getType().equals("MNAM"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("RNAM"))
+			else if (sr.getType().equals("RNAM"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("NAM3"))
+			else if (sr.getType().equals("NAM3"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("NAM4"))
+			else if (sr.getType().equals("NAM4"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("DNAM"))
+			else if (sr.getType().equals("DNAM"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("ONAM"))
+			else if (sr.getType().equals("ONAM"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("NAMA"))
+			else if (sr.getType().equals("NAMA"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("ZNAM"))
+			else if (sr.getType().equals("ZNAM"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("TNAM"))
+			else if (sr.getType().equals("TNAM"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("UNAM"))
+			else if (sr.getType().equals("UNAM"))
 			{
 				//
 			}
