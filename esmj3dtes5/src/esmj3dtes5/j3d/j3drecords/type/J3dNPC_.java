@@ -15,6 +15,7 @@ import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3dtes5.data.records.ARMA;
 import esmj3dtes5.data.records.ARMO;
+import esmj3dtes5.data.records.BPTD;
 import esmj3dtes5.data.records.LVLI;
 import esmj3dtes5.data.records.NPC_;
 import esmj3dtes5.data.records.RACE;
@@ -44,12 +45,14 @@ public class J3dNPC_ extends J3dRECOType
 	public J3dNPC_(NPC_ npc_, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
 		super(npc_, null);
-		//String path = npc_.MODL.getPath();
 
 		female = npc_.ACBS.isFemale();
 
-		Record rrec = master.getRecord(npc_.RNAM.formId);
-		RACE race = new RACE(rrec);
+		//TODO: DOFT and SOFT are outfits
+
+		RACE race = new RACE(master.getRecord(npc_.RNAM.formId));
+		BPTD bptd = new BPTD(master.getRecord(race.GNAM.formId));
+
 		if (female)
 		{
 			headStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif";

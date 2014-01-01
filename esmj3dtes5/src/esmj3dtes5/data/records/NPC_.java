@@ -80,6 +80,8 @@ public class NPC_ extends RECO
 
 	public FormID FTST;
 
+	public FormID WNAM;
+
 	public NPC_(Record recordData)
 	{
 		super(recordData);
@@ -128,7 +130,7 @@ public class NPC_ extends RECO
 			}
 			else if (sr.getType().equals("WNAM"))
 			{
-
+				WNAM = new FormID(bs);
 			}
 			else if (sr.getType().equals("ANAM"))
 			{

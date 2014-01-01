@@ -5,79 +5,78 @@ import java.util.ArrayList;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
+import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
 public class BPTD extends RECO
 {
-
 	public ZString EDID = null;
 
 	public MODL MODL = null;
+
+	public ArrayList<BodyPart> bodyParts = new ArrayList<BodyPart>();
+
+	public class BodyPart
+	{
+		public LString BPTN;
+
+		public ZString BPNI;
+
+		public ZString BPNN;
+
+		public ZString BPNT;
+	}
 
 	public BPTD(Record recordData)
 	{
 		super(recordData);
 		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
-		for (int i = 0; i < subrecords.size(); i++)
+
+		Subrecord sr = next(subrecords);
+		EDID = new ZString(sr.getData());
+		sr = next(subrecords);
+
+		if (sr.getType().equals("MODL"))
 		{
-			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			MODL = new MODL(sr.getData());
+			sr = next(subrecords);
+			if (sr.getType().equals("MODT"))
+			{
+				MODL.addMODTSub(sr.getData());
+				sr = next(subrecords);
+			}
+		}
 
-			if (sr.getType().equals("EDID"))
-			{
-				EDID = new ZString(bs);
-			}
-			else if (sr.getType().equals("MODL"))
-			{
-				MODL = new MODL(bs);
-			}
-			else if (sr.getType().equals("MODT"))
-			{
-				MODL.addMODTSub(bs);
-			}
-			else if (sr.getType().equals("BPTN"))
-			{
+		while (sr.getType().equals("BPTN"))
+		{
+			BodyPart bodyPart = new BodyPart();
+			bodyParts.add(bodyPart);
 
-			}
-			else if (sr.getType().equals("BPNN"))
-			{
+			bodyPart.BPTN = new LString(sr.getData());
+			sr = next(subrecords);
+			bodyPart.BPNN = new ZString(sr.getData());
+			sr = next(subrecords);
+			bodyPart.BPNT = new ZString(sr.getData());
+			sr = next(subrecords);
+			bodyPart.BPNI = new ZString(sr.getData());
+			sr = next(subrecords);
 
-			}
-			else if (sr.getType().equals("BPNT"))
-			{
-
-			}
-			else if (sr.getType().equals("BPNI"))
-			{
-
-			}
-			else if (sr.getType().equals("BPND"))
-			{
-
-			}
-			else if (sr.getType().equals("NAM1"))
-			{
-
-			}
-			else if (sr.getType().equals("NAM4"))
-			{
-
-			}
-			else if (sr.getType().equals("NAM5"))
-			{
-
-			}
-			else if (sr.getType().equals("RAGA"))
-			{
-
-			}
-
-			else
-			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
-			}
+			//BPND
+			sr = next(subrecords);
+			//NAM1
+			sr = next(subrecords);
+			//NAM4
+			sr = next(subrecords);
+			//NAM5
+			sr = next(subrecords);
 
 		}
+
+		if (sr != null && sr.getType().equals("RAGA"))
+		{
+			//RAGA
+		}
+
 	}
 }
