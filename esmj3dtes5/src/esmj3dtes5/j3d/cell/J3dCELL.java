@@ -26,7 +26,6 @@ import esmj3dtes5.j3d.j3drecords.inst.J3dREFRFactory;
 
 public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 {
-
 	protected CELL cell;
 
 	private ArrayList<J3dRECOInst> j3dRECOInsts = new ArrayList<J3dRECOInst>();

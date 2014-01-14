@@ -1,11 +1,9 @@
 package esmj3dtes5.j3d.cell;
 
-import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedGeometryArray;
 import javax.media.j3d.Shape3D;
-import javax.media.j3d.Texture;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Quat4f;
@@ -48,17 +46,12 @@ public class Tes5LODLandscape extends MorphingLandscape
 				boolean compact = scale != 4;
 				GeometryArray baseItsa = J3dNiTriShape.makeGeometry(gi, compact, data);
 
-				Shape3D shape = new Shape3D();
-				shape.setGeometry(baseItsa);
-				Appearance app = new Appearance();
-				app.setMaterial(J3dLAND.getLandMaterial());
-
 				BSShaderTextureSet ts = (BSShaderTextureSet) blocks.getNiObjects()[4];
 
-				Texture tex = textureSource.getTexture(ts.textures[0]);
-				app.setTexture(tex);
+				Shape3D shape = new Shape3D();
+				shape.setGeometry(baseItsa);
+				shape.setAppearance(createAppearance(textureSource.getTexture(ts.textures[0])));
 
-				shape.setAppearance(app);
 				TransformGroup tg = new TransformGroup();
 
 				Transform3D t = new Transform3D(new Quat4f(0, 0, 0, 1), new Vector3f((lodX * J3dLAND.LAND_SIZE), 0,
