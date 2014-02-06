@@ -41,7 +41,7 @@ public class J3dCellFactory implements J3dICellFactory
 	}
 
 	@Override
-	public BranchGroup makeLODLandscape(int lodX, int lodY, int scale, int worldFormId)
+	public String getLODWorldName(int worldFormId)
 	{
 		String lodWorldName = "";
 		WRLD wrld = getWRLD(worldFormId);
@@ -55,6 +55,12 @@ public class J3dCellFactory implements J3dICellFactory
 		{
 			lodWorldName = wrld.EDID.str;
 		}
+		return lodWorldName;
+	}
+
+	@Override
+	public BranchGroup makeLODLandscape(int lodX, int lodY, int scale, String lodWorldName)
+	{
 		return new Tes5LODLandscape(lodX, lodY, scale, lodWorldName, meshSource, textureSource);
 	}
 
