@@ -48,7 +48,7 @@ public class BPTD extends RECO
 			}
 		}
 
-		while (sr.getType().equals("BPTN"))
+		while (sr != null && sr.getType().equals("BPTN"))
 		{
 			BodyPart bodyPart = new BodyPart();
 			bodyParts.add(bodyPart);

@@ -107,7 +107,8 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType());
+			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in "
+					+ e.getStackTrace()[0]);
 			if (record.getRecordType().equals("REFR"))
 			{
 				REFR refr = new REFR(record);
