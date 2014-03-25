@@ -3,20 +3,19 @@ package esmj3dtes5;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-import bsa.BSAFileSet;
-import bsa.source.BsaMeshSource;
-import bsa.source.BsaSoundSource;
-import bsa.source.BsaTextureSource;
-
 import utils.source.EsmSoundKeyToName;
+import utils.source.MediaSources;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
 import utils.source.TextureSource;
 import utils.source.file.FileMeshSource;
 import utils.source.file.FileSoundSource;
 import utils.source.file.FileTextureSource;
-
 import analyzer.EsmFormatAnalyzer;
+import bsa.BSAFileSet;
+import bsa.source.BsaMeshSource;
+import bsa.source.BsaSoundSource;
+import bsa.source.BsaTextureSource;
 import esmLoader.EsmFileLocations;
 import esmLoader.common.PluginException;
 import esmLoader.common.data.record.Record;
@@ -89,7 +88,9 @@ public class Tes5esmanalyzer extends EsmFormatAnalyzer
 				ts = new FileTextureSource();
 				ms = new FileMeshSource();
 			}
-			j3dCellFactory = new J3dCellFactory(esmManager, esmManager, ms, ts, ss);
+
+			MediaSources mediaSources = new MediaSources(ms, ts, ss);
+			j3dCellFactory = new J3dCellFactory(esmManager, esmManager, mediaSources);
 			analyze(esmManager);
 			System.out.println("done analyzing");
 
@@ -108,5 +109,4 @@ public class Tes5esmanalyzer extends EsmFormatAnalyzer
 		}
 
 	}
-
 }

@@ -6,9 +6,7 @@ import java.util.List;
 import javax.media.j3d.Node;
 
 import utils.ESConfig;
-import utils.source.MeshSource;
-import utils.source.SoundSource;
-import utils.source.TextureSource;
+import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.LAND;
@@ -30,10 +28,9 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 
 	private ArrayList<J3dRECOInst> j3dRECOInsts = new ArrayList<J3dRECOInst>();
 
-	public J3dCELL(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
-			TextureSource textureSource, SoundSource soundSource)
+	public J3dCELL(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, children, makePhys, meshSource, textureSource, soundSource);
+		super(master, children, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
 		setCell(cell);
 		makeWater(cell.XCLW * ESConfig.ES_TO_METERS_SCALE, "textures\\water\\defaultwater.dds");
@@ -68,13 +65,13 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		{
 			if (record.getRecordType().equals("REFR"))
 			{
-				ret = J3dREFRFactory.makeJ3DRefer(new REFR(record), makePhys, master, meshSource, textureSource, soundSource);
+				ret = J3dREFRFactory.makeJ3DRefer(new REFR(record), makePhys, master, mediaSources);
 			}
 			else if (record.getRecordType().equals("ACHR"))
 			{
 				if (!makePhys)
 				{
-					ret = new J3dACHR(new ACHR(record), master, meshSource, textureSource, soundSource);
+					ret = new J3dACHR(new ACHR(record), master, mediaSources);
 				}
 			}
 			else if (record.getRecordType().equals("LAND"))
@@ -86,7 +83,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 				}
 				else
 				{
-					j3dLAND = new J3dLAND(new LAND(record), master, textureSource);
+					j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
 				}
 
 				j3dLAND.setLocation(cellLocation);

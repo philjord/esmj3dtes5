@@ -5,9 +5,7 @@ import java.util.List;
 
 import nif.character.NifCharacter;
 import utils.ESConfig;
-import utils.source.MeshSource;
-import utils.source.SoundSource;
-import utils.source.TextureSource;
+import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
@@ -41,7 +39,7 @@ public class J3dNPC_ extends J3dRECOType
 
 	private NifCharacter nifCharacter;
 
-	public J3dNPC_(NPC_ npc_, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
+	public J3dNPC_(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
 		super(npc_, null);
 
@@ -194,12 +192,12 @@ public class J3dNPC_ extends J3dRECOType
 			ArrayList<String> idleAnimations = new ArrayList<String>();
 			idleAnimations.add(ESConfig.TES_MESH_PATH + "actors\\character\\animations\\mt_idle_a_base.kf");
 
-			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 			addChild(nifCharacter);
 		}
 		else
 		{
-			j3dCREA(npc_, master, meshSource, textureSource, soundSource);
+			j3dCREA(npc_, master, mediaSources);
 
 		}
 
@@ -233,7 +231,7 @@ public class J3dNPC_ extends J3dRECOType
 	 * @param textureSource
 	 * @param soundSource
 	 */
-	private void j3dCREA(NPC_ npc_, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
+	private void j3dCREA(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
 		RACE race = new RACE(master.getRecord(npc_.RNAM.formId));
 
@@ -252,14 +250,14 @@ public class J3dNPC_ extends J3dRECOType
 		assetPath = ESConfig.TES_MESH_PATH + assetPath;
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
-		if (meshSource.nifFileExists(assetPath + "\\animations\\mt_idle.kf"))
+		if (mediaSources.getMeshSource().nifFileExists(assetPath + "\\animations\\mt_idle.kf"))
 			idleAnimations.add(assetPath + "\\animations\\mt_idle.kf");
-		if (meshSource.nifFileExists(assetPath + "\\animations\\mtidle.kf"))
+		if (mediaSources.getMeshSource().nifFileExists(assetPath + "\\animations\\mtidle.kf"))
 			idleAnimations.add(assetPath + "\\animations\\mtidle.kf");
-		if (meshSource.nifFileExists(assetPath + "\\animations\\idle.kf"))
+		if (mediaSources.getMeshSource().nifFileExists(assetPath + "\\animations\\idle.kf"))
 			idleAnimations.add(assetPath + "\\animations\\idle.kf");
 
-		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 		addChild(nifCharacter);
 
 	}
