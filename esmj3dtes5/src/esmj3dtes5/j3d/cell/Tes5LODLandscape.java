@@ -1,7 +1,6 @@
 package esmj3dtes5.j3d.cell;
 
 import javax.media.j3d.BranchGroup;
-import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedGeometryArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
@@ -17,67 +16,59 @@ import nif.niobject.NiTriShapeData;
 import nif.niobject.bs.BSShaderTextureSet;
 import utils.source.MeshSource;
 import utils.source.TextureSource;
-
-import com.sun.j3d.utils.geometry.GeometryInfo;
-
 import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3d.j3d.j3drecords.inst.J3dLAND;
 
 public class Tes5LODLandscape extends MorphingLandscape
 {
-
 	public Tes5LODLandscape(int lodX, int lodY, int scale, String worldFormName, MeshSource meshSource, TextureSource textureSource)
 	{
 		super(lodX, lodY, scale);
 		String meshName = "terrain\\" + worldFormName + "\\" + worldFormName + "." + scale + "." + lodX + "." + lodY + ".btr";
 
 		setCapability(BranchGroup.ALLOW_DETACH);
-		NifFile nf = NifToJ3d.loadNiObjects(meshName, meshSource);
-		if (nf != null)
+		if (meshSource.nifFileExists(meshName))
 		{
-			NiObjectList blocks = nf.blocks;
-
-			// we know it is a NiTriStripsData at block 1
-			NiTriShapeData data = (NiTriShapeData) blocks.getNiObjects()[2];
-			GeometryInfo gi = J3dNiTriShape.makeGeometryInfo(data);
-			if (gi != null)
+			NifFile nf = NifToJ3d.loadNiObjects(meshName, meshSource);
+			if (nf != null)
 			{
-				//scale 4 will get morph treatment later
-				boolean compact = scale != 4;
-				GeometryArray baseItsa = J3dNiTriShape.makeGeometry(gi, compact, data);
+				NiObjectList blocks = nf.blocks;
 
-				BSShaderTextureSet ts = (BSShaderTextureSet) blocks.getNiObjects()[4];
+				// we know it is a NiTriShapeData at block 2
+				NiTriShapeData data = (NiTriShapeData) blocks.getNiObjects()[2];
+
+				//scale 4 will get morph treatment later
+				boolean morphable = (scale == 4);
+				IndexedGeometryArray baseItsa = J3dNiTriShape.createGeometry(data, morphable);
+
+				if (morphable)
+				{
+					this.setGeometryArray(baseItsa);
+				}
 
 				Shape3D shape = new Shape3D();
 				shape.setGeometry(baseItsa);
+
+				//we know it's a textureset at block 4
+				BSShaderTextureSet ts = (BSShaderTextureSet) blocks.getNiObjects()[4];
 				shape.setAppearance(createAppearance(textureSource.getTexture(ts.textures[0])));
 
 				TransformGroup tg = new TransformGroup();
-
 				Transform3D t = new Transform3D(new Quat4f(0, 0, 0, 1), new Vector3f((lodX * J3dLAND.LAND_SIZE), 0,
 						(-lodY * J3dLAND.LAND_SIZE)), scale);
 				tg.setTransform(t);
 				tg.addChild(shape);
 				addChild(tg);
-
-				//scale 4 will get morph treatment later
-				if (scale == 4)
-				{
-					baseItsa.setCapability(GeometryArray.ALLOW_REF_DATA_WRITE);
-					this.setGeometryArray((IndexedGeometryArray) baseItsa);
-				}
 			}
 			else
 			{
-				System.out.println("Bad landscape GI " + meshName);
+				System.out.println("Bad landscape NifFile " + meshName);
 			}
-
 		}
 		else
 		{
-			//ignore
-			System.out.println("Bad landscape name " + meshName);
+			//fine the systems just asking for empty space which is fine
+			//System.out.println("Bad landscape name " + meshName);
 		}
-
 	}
 }
