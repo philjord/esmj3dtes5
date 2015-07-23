@@ -6,6 +6,7 @@ import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
+import esmj3d.j3d.TreeMaker;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
@@ -234,24 +235,9 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
-			TREE tree = new TREE(baseRecord);
-			//TODO: tree models themselves have cool animated and nanimated version inside,
-			//must work out how to switch
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-
+			TREE tree = new TREE(baseRecord);			
 			String treeNif = tree.MODL.model.str;
-			//Has Tree LOD = 0x00000040		
-			if (refr.isFlagSet(0x00000040))//meshSource.nifFileExists(treeLodFlat))
-			{
-				String treeLodFlat = treeNif.substring(0, treeNif.indexOf(".nif")) + "_lod_flat.nif";
-				j3dinst.setJ3dRECOType(//
-						new J3dRECOTypeGeneral(refr, treeNif, makePhys, mediaSources),//
-						new J3dRECOTypeGeneral(refr, treeLodFlat, makePhys, mediaSources));
-			}
-			else
-			{
-				j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(refr, treeNif, makePhys, mediaSources));
-			}
+			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, 0, 0);
 			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("SOUN"))
