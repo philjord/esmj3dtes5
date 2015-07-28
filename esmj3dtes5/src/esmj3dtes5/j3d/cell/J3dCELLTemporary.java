@@ -21,14 +21,9 @@ public class J3dCELLTemporary extends J3dCELL
 	{
 		for (Iterator<Record> i = children.iterator(); i.hasNext();)
 		{
-			Record record = i.next();
-
-			// ALL stats are part of distant  
-			if (!isDistant(record))
-			{
-				J3dRECOInst jri = makeJ3dRECO(record, false);
-				addJ3dRECOInst(jri);
-			}
+			Record record = i.next();			
+			J3dRECOInst jri = makeJ3dRECO(record);
+			addJ3dRECOInst(jri);			
 		}
 	}
 }

@@ -69,7 +69,7 @@ public class STAT extends RECO
 			{
 				if (bs.length >= 1040)
 				{
-					//Has Distance LOD = 0x00008000 from flags1
+					//Has Distance LOD = RECO.VisibleWhenDistant_Flag from flags1
 					lodModel1 = new String(bs, 0, 260).split("\0", 2)[0];
 					lodModel2 = new String(bs, 260, 260).split("\0", 2)[0];
 					lodModel3 = new String(bs, 520, 260).split("\0", 2)[0];

@@ -10,6 +10,7 @@ import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.LAND;
+import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.BethRenderSettings.UpdateListener;
 import esmj3d.j3d.cell.J3dCELLGeneral;
@@ -18,7 +19,6 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3dtes5.data.records.ACHR;
 import esmj3dtes5.data.records.CELL;
 import esmj3dtes5.data.records.REFR;
-import esmj3dtes5.data.records.STAT;
 import esmj3dtes5.j3d.j3drecords.inst.J3dACHR;
 import esmj3dtes5.j3d.j3drecords.inst.J3dREFRFactory;
 
@@ -58,7 +58,40 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 	}
 
-	public J3dRECOInst makeJ3dRECO(Record record, boolean noFade)
+	public J3dRECOInst makeJ3dRECOFar(Record record)
+	{
+		J3dRECOInst ret = null;
+		try
+		{
+			if (record.getRecordType().equals("REFR"))
+			{
+				ret = J3dREFRFactory.makeJ3DReferFar(new REFR(record), master, mediaSources);
+			}
+			else
+			{
+				System.err.println("Far record not REFR " + record.getRecordType());
+			}
+		}
+		catch (NullPointerException e)
+		{
+			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in "
+					+ e.getStackTrace()[0]);
+			if (record.getRecordType().equals("REFR"))
+			{
+				REFR refr = new REFR(record);
+				Record baseRecord = master.getRecord(refr.NAME.formId);
+				System.out.println("And it's a REFR with base of " + baseRecord.getRecordType());
+			}
+		}
+
+		if (ret != null)
+		{
+			j3dRECOs.put(ret.getRecordId(), ret);
+		}
+		return ret;
+	}
+
+	public J3dRECOInst makeJ3dRECO(Record record)
 	{
 		J3dRECOInst ret = null;
 		try
@@ -122,21 +155,25 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		return ret;
 	}
 
-	protected boolean isDistant(Record record)
+	protected boolean isVisibleDistant(Record record)
 	{
-		// some stats are part of distant Lod only
-		if (record.getRecordType().equals("REFR"))
+		// ALL stats are not part of distant for now, do they have LODs in them?
+		if (record.getRecordType().equals("REFR") && !makePhys)
 		{
 			REFR refr = new REFR(record);
+
 			Record baseRecord = master.getRecord(refr.NAME.formId);
-			if (baseRecord.getRecordType().equals("STAT"))
+			if (baseRecord != null)
 			{
-				STAT stat = new STAT(baseRecord);
-				return stat.isFlagSet(0x00800000);
-			}
-			else if (baseRecord.getRecordType().equals("FLOR") || baseRecord.getRecordType().equals("TREE"))
-			{
-				return true;
+				if (baseRecord.getRecordType().equals("TREE"))
+				{
+					return true;
+				}
+				else if ((baseRecord.getRecordFlags1() & RECO.VisibleWhenDistant_Flag) != 0)
+				{
+					//anythig with LOD, STAT, SCOL, ACTI
+					return true;
+				}
 			}
 		}
 		return false;

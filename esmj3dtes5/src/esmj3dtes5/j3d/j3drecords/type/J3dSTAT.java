@@ -12,6 +12,7 @@ import utils.source.MediaSources;
 
 import com.sun.j3d.utils.geometry.ColorCube;
 
+import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
@@ -47,7 +48,7 @@ public class J3dSTAT extends J3dRECOType
 
 		//TEST! if return is not commented mind you
 		//|| stat.MODL.model.str.indexOf("CliffSm01.nif") == -1 is fixed?
-		//if (stat.isFlagSet(0x00008000) || stat.MODL.model.str.indexOf("Firewood") == -1)
+		//if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag) || stat.MODL.model.str.indexOf("Firewood") == -1)
 		{
 			//	return;
 		}
@@ -60,13 +61,16 @@ public class J3dSTAT extends J3dRECOType
 		else
 		{
 
-			if (!stat.isFlagSet(0x00008000))
+			if (!stat.isFlagSet(RECO.VisibleWhenDistant_Flag))
 			{
 				J3dNiAVObject node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, mediaSources);
 				myNodes.add(node);
+
+				//add a blank for final fade out	
 				BranchGroup bg = new BranchGroup();
 				bg.addChild(SHOW_FADE_OUT_MARKER ? new ColorCube(0.1) : new BranchGroup());
 				myNodes.add(bg);
+
 			}
 			else
 			{
@@ -97,16 +101,14 @@ public class J3dSTAT extends J3dRECOType
 					}
 				}
 
-				//add a blank if there's no lod 4
-				if (!(stat.lodModel4.length() > 0))
-				{
-					BranchGroup bg = new BranchGroup();
-					bg.addChild(SHOW_FADE_OUT_MARKER ? new ColorCube(0.1) : new BranchGroup());
-					myNodes.add(bg);
-				}
-			}
+				//add a blank for final fade out				 
+				//BranchGroup bg = new BranchGroup();
+				//bg.addChild(SHOW_FADE_OUT_MARKER ? new ColorCube(0.1) : new BranchGroup());
+				//myNodes.add(bg);
 
-			dl = new BetterDistanceLOD(this, myNodes, calcDistances(BethRenderSettings.getItemFade()));
+			}
+			float[] dists = calcDistances(BethRenderSettings.getItemFade());
+			dl = new BetterDistanceLOD(this, myNodes, dists);
 			addChild(dl);
 			dl.setSchedulingBounds(Utils3D.defaultBounds);
 			dl.setEnable(true);
@@ -128,9 +130,15 @@ public class J3dSTAT extends J3dRECOType
 		}
 	}
 
+	/**
+	 * For Lod enabled stats only
+	 * @param baseDist
+	 * @return
+	 */
 	private float[] calcDistances(float baseDist)
 	{
 		float[] dist = null;
+		//case of no lod models just base and blank
 		if (myNodes.size() <= 2)
 		{
 			dist = new float[]
@@ -139,17 +147,22 @@ public class J3dSTAT extends J3dRECOType
 		else if (myNodes.size() == 3)
 		{
 			dist = new float[]
-			{ baseDist, baseDist * 2f };
+			{ baseDist, baseDist * 5f };
 		}
 		else if (myNodes.size() == 4)
 		{
 			dist = new float[]
-			{ baseDist, baseDist * 2f, baseDist * 3f };
+			{ baseDist, baseDist * 2f, baseDist * 5f };
 		}
 		else if (myNodes.size() == 5)
 		{
 			dist = new float[]
-			{ baseDist, baseDist * 2f, baseDist * 3f, baseDist * 4f };
+			{ baseDist, baseDist * 2f, baseDist * 3f, baseDist * 5f };
+		}
+		else if (myNodes.size() == 6)
+		{
+			dist = new float[]
+			{ baseDist, baseDist * 2f, baseDist * 3f, baseDist * 4f, baseDist * 5f };
 		}
 
 		return dist;
