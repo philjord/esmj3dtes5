@@ -1,5 +1,7 @@
 package esmj3dtes5.j3d.j3drecords.inst;
 
+import javax.media.j3d.Node;
+
 import nif.j3d.J3dNiAVObject;
 import utils.ESUtils;
 import utils.source.MediaSources;
@@ -8,6 +10,7 @@ import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.BethRenderSettings;
+import esmj3d.j3d.LODNif;
 import esmj3d.j3d.TreeMaker;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
@@ -81,7 +84,7 @@ public class J3dREFRFactory
 		}
 	}
 
-	public static J3dRECOInst makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
+	public static Node makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
 	{
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
@@ -89,32 +92,38 @@ public class J3dREFRFactory
 		{
 			STAT stat = new STAT(baseRecord);
 
-			if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag) && (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers()))
+			if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag)
+					&& (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
 				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
 				//find the lowest model for fun
 				String lodStr = "";
-				if (stat.lodModel4.length() > 0)
+				if (stat.lodModel4 != null && stat.lodModel4.length() > 0)
 				{
 					lodStr = stat.lodModel4;
 				}
-				else if (stat.lodModel3.length() > 0)
+				else if (stat.lodModel3 != null && stat.lodModel3.length() > 0)
 				{
 					lodStr = stat.lodModel3;
 				}
-				else if (stat.lodModel2.length() > 0)
+				else if (stat.lodModel2 != null && stat.lodModel2.length() > 0)
 				{
 					lodStr = stat.lodModel2;
 				}
-				else if (stat.lodModel1.length() > 0)
+				else if (stat.lodModel1 != null && stat.lodModel1.length() > 0)
 				{
 					lodStr = stat.lodModel1;
 				}
 
-				J3dNiAVObject node4 = J3dRECOTypeGeneral.loadNif(lodStr, false, mediaSources);
-				j3dinst.addNodeChild(node4);
-				return j3dinst;
+				if (lodStr.length() > 0)
+				{
+					//J3dNiAVObject node4 = J3dRECOTypeGeneral.loadNif(lodStr, false, mediaSources);
+					//j3dinst.addNodeChild(node4);
 
+					j3dinst.addNodeChild(new LODNif(lodStr, mediaSources));
+
+					return j3dinst;
+				}
 			}
 			else
 			{
@@ -125,8 +134,8 @@ public class J3dREFRFactory
 		{
 			TREE tree = new TREE(baseRecord);
 			String treeNif = tree.MODL.model.str;
-			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, false, mediaSources, treeNif, 0, 0, true);
-			return j3dinst;
+			Node node = TreeMaker.makeTreeFar(refr, false, mediaSources, treeNif, 0, 0);
+			return node;
 		}
 		else
 		{
