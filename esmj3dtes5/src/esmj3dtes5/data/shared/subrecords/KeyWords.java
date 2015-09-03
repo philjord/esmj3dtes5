@@ -23,6 +23,9 @@ public class KeyWords
 
 	public void setKWDA(byte[] bytes)
 	{
-		keywords.add(new FormID(bytes));
+		//- 	KSIZ 	count 	unit32 	Number of formids in the following KWDA subrecord
+		//- 	KWDA 	keywords 	formid 	Formid array of keywords
+		//so this is a bunch of formIds not just 1
+		//keywords.add(new FormID(bytes));
 	}
 }

@@ -44,7 +44,17 @@ public class ACHR extends InstRECO
 			}
 			else if (sr.getType().equals("XESP"))
 			{
-				XESP = new FormID(bs);
+				//8-byte struct
+
+				// formid - Parent reference (Object to take enable state from)
+				// uint32 - Flags
+
+				//     0x0001 = Set Enable State to Opposite of Parent
+				//     0x0002 = Pop In
+
+				//also all other ACHRs
+
+				//XESP = new FormID(bs);
 			}
 			else if (sr.getType().equals("XHRS"))
 			{
