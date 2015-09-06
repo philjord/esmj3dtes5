@@ -17,7 +17,7 @@ public class J3dCELLDistant extends J3dCELL
 	public J3dCELLDistant(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
 		super(master, cellRecord, children, makePhys, mediaSources);
-		indexRecords();
+		indexRecords();		
 	}
 
 	private void indexRecords()

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.media.j3d.Node;
 
-import utils.ESConfig;
 import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
@@ -33,7 +32,8 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		super(master, children, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
 		setCell(cell);
-		makeWater(cell.XCLW * ESConfig.ES_TO_METERS_SCALE, "textures\\water\\defaultwater.dds");
+	 
+		
 		BethRenderSettings.addUpdateListener(this);
 	}
 
