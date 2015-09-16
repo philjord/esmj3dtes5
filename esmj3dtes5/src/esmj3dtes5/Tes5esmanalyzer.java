@@ -91,7 +91,8 @@ public class Tes5esmanalyzer extends EsmFormatAnalyzer
 			}
 
 			MediaSources mediaSources = new MediaSources(ms, ts, ss);
-			j3dCellFactory = new J3dCellFactory(esmManager, esmManager, mediaSources);
+			j3dCellFactory = new J3dCellFactory();
+			j3dCellFactory.setSources(esmManager, esmManager, mediaSources);
 			analyze(esmManager);
 			System.out.println("done analyzing");
 
