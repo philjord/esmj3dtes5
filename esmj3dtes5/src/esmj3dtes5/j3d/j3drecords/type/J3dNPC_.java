@@ -172,7 +172,7 @@ public class J3dNPC_ extends J3dRECOType
 			}
 
 			// ok cool, humans have a special bunch of cock aroundy stuff
-			// monsters have a skeleton dir, in side that is some body nifs
+			// monsters have a skeleton dir, inside that is some body nifs
 			// down one and up animations is mt_idle.kf
 
 			//String skeletonNifFile =  ESConfig.TES_MESH_PATH + "actors\\character\\character assets female\\skeleton_female.nif";
