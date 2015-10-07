@@ -32,8 +32,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		super(master, children, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
 		setCell(cell);
-	 
-		
+
 		BethRenderSettings.addUpdateListener(this);
 	}
 
@@ -74,8 +73,12 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in "
-					+ e.getStackTrace()[0]);
+			if (e.getStackTrace().length > 0)
+				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType()
+						+ " in " + e.getStackTrace()[0]);
+			else
+				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType());
+
 			if (record.getRecordType().equals("REFR"))
 			{
 				REFR refr = new REFR(record);
@@ -133,8 +136,12 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in "
-					+ e.getStackTrace()[0]);
+			if (e.getStackTrace().length > 0)
+				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType()
+						+ " in " + e.getStackTrace()[0]);
+			else
+				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType());
+
 			if (record.getRecordType().equals("REFR"))
 			{
 				REFR refr = new REFR(record);
