@@ -9,7 +9,7 @@ import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
-import esmj3d.j3d.j3drecords.type.J3dRECOType;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3dtes5.data.records.ARMA;
 import esmj3dtes5.data.records.ARMO;
 import esmj3dtes5.data.records.BPTD;
@@ -19,7 +19,7 @@ import esmj3dtes5.data.records.RACE;
 import esmj3dtes5.data.records.WEAP;
 import esmj3dtes5.data.subrecords.LVLO;
 
-public class J3dNPC_ extends J3dRECOType
+public class J3dNPC_ extends J3dRECOTypeCha
 {
 	private String helmetStr = null;
 
@@ -37,11 +37,9 @@ public class J3dNPC_ extends J3dRECOType
 
 	private boolean female = false;
 
-	private NifCharacter nifCharacter;
-
 	public J3dNPC_(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
-		super(npc_, null);
+		super(npc_);
 
 		female = npc_.ACBS.isFemale();
 
