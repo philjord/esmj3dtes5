@@ -250,12 +250,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		assetPath = ESConfig.TES_MESH_PATH + assetPath;
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
-		if (mediaSources.getMeshSource().nifFileExists(assetPath + "\\animations\\mt_idle.kf"))
-			idleAnimations.add(assetPath + "\\animations\\mt_idle.kf");
-		if (mediaSources.getMeshSource().nifFileExists(assetPath + "\\animations\\mtidle.kf"))
-			idleAnimations.add(assetPath + "\\animations\\mtidle.kf");
-		if (mediaSources.getMeshSource().nifFileExists(assetPath + "\\animations\\idle.kf"))
-			idleAnimations.add(assetPath + "\\animations\\idle.kf");
+		idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(assetPath + "\\animations"));
 
 		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 		addChild(nifCharacter);
