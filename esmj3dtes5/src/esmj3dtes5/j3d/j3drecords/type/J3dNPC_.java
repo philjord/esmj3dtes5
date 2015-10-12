@@ -1,7 +1,6 @@
 package esmj3dtes5.j3d.j3drecords.type;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import nif.character.NifCharacter;
 import utils.ESConfig;
@@ -12,8 +11,8 @@ import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3dtes5.data.records.ARMA;
 import esmj3dtes5.data.records.ARMO;
-import esmj3dtes5.data.records.BPTD;
 import esmj3dtes5.data.records.LVLI;
+import esmj3dtes5.data.records.LVLN;
 import esmj3dtes5.data.records.NPC_;
 import esmj3dtes5.data.records.RACE;
 import esmj3dtes5.data.records.WEAP;
@@ -50,7 +49,8 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		// are we a char or in fact a bit of a crea?
 		if (race.maleSkeleton.str.toLowerCase().indexOf("actors\\character\\") != -1)
 		{
-			BPTD bptd = new BPTD(master.getRecord(race.GNAM.formId));
+			// this is the start of an idea to pull body data out
+			//BPTD bptd = new BPTD(master.getRecord(race.GNAM.formId));
 			if (female)
 			{
 				headStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif";
@@ -72,102 +72,24 @@ public class J3dNPC_ extends J3dRECOTypeCha
 				helmetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\hair\\male\\hair01.nif";
 			}
 
-			List<CNTO> cntos = npc_.CNTOs;
-			for (int i = 0; i < cntos.size(); i++)
+			// deal with templates first
+			if (npc_.TPLT != null)
 			{
-				//	int count = cntos[i].count;
-				Record rec = master.getRecord(cntos.get(i).itemFormId);
-				if (rec.getRecordType().equals("WEAP"))
+				Record trec = master.getRecord(npc_.TPLT.formId);
+				if (trec.getRecordType().equals("NPC_"))
 				{
-					WEAP weap = new WEAP(rec);
-					addWEAP(weap);
+					NPC_ npcTemplate = new NPC_(trec);
+					organiseCNTOs(npcTemplate.CNTOs, master);
 				}
-				else if (rec.getRecordType().equals("ARMO"))
+				else if (trec.getRecordType().equals("LVLN"))
 				{
-					ARMO armo = new ARMO(rec);
-					addARMO(armo, master);
+					LVLN lvln = new LVLN(trec);
+					organiseLVLN(lvln, master);
 				}
-				else if (rec.getRecordType().equals("AMMO"))
-				{
-					//AMMO ammo = new AMMO(rec);
-				}
-				else if (rec.getRecordType().equals("MISC"))
-				{
-					//MISC misc = new MISC(rec);
-				}
-				else if (rec.getRecordType().equals("KEYM"))
-				{
-					//KEYM keym = new KEYM(rec);
-				}
-				else if (rec.getRecordType().equals("INGR"))
-				{
-					//INGR keym = new INGR(rec);
-				}
-				else if (rec.getRecordType().equals("LIGH"))
-				{
-					//LIGH ligh = new LIGH(rec);
-				}
-				else if (rec.getRecordType().equals("ALCH"))
-				{
-					//ALCH alch = new ALCH(rec);
-				}
-				else if (rec.getRecordType().equals("BOOK"))
-				{
-					//BOOK book = new BOOK(rec);
-				}
-				else if (rec.getRecordType().equals("NOTE"))
-				{
-					//NOTE book = new NOTE(rec);
-				}
-				else if (rec.getRecordType().equals("LVLI"))
-				{
-					LVLI lvli = new LVLI(rec);
-					LVLO[] LVLOs = lvli.LVLOs;
-
-					int idx = (int) (Math.random() * LVLOs.length);
-					idx = idx == LVLOs.length ? 0 : idx;
-
-					Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
-					if (baseRecord.getRecordType().equals("ARMO"))
-					{
-						ARMO armo = new ARMO(baseRecord);
-						addARMO(armo, master);
-					}
-					else if (baseRecord.getRecordType().equals("WEAP"))
-					{
-						WEAP weap = new WEAP(baseRecord);
-						addWEAP(weap);
-					}
-					else if (baseRecord.getRecordType().equals("LVLI"))
-					{
-					}
-					else if (baseRecord.getRecordType().equals("MISC"))
-					{
-					}
-					else if (baseRecord.getRecordType().equals("AMMO"))
-					{
-					}
-					else if (baseRecord.getRecordType().equals("INGR"))
-					{
-					}
-					else if (baseRecord.getRecordType().equals("ALCH"))
-					{
-					}
-					else if (baseRecord.getRecordType().equals("BOOK"))
-					{
-					}
-
-					else
-					{
-						System.out.println("LVLI record type not converted to j3d " + baseRecord.getRecordType());
-					}
-				}
-				else
-				{
-					System.out.println("NPC_ has unknown contained item " + rec.getRecordType());
-				}
-
 			}
+
+			// now sort out overrrides of any template at this level
+			organiseCNTOs(npc_.CNTOs, master);
 
 			// ok cool, humans have a special bunch of cock aroundy stuff
 			// monsters have a skeleton dir, inside that is some body nifs
@@ -201,6 +123,96 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 		}
 
+	}
+
+	private void organiseLVLN(LVLN lvln, IRecordStore master)
+	{
+		// TODO: randomly picked for now
+		LVLO[] LVLOs = lvln.LVLOs;
+
+		int idx = (int) (Math.random() * LVLOs.length);
+		idx = idx == LVLOs.length ? 0 : idx;
+
+		Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
+
+		if (baseRecord.getRecordType().equals("NPC_"))
+		{
+			NPC_ npcTemplate = new NPC_(baseRecord);
+			organiseCNTOs(npcTemplate.CNTOs, master);
+		}
+		else if (baseRecord.getRecordType().equals("LVLN"))
+		{
+			LVLN lvln2 = new LVLN(baseRecord);
+			organiseLVLN(lvln2, master);
+		}
+		else
+		{
+			System.out.println("LVLN record type not converted to j3d " + baseRecord.getRecordType());
+		}
+
+	}
+
+	private void organiseCNTOs(ArrayList<CNTO> cntos, IRecordStore master)
+	{
+		for (int i = 0; i < cntos.size(); i++)
+		{
+			//	int count = cntos[i].count;
+			Record baseRecord = master.getRecord(cntos.get(i).itemFormId);
+			organiseItem(baseRecord, master);
+		}
+	}
+
+	private void organiseLVLI(LVLI lvli, IRecordStore master)
+	{
+		LVLO[] LVLOs = lvli.LVLOs;
+
+		int idx = (int) (Math.random() * LVLOs.length);
+		idx = idx == LVLOs.length ? 0 : idx;
+
+		Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
+		organiseItem(baseRecord, master);
+
+	}
+
+	private void organiseItem(Record baseRecord, IRecordStore master)
+	{
+		if (baseRecord.getRecordType().equals("WEAP"))
+		{
+			WEAP weap = new WEAP(baseRecord);
+			addWEAP(weap);
+		}
+		else if (baseRecord.getRecordType().equals("ARMO"))
+		{
+			ARMO armo = new ARMO(baseRecord);
+			addARMO(armo, master);
+		}
+		else if (baseRecord.getRecordType().equals("MISC"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("AMMO"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("INGR"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("ALCH"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("SLGM"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("CMNY"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("LVLI"))
+		{
+			LVLI lvli2 = new LVLI(baseRecord);
+			organiseLVLI(lvli2, master);
+		}
+		else
+		{
+			System.out.println("LVLI record type not converted to j3d " + baseRecord.getRecordType());
+		}
 	}
 
 	private void addARMO(ARMO armo, IRecordStore master)
