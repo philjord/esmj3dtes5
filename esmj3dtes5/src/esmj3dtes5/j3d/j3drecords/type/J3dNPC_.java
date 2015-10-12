@@ -8,12 +8,14 @@ import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
+import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3dtes5.data.records.ARMA;
 import esmj3dtes5.data.records.ARMO;
 import esmj3dtes5.data.records.LVLI;
 import esmj3dtes5.data.records.LVLN;
 import esmj3dtes5.data.records.NPC_;
+import esmj3dtes5.data.records.OTFT;
 import esmj3dtes5.data.records.RACE;
 import esmj3dtes5.data.records.WEAP;
 import esmj3dtes5.data.subrecords.LVLO;
@@ -41,8 +43,6 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		super(npc_);
 
 		female = npc_.ACBS.isFemale();
-
-		//TODO: DOFT and SOFT are outfits
 
 		RACE race = new RACE(master.getRecord(npc_.RNAM.formId));
 
@@ -72,24 +72,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 				helmetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\hair\\male\\hair01.nif";
 			}
 
-			// deal with templates first
-			if (npc_.TPLT != null)
-			{
-				Record trec = master.getRecord(npc_.TPLT.formId);
-				if (trec.getRecordType().equals("NPC_"))
-				{
-					NPC_ npcTemplate = new NPC_(trec);
-					organiseCNTOs(npcTemplate.CNTOs, master);
-				}
-				else if (trec.getRecordType().equals("LVLN"))
-				{
-					LVLN lvln = new LVLN(trec);
-					organiseLVLN(lvln, master);
-				}
-			}
-
-			// now sort out overrrides of any template at this level
-			organiseCNTOs(npc_.CNTOs, master);
+			organiseNPC_(npc_, master);
 
 			// ok cool, humans have a special bunch of cock aroundy stuff
 			// monsters have a skeleton dir, inside that is some body nifs
@@ -125,7 +108,52 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 	}
 
-	private void organiseLVLN(LVLN lvln, IRecordStore master)
+	private void organiseNPC_(NPC_ npc, IRecordStore master)
+	{
+
+		if (npc != null)
+		{
+			System.out.println("organiseNPC_ " + npc.EDID.str);
+			organiseTemplate(npc.TPLT, master);
+			organiseCNTOs(npc.CNTOs, master);
+
+			if (npc.DOFT != null)
+			{
+				Record doftRec = master.getRecord(npc.DOFT.formId);
+				OTFT otft = new OTFT(doftRec);
+				for (int i = 0; i < otft.INAMs.size(); i++)
+				{
+					Record baseRecord = master.getRecord(otft.INAMs.get(i).formId);
+					organiseItem(baseRecord, master);
+				}
+
+			}
+		}
+
+	}
+
+	private void organiseTemplate(FormID tplt, IRecordStore master)
+	{
+		if (tplt != null)
+		{
+			NPC_ npcTemplate = null;
+			Record trec = master.getRecord(tplt.formId);
+			if (trec.getRecordType().equals("LVLN"))
+			{
+				LVLN lvln = new LVLN(trec);
+				npcTemplate = organiseLVLN(lvln, master);
+			}
+			else if (trec.getRecordType().equals("NPC_"))
+			{
+				npcTemplate = new NPC_(trec);
+			}
+			System.out.println("template");
+			organiseNPC_(npcTemplate, master);
+		}
+
+	}
+
+	private NPC_ organiseLVLN(LVLN lvln, IRecordStore master)
 	{
 		// TODO: randomly picked for now
 		LVLO[] LVLOs = lvln.LVLOs;
@@ -137,19 +165,18 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 		if (baseRecord.getRecordType().equals("NPC_"))
 		{
-			NPC_ npcTemplate = new NPC_(baseRecord);
-			organiseCNTOs(npcTemplate.CNTOs, master);
+			return new NPC_(baseRecord);
 		}
 		else if (baseRecord.getRecordType().equals("LVLN"))
 		{
 			LVLN lvln2 = new LVLN(baseRecord);
-			organiseLVLN(lvln2, master);
+			return organiseLVLN(lvln2, master);
 		}
 		else
 		{
 			System.out.println("LVLN record type not converted to j3d " + baseRecord.getRecordType());
+			return null;
 		}
-
 	}
 
 	private void organiseCNTOs(ArrayList<CNTO> cntos, IRecordStore master)
@@ -204,6 +231,9 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		else if (baseRecord.getRecordType().equals("CMNY"))
 		{
 		}
+		else if (baseRecord.getRecordType().equals("LIGH"))
+		{
+		}
 		else if (baseRecord.getRecordType().equals("LVLI"))
 		{
 			LVLI lvli2 = new LVLI(baseRecord);
@@ -228,11 +258,14 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		bodyStr = arma.BODT.isBody() ? nifStr : bodyStr;
 		handsStr = arma.BODT.isHand() ? nifStr : handsStr;
 		feetStr = arma.BODT.isHand() ? nifStr : feetStr;
+
+		System.out.println("ARMO " + nifStr);
 	}
 
 	private void addWEAP(WEAP weap)
 	{
 		weapStr = weap.MODL.model.str;
+		System.out.println("WEAP " + weapStr);
 	}
 
 	/**
@@ -245,6 +278,9 @@ public class J3dNPC_ extends J3dRECOTypeCha
 	 */
 	private void j3dCREA(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
+
+		if (npc_.TPLT != null)
+			System.out.println("CREA with Template");
 		RACE race = new RACE(master.getRecord(npc_.RNAM.formId));
 
 		String skeletonNifFile = ESConfig.TES_MESH_PATH + race.maleSkeleton.str;

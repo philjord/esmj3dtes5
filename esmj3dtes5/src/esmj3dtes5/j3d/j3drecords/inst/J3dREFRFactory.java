@@ -54,7 +54,7 @@ import esmj3dtes5.j3d.j3drecords.type.J3dSTAT;
 public class J3dREFRFactory
 {
 	public static boolean DEBUG_FIRST_LIST_ITEM_ONLY = false;
-	
+
 	//Note fader = true
 	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
 	{
@@ -76,15 +76,18 @@ public class J3dREFRFactory
 	{
 		if (modl != null)
 		{
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, modl.model.str, makePhys, mediaSources));
-			return j3dinst;
+			if ((!reco.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
+			{
+				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
+				j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, modl.model.str, makePhys, mediaSources));
+				return j3dinst;
+			}
 		}
 		else
 		{
 			System.out.println("null modl there " + reco);
-			return null;
 		}
+		return null;
 	}
 
 	public static Node makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
@@ -156,7 +159,8 @@ public class J3dREFRFactory
 		if (baseRecord.getRecordType().equals("STAT"))
 		{
 			STAT stat = new STAT(baseRecord);
-			if (stat.MODL != null)//&& (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers()))
+			//TODO: this is not teh marker flag, need to work it out
+			if (stat.MODL != null && (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
 				// TODO: this stuff appears to refer to war like stuff enabled scenes
 				// but I still see capapults!
@@ -168,11 +172,15 @@ public class J3dREFRFactory
 				}
 				//	else
 				{
-					// fader handled by STAT
-					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
-					J3dSTAT j3dSTAT = new J3dSTAT(stat, makePhys, mediaSources);
-					j3dinst.setJ3dRECOType(j3dSTAT);
-					return j3dinst;
+					//trivial system for markers
+					//if (!stat.MODL.model.str.contains("Marker") || BethRenderSettings.isShowEditorMarkers())
+					{
+						// fader handled by STAT
+						J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
+						J3dSTAT j3dSTAT = new J3dSTAT(stat, makePhys, mediaSources);
+						j3dinst.setJ3dRECOType(j3dSTAT);
+						return j3dinst;
+					}
 				}
 			}
 
@@ -359,7 +367,7 @@ public class J3dREFRFactory
 
 		int idx = (int) (Math.random() * LVLOs.length);
 		idx = idx == LVLOs.length ? 0 : idx;
-		
+
 		if (DEBUG_FIRST_LIST_ITEM_ONLY)
 			idx = 0;
 
@@ -392,7 +400,7 @@ public class J3dREFRFactory
 
 		int idx = (int) (Math.random() * LVLOs.length);
 		idx = idx == LVLOs.length ? 0 : idx;
-		
+
 		if (DEBUG_FIRST_LIST_ITEM_ONLY)
 			idx = 0;
 
