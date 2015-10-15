@@ -38,13 +38,15 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 	private boolean female = false;
 
+	private RACE race;
+
 	public J3dNPC_(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
 		super(npc_);
 
 		female = npc_.ACBS.isFemale();
 
-		RACE race = new RACE(master.getRecord(npc_.RNAM.formId));
+		organiseNPC_(npc_, master);
 
 		// are we a char or in fact a bit of a crea?
 		if (race.maleSkeleton.str.toLowerCase().indexOf("actors\\character\\") != -1)
@@ -53,26 +55,26 @@ public class J3dNPC_ extends J3dRECOTypeCha
 			//BPTD bptd = new BPTD(master.getRecord(race.GNAM.formId));
 			if (female)
 			{
-				headStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif";
+				headStr = headStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehead.nif" : headStr;
 				//All beast races are just humans with a different texture
-				bodyStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalebody_0.nif";
-				handsStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehands_0.nif";
-				feetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalefeet_0.nif";
-				eyesStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesfemale.nif";
-				helmetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\hair\\female\\hair01.nif";
+				bodyStr = bodyStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalebody_0.nif" : bodyStr;
+				handsStr = handsStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalehands_0.nif" : handsStr;
+				feetStr = feetStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\femalefeet_0.nif" : feetStr;
+				eyesStr = eyesStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesfemale.nif" : eyesStr;
+				helmetStr = helmetStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\hair\\female\\hair01.nif"
+						: helmetStr;
 			}
 			else
 			{
-				headStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malehead.nif";
+				headStr = headStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malehead.nif" : headStr;
 				//All beast races are just humans with a different texture
-				bodyStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malebody_0.nif";
-				handsStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malehands_0.nif";
-				feetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malefeet_0.nif";
-				eyesStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesmale.nif";
-				helmetStr = ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\hair\\male\\hair01.nif";
+				bodyStr = bodyStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malebody_0.nif" : bodyStr;
+				handsStr = handsStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malehands_0.nif" : handsStr;
+				feetStr = feetStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\malefeet_0.nif" : feetStr;
+				eyesStr = eyesStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\eyesmale.nif" : eyesStr;
+				helmetStr = helmetStr == null ? ESConfig.TES_MESH_PATH + "actors\\character\\character assets\\hair\\male\\hair01.nif"
+						: helmetStr;
 			}
-
-			organiseNPC_(npc_, master);
 
 			// ok cool, humans have a special bunch of cock aroundy stuff
 			// monsters have a skeleton dir, inside that is some body nifs
@@ -102,7 +104,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		}
 		else
 		{
-			j3dCREA(npc_, master, mediaSources);
+			j3dCREA(master, mediaSources);
 
 		}
 
@@ -110,10 +112,10 @@ public class J3dNPC_ extends J3dRECOTypeCha
 
 	private void organiseNPC_(NPC_ npc, IRecordStore master)
 	{
-
 		if (npc != null)
 		{
-			System.out.println("organiseNPC_ " + npc.EDID.str);
+			race = new RACE(master.getRecord(npc.RNAM.formId));
+			//System.out.println("organiseNPC_ " + npc.EDID.str);
 			organiseTemplate(npc.TPLT, master);
 			organiseCNTOs(npc.CNTOs, master);
 
@@ -147,7 +149,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 			{
 				npcTemplate = new NPC_(trec);
 			}
-			System.out.println("template");
+			//System.out.println("template");
 			organiseNPC_(npcTemplate, master);
 		}
 
@@ -231,6 +233,12 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		else if (baseRecord.getRecordType().equals("CMNY"))
 		{
 		}
+		else if (baseRecord.getRecordType().equals("KEYM"))
+		{
+		}
+		else if (baseRecord.getRecordType().equals("BOOK"))
+		{
+		}
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
 		}
@@ -259,13 +267,13 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		handsStr = arma.BODT.isHand() ? nifStr : handsStr;
 		feetStr = arma.BODT.isHand() ? nifStr : feetStr;
 
-		System.out.println("ARMO " + nifStr);
+		//System.out.println("ARMO " + nifStr);
 	}
 
 	private void addWEAP(WEAP weap)
 	{
 		weapStr = weap.MODL.model.str;
-		System.out.println("WEAP " + weapStr);
+		//System.out.println("WEAP " + weapStr);
 	}
 
 	/**
@@ -276,13 +284,8 @@ public class J3dNPC_ extends J3dRECOTypeCha
 	 * @param textureSource
 	 * @param soundSource
 	 */
-	private void j3dCREA(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
+	private void j3dCREA(IRecordStore master, MediaSources mediaSources)
 	{
-
-		if (npc_.TPLT != null)
-			System.out.println("CREA with Template");
-		RACE race = new RACE(master.getRecord(npc_.RNAM.formId));
-
 		String skeletonNifFile = ESConfig.TES_MESH_PATH + race.maleSkeleton.str;
 
 		ARMO skin = new ARMO(master.getRecord(race.WNAM.formId));
@@ -304,4 +307,5 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		addChild(nifCharacter);
 
 	}
+
 }
