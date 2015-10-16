@@ -7,12 +7,12 @@ import javax.vecmath.Color3f;
 import tools.io.ESMByteConvert;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
-import esmj3d.data.shared.records.RECO;
+import esmj3d.data.shared.records.CommonLIGH;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
-public class LIGH extends RECO
+public class LIGH extends CommonLIGH
 {
 	/*
 	 Light flags:
@@ -32,19 +32,7 @@ public class LIGH extends RECO
 
 	public FormID FULL;
 
-	public MODL MODL;
-
-	public float fade = 0;
-
 	public byte[] SNAM = null;
-
-	public Color3f color = null;
-
-	public float radius = 0;
-
-	public float falloffExponent = 1f;
-
-	public float fieldOfView = 90.0f;
 
 	public int flags = 0;
 

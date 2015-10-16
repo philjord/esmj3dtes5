@@ -2,7 +2,6 @@ package esmj3dtes5.j3d.j3drecords.inst;
 
 import javax.media.j3d.Node;
 
-import utils.ESUtils;
 import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
@@ -17,9 +16,11 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
 import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
+import esmj3d.j3d.j3drecords.type.J3dLIGH;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
+import esmj3d.j3d.j3drecords.type.J3dSOUN;
 import esmj3dtes5.data.records.ACTI;
 import esmj3dtes5.data.records.ADDN;
 import esmj3dtes5.data.records.ALCH;
@@ -46,9 +47,7 @@ import esmj3dtes5.data.records.TACT;
 import esmj3dtes5.data.records.TREE;
 import esmj3dtes5.data.records.WEAP;
 import esmj3dtes5.data.subrecords.LVLO;
-import esmj3dtes5.j3d.j3drecords.type.J3dLIGH;
 import esmj3dtes5.j3d.j3drecords.type.J3dNPC_;
-import esmj3dtes5.j3d.j3drecords.type.J3dSOUN;
 import esmj3dtes5.j3d.j3drecords.type.J3dSTAT;
 
 public class J3dREFRFactory
@@ -300,10 +299,6 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("DOOR"))
 		{
-			if (refr.XTEL != null && !makePhys)
-			{
-				System.out.println("DOOR at " + ESUtils.makeTrans(refr.getTrans()));
-			}
 			return new J3dRECOStatInst(refr, new J3dDOOR(new DOOR(baseRecord), makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("LIGH"))

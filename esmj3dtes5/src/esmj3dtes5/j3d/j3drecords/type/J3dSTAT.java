@@ -114,6 +114,7 @@ public class J3dSTAT extends J3dRECOType
 			dl.setEnable(true);
 		}
 
+		//TODO: I ant to call fireIdle about now to be honest
 	}
 
 	@Override
