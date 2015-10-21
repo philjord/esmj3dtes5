@@ -9,7 +9,7 @@ import esmj3d.data.shared.subrecords.FormID;
 
 public class CONT extends GenericCONT
 {
-	public FormID FULL;
+	public FormID FULL2;
 
 	public byte[] MNAM = null;
 
@@ -30,7 +30,7 @@ public class CONT extends GenericCONT
 			}
 			else if (sr.getType().equals("FULL"))
 			{
-				FULL = new FormID(bs);
+				FULL2 = new FormID(bs);
 			}
 			else if (sr.getType().equals("DATA"))
 			{

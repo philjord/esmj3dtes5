@@ -7,10 +7,11 @@ import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.GenericDOOR;
 import esmj3d.data.shared.subrecords.FormID;
+import esmj3d.data.shared.subrecords.LString;
 
 public class DOOR extends GenericDOOR
 {
-	public FormID FULL;
+	public FormID FULL2;
 
 	public int TNAM = -1; //random teleport destination
 
@@ -26,8 +27,9 @@ public class DOOR extends GenericDOOR
 			byte[] bs = sr.getData();
 
 			if (sr.getType().equals("FULL"))
-			{
-				FULL = new FormID(bs);
+			{		
+				FULL = new LString(bs);
+				FULL2 = new FormID(bs);
 			}
 			else if (sr.getType().equals("OBND"))
 			{
