@@ -46,6 +46,11 @@ public class CELL extends CommonCELL
 			else if (sr.getType().equals("MHDT"))
 			{
 			}
+			else if (sr.getType().equals("FULL"))
+			{
+				// TES5 FULL is a formId of some sort, blank out the lstring from super
+				FULL = null;
+			}
 			else if (sr.getType().equals("LTMP"))
 			{
 				LTMP = new FormID(bs);
