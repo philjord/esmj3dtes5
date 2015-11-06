@@ -2,12 +2,12 @@ package esmj3dtes5.data.records;
 
 import java.util.ArrayList;
 
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.CommonREFR;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.XMBO;
 import esmj3d.data.shared.subrecords.XPRM;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 public class REFR extends CommonREFR
 {

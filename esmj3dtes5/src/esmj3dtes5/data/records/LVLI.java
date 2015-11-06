@@ -2,13 +2,13 @@ package esmj3dtes5.data.records;
 
 import java.util.ArrayList;
 
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes5.data.subrecords.LVLD;
 import esmj3dtes5.data.subrecords.LVLF;
 import esmj3dtes5.data.subrecords.LVLO;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 public class LVLI extends RECO
 {

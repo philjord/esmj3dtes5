@@ -2,10 +2,10 @@ package esmj3dtes5.data.records;
 
 import java.util.ArrayList;
 
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.CommonCELL;
 import esmj3d.data.shared.subrecords.FormID;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 public class CELL extends CommonCELL
 {

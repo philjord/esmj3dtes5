@@ -8,8 +8,6 @@ import nif.character.NifCharacter;
 import tools3d.utils.scenegraph.Fadable;
 import utils.ESConfig;
 import utils.source.MediaSources;
-import esmLoader.common.data.record.IRecordStore;
-import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.j3d.BethRenderSettings;
@@ -23,6 +21,8 @@ import esmj3dtes5.data.records.OTFT;
 import esmj3dtes5.data.records.RACE;
 import esmj3dtes5.data.records.WEAP;
 import esmj3dtes5.data.subrecords.LVLO;
+import esmmanager.common.data.record.IRecordStore;
+import esmmanager.common.data.record.Record;
 
 public class J3dNPC_ extends J3dRECOTypeCha
 {

@@ -7,15 +7,15 @@ import javax.media.j3d.BranchGroup;
 
 import utils.ESMUtils;
 import utils.source.MediaSources;
-import esmLoader.common.PluginException;
-import esmLoader.common.data.plugin.IMaster;
-import esmLoader.common.data.plugin.PluginGroup;
-import esmLoader.common.data.plugin.PluginRecord;
-import esmLoader.common.data.record.IRecordStore;
-import esmLoader.common.data.record.Record;
-import esmLoader.loader.WRLDChildren;
 import esmj3d.j3d.cell.J3dICellFactory;
 import esmj3dtes5.data.records.WRLD;
+import esmmanager.common.PluginException;
+import esmmanager.common.data.plugin.IMaster;
+import esmmanager.common.data.plugin.PluginGroup;
+import esmmanager.common.data.plugin.PluginRecord;
+import esmmanager.common.data.record.IRecordStore;
+import esmmanager.common.data.record.Record;
+import esmmanager.loader.WRLDChildren;
 
 public class J3dCellFactory implements J3dICellFactory
 {
