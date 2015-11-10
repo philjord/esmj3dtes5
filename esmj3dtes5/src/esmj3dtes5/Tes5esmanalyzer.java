@@ -22,11 +22,10 @@ import esmmanager.EsmFileLocations;
 import esmmanager.common.PluginException;
 import esmmanager.common.data.record.Record;
 import esmmanager.loader.ESMManager;
-import esmmanager.loader.IESMManager;
 
 public class Tes5esmanalyzer extends EsmFormatAnalyzer
 {
-	private static IESMManager esmManager;
+	private static ESMManager esmManager;
 
 	private static J3dCellFactory j3dCellFactory;
 
@@ -68,7 +67,7 @@ public class Tes5esmanalyzer extends EsmFormatAnalyzer
 		try
 		{
 			Thread.currentThread().setPriority(4);
-			esmManager = ESMManager.getESMManager(esmFile);
+			esmManager = (ESMManager) ESMManager.getESMManager(esmFile);
 			Thread.currentThread().setPriority(Thread.NORM_PRIORITY);
 			System.out.println("Done in " + (System.currentTimeMillis() - start) + " analyzing...");
 			SoundSource ss;
@@ -92,7 +91,7 @@ public class Tes5esmanalyzer extends EsmFormatAnalyzer
 
 			MediaSources mediaSources = new MediaSources(ms, ts, ss);
 			j3dCellFactory = new J3dCellFactory();
-			j3dCellFactory.setSources(esmManager, esmManager, mediaSources);
+			j3dCellFactory.setSources(esmManager, mediaSources);
 			analyze(esmManager);
 			System.out.println("done analyzing");
 
