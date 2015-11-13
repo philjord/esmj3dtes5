@@ -15,7 +15,6 @@ import com.sun.j3d.utils.geometry.ColorCube;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
-import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
 import esmj3dtes5.data.records.STAT;
 
 public class J3dSTAT extends J3dRECOType
@@ -55,7 +54,7 @@ public class J3dSTAT extends J3dRECOType
 
 		if (makePhys)
 		{
-			Node node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, mediaSources);
+			Node node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
 			addChild(node);
 		}
 		else
@@ -63,7 +62,7 @@ public class J3dSTAT extends J3dRECOType
 
 			if (!stat.isFlagSet(RECO.VisibleWhenDistant_Flag))
 			{
-				J3dNiAVObject node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, mediaSources);
+				J3dNiAVObject node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
 				myNodes.add(node.getRootNode());
 
 				//add a blank for final fade out	
@@ -74,27 +73,27 @@ public class J3dSTAT extends J3dRECOType
 			}
 			else
 			{
-				J3dNiAVObject node = J3dRECOTypeGeneral.loadNif(stat.MODL.model.str, makePhys, mediaSources);
+				J3dNiAVObject node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
 				myNodes.add(node.getRootNode());
 
 				if (stat.lodModel1.length() > 0)
 				{
-					J3dNiAVObject node1 = J3dRECOTypeGeneral.loadNif(stat.lodModel1, makePhys, mediaSources);
+					J3dNiAVObject node1 = J3dRECOType.loadNif(stat.lodModel1, makePhys, mediaSources);
 					myNodes.add(node1.getRootNode());
 
 					if (stat.lodModel2.length() > 0)
 					{
-						J3dNiAVObject node2 = J3dRECOTypeGeneral.loadNif(stat.lodModel2, makePhys, mediaSources);
+						J3dNiAVObject node2 = J3dRECOType.loadNif(stat.lodModel2, makePhys, mediaSources);
 						myNodes.add(node2.getRootNode());
 
 						if (stat.lodModel3.length() > 0)
 						{
-							J3dNiAVObject node3 = J3dRECOTypeGeneral.loadNif(stat.lodModel3, makePhys, mediaSources);
+							J3dNiAVObject node3 = J3dRECOType.loadNif(stat.lodModel3, makePhys, mediaSources);
 							myNodes.add(node3.getRootNode());
 
 							if (stat.lodModel4.length() > 0)
 							{
-								J3dNiAVObject node4 = J3dRECOTypeGeneral.loadNif(stat.lodModel4, makePhys, mediaSources);
+								J3dNiAVObject node4 = J3dRECOType.loadNif(stat.lodModel4, makePhys, mediaSources);
 								myNodes.add(node4.getRootNode());
 							}
 						}
@@ -130,7 +129,13 @@ public class J3dSTAT extends J3dRECOType
 			dl.setSchedulingBounds(Utils3D.defaultBounds);
 		}
 	}
-
+	
+	@Override
+	public void setOutlined(boolean b)
+	{
+		//ignored
+	}
+	
 	/**
 	 * For Lod enabled stats only
 	 * @param baseDist
