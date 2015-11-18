@@ -174,11 +174,10 @@ public class J3dREFRFactory
 		if (baseRecord.getRecordType().equals("STAT"))
 		{
 			STAT stat = new STAT(baseRecord);
-			//TODO: this is not teh marker flag, need to work it out
+			//TODO: this is not the marker flag, need to work it out
 			if (stat.MODL != null && (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
-				// TODO: this stuff appears to refer to war like stuff enabled scenes
-				// but I still see capapults!
+				// TODO: See oblivion for oblivion gates disable state gear good stuff
 				//if (refr.XESP != null)
 				{
 					//System.out.println("parent spotting " + refr.XESP.parentId);
