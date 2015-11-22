@@ -3,6 +3,7 @@ package esmj3dtes5.j3d.j3drecords.inst;
 import javax.media.j3d.Node;
 
 import utils.source.MediaSources;
+import esmj3d.data.shared.records.CommonREFR;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.BethRenderSettings;
@@ -55,6 +56,7 @@ import esmmanager.common.data.record.Record;
 public class J3dREFRFactory
 {
 	public static boolean DEBUG_FIRST_LIST_ITEM_ONLY = false;
+	 
 
 	//Note fader = true
 	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
@@ -71,6 +73,7 @@ public class J3dREFRFactory
 			return null;
 		}
 	}
+
 	private static J3dRECOStatInst makeJ3dRECOActionInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
 	{
 		if (modl != null)
@@ -107,14 +110,17 @@ public class J3dREFRFactory
 
 	public static Node makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
 	{
+		// does a parent enablage flag exists, and is is defaulted to off?
+		if (refr.xesp != null && CommonREFR.getParentEnable(refr, master) != BethRenderSettings.isFlipParentEnableDefault())
+			return null;
+
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
 		if (baseRecord.getRecordType().equals("STAT"))
 		{
 			STAT stat = new STAT(baseRecord);
 
-			if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag)
-					&& (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
+			if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag) && (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
 				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
 				//find the lowest model for fun
@@ -169,6 +175,9 @@ public class J3dREFRFactory
 	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, IRecordStore master, MediaSources mediaSources)
 	{
 
+		// does a parent enablage flag exists, and is is defaulted to off?
+		if (refr.xesp != null && CommonREFR.getParentEnable(refr, master) != BethRenderSettings.isFlipParentEnableDefault())
+			return null;
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
 		if (baseRecord.getRecordType().equals("STAT"))
@@ -177,25 +186,11 @@ public class J3dREFRFactory
 			//TODO: this is not the marker flag, need to work it out
 			if (stat.MODL != null && (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
-				// TODO: See oblivion for oblivion gates disable state gear good stuff
-				//if (refr.XESP != null)
-				{
-					//System.out.println("parent spotting " + refr.XESP.parentId);
-					//System.out.println("parent spotting " + refr.XESP.flags);
-					//System.out.println("parent spotting " + stat.MODL.model.str);
-				}
-				//	else
-				{
-					//trivial system for markers
-					//if (!stat.MODL.model.str.contains("Marker") || BethRenderSettings.isShowEditorMarkers())
-					{
-						// fader handled by STAT
-						J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
-						J3dSTAT j3dSTAT = new J3dSTAT(stat, makePhys, mediaSources);
-						j3dinst.setJ3dRECOType(j3dSTAT);
-						return j3dinst;
-					}
-				}
+				// fader handled by STAT
+				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
+				J3dSTAT j3dSTAT = new J3dSTAT(stat, makePhys, mediaSources);
+				j3dinst.setJ3dRECOType(j3dSTAT);
+				return j3dinst;
 			}
 
 			return null;
