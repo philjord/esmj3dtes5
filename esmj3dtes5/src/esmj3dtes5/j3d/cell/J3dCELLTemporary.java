@@ -3,18 +3,18 @@ package esmj3dtes5.j3d.cell;
 import java.util.Iterator;
 import java.util.List;
 
-import utils.source.MediaSources;
 import esmj3d.j3d.j3drecords.inst.J3dLAND;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmmanager.common.data.record.IRecordStore;
 import esmmanager.common.data.record.Record;
+import utils.source.MediaSources;
 
 public class J3dCELLTemporary extends J3dCELL
 {
 
-	public J3dCELLTemporary(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MediaSources mediaSources)
+	public J3dCELLTemporary(IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, cellRecord, children, makePhys, mediaSources);
+		super(master, cellRecord, worldId, children, makePhys, mediaSources);
 		indexRecords();
 
 	}

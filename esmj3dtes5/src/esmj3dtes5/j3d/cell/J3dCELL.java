@@ -28,9 +28,9 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 
 	private ArrayList<J3dRECOInst> j3dRECOInsts = new ArrayList<J3dRECOInst>();
 
-	public J3dCELL(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MediaSources mediaSources)
+	public J3dCELL(IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, children, makePhys, mediaSources);
+		super(master, worldId, children, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
 		setCell(cell);
 
@@ -116,11 +116,19 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 				J3dLAND j3dLAND;
 				if (makePhys)
 				{
-					j3dLAND = new J3dLAND(new LAND(record));
+					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+					if (parentLANDrec != null)
+						j3dLAND = new J3dLAND(new LAND(parentLANDrec));
+					else
+						j3dLAND = new J3dLAND(new LAND(record));
 				}
 				else
 				{
-					j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
+					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+					if (parentLANDrec != null)
+						j3dLAND = new J3dLAND(new LAND(parentLANDrec), master, mediaSources.getTextureSource());
+					else
+						j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
 				}
 
 				j3dLAND.setLocation(cellLocation);

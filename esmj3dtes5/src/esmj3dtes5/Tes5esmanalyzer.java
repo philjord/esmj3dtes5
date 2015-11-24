@@ -45,8 +45,8 @@ public class Tes5esmanalyzer extends EsmFormatAnalyzer
 					if (j3dCellFactory.isWRLD(rec.getFormID()))
 					{
 						j3dCellFactory.makeBGWRLDPersistent(rec.getFormID(), false);
-						j3dCellFactory.makeBGWRLDTemporary(rec.getFormID(), false);
-						j3dCellFactory.makeBGWRLDDistant(rec.getFormID(), false);
+						j3dCellFactory.makeBGWRLDTemporary(rec.getFormID(), -1, false);
+						j3dCellFactory.makeBGWRLDDistant(rec.getFormID(), -1, false);
 					}
 					else
 					{

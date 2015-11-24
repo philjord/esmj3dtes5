@@ -14,10 +14,10 @@ public class J3dCELLDistant extends J3dCELL
 	/*
 	 * Distant for Skyrim and FO3 are just statics that have lods, along with trees
 	 */
-	public J3dCELLDistant(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MediaSources mediaSources)
+	public J3dCELLDistant(IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, cellRecord, children, makePhys, mediaSources);
-		indexRecords();		
+		super(master, cellRecord, worldId, children, makePhys, mediaSources);
+		indexRecords();
 	}
 
 	private void indexRecords()

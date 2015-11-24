@@ -43,12 +43,11 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	 * @param recordToRECO
 	 */
 
-	public J3dCELLPersistent(CommonWRLD wrld, IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys,
-			MediaSources mediaSources)
+	public J3dCELLPersistent(CommonWRLD wrld, IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, cellRecord, children, makePhys, mediaSources);
+		super(master, cellRecord, worldId, children, makePhys, mediaSources);
 		this.wrld = wrld;
-		
+
 		setCapability(Group.ALLOW_CHILDREN_WRITE);
 		setCapability(Group.ALLOW_CHILDREN_EXTEND);
 
@@ -67,8 +66,7 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 			}
 			addChild(waterApp);
 		}
-		
-		 
+
 	}
 
 	private void indexRecords()
