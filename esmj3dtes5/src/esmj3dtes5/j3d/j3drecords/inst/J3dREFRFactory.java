@@ -112,7 +112,10 @@ public class J3dREFRFactory
 	{
 		// does a parent enablage flag exists, and is is defaulted to off?
 		if (refr.xesp != null && CommonREFR.getParentEnable(refr, master) != BethRenderSettings.isFlipParentEnableDefault())
+		{
+			System.out.println("I decided not to show this guy " + refr);
 			return null;
+		}
 
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 

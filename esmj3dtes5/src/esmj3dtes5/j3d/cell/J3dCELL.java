@@ -116,18 +116,20 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 				J3dLAND j3dLAND;
 				if (makePhys)
 				{
-					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+					//TODO: parent land record usage removed for speed until a proper need appears, whiterun has pure custom land
+					/*Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
 					if (parentLANDrec != null)
 						j3dLAND = new J3dLAND(new LAND(parentLANDrec));
-					else
+					else*/
 						j3dLAND = new J3dLAND(new LAND(record));
 				}
 				else
 				{
-					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+				/*	Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+					
 					if (parentLANDrec != null)
 						j3dLAND = new J3dLAND(new LAND(parentLANDrec), master, mediaSources.getTextureSource());
-					else
+					else*/
 						j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
 				}
 
