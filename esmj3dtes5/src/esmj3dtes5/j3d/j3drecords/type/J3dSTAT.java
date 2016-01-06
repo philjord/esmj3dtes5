@@ -5,17 +5,15 @@ import java.util.ArrayList;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Node;
 
-import nif.j3d.J3dNiAVObject;
-import tools3d.utils.Utils3D;
-import tools3d.utils.scenegraph.BetterDistanceLOD;
-import utils.source.MediaSources;
-
-import com.sun.j3d.utils.geometry.ColorCube;
-
 import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3dtes5.data.records.STAT;
+import nif.j3d.J3dNiAVObject;
+import tools3d.utils.Utils3D;
+import tools3d.utils.leafnode.Cube;
+import tools3d.utils.scenegraph.BetterDistanceLOD;
+import utils.source.MediaSources;
 
 public class J3dSTAT extends J3dRECOType
 {
@@ -67,7 +65,7 @@ public class J3dSTAT extends J3dRECOType
 
 				//add a blank for final fade out	
 				BranchGroup bg = new BranchGroup();
-				bg.addChild(SHOW_FADE_OUT_MARKER ? new ColorCube(0.1) : new BranchGroup());
+				bg.addChild(SHOW_FADE_OUT_MARKER ? new Cube(0.1) : new BranchGroup());
 				myNodes.add(bg);
 
 			}
@@ -129,13 +127,13 @@ public class J3dSTAT extends J3dRECOType
 			dl.setSchedulingBounds(Utils3D.defaultBounds);
 		}
 	}
-	
+
 	@Override
 	public void setOutlined(boolean b)
 	{
 		//ignored
 	}
-	
+
 	/**
 	 * For Lod enabled stats only
 	 * @param baseDist
@@ -147,28 +145,23 @@ public class J3dSTAT extends J3dRECOType
 		//case of no lod models just base and blank
 		if (myNodes.size() <= 2)
 		{
-			dist = new float[]
-			{ baseDist };
+			dist = new float[] { baseDist };
 		}
 		else if (myNodes.size() == 3)
 		{
-			dist = new float[]
-			{ baseDist, baseDist * 5f };
+			dist = new float[] { baseDist, baseDist * 5f };
 		}
 		else if (myNodes.size() == 4)
 		{
-			dist = new float[]
-			{ baseDist, baseDist * 2f, baseDist * 5f };
+			dist = new float[] { baseDist, baseDist * 2f, baseDist * 5f };
 		}
 		else if (myNodes.size() == 5)
 		{
-			dist = new float[]
-			{ baseDist, baseDist * 2f, baseDist * 3f, baseDist * 5f };
+			dist = new float[] { baseDist, baseDist * 2f, baseDist * 3f, baseDist * 5f };
 		}
 		else if (myNodes.size() == 6)
 		{
-			dist = new float[]
-			{ baseDist, baseDist * 2f, baseDist * 3f, baseDist * 4f, baseDist * 5f };
+			dist = new float[] { baseDist, baseDist * 2f, baseDist * 3f, baseDist * 4f, baseDist * 5f };
 		}
 
 		return dist;
