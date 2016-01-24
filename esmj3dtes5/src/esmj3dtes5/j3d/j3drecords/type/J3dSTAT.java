@@ -74,22 +74,22 @@ public class J3dSTAT extends J3dRECOType
 				J3dNiAVObject node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
 				myNodes.add(node.getRootNode());
 
-				if (stat.lodModel1.length() > 0)
+				if (stat.lodModel1 != null && stat.lodModel1.length() > 0)
 				{
 					J3dNiAVObject node1 = J3dRECOType.loadNif(stat.lodModel1, makePhys, mediaSources);
 					myNodes.add(node1.getRootNode());
 
-					if (stat.lodModel2.length() > 0)
+					if (stat.lodModel2 != null && stat.lodModel2.length() > 0)
 					{
 						J3dNiAVObject node2 = J3dRECOType.loadNif(stat.lodModel2, makePhys, mediaSources);
 						myNodes.add(node2.getRootNode());
 
-						if (stat.lodModel3.length() > 0)
+						if (stat.lodModel3 != null && stat.lodModel3.length() > 0)
 						{
 							J3dNiAVObject node3 = J3dRECOType.loadNif(stat.lodModel3, makePhys, mediaSources);
 							myNodes.add(node3.getRootNode());
 
-							if (stat.lodModel4.length() > 0)
+							if (stat.lodModel4 != null && stat.lodModel4.length() > 0)
 							{
 								J3dNiAVObject node4 = J3dRECOType.loadNif(stat.lodModel4, makePhys, mediaSources);
 								myNodes.add(node4.getRootNode());
