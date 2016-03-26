@@ -171,7 +171,8 @@ public class J3dCellFactory extends J3dICellFactory
 				PluginGroup cellChildren = children.getCellChildren();
 				if (cellChildren != null)
 				{
-					return new J3dCELLPersistent(wrld, this, new Record(cell), formId, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_PERSISTENT), makePhys, mediaSources);
+					return new J3dCELLPersistent(wrld, this, new Record(cell), formId,
+							ESMUtils.getChildren(cellChildren, PluginGroup.CELL_PERSISTENT), makePhys, mediaSources);
 				}
 			}
 		}
@@ -186,28 +187,19 @@ public class J3dCellFactory extends J3dICellFactory
 	@Override
 	public J3dCELLTemporary makeBGWRLDTemporary(int wrldFormId, int x, int y, boolean makePhys)
 	{
-		int cellId = esmManager.getWRLDExtBlockCELLId(wrldFormId, x, y);
-		return makeBGWRLDTemporary(cellId, wrldFormId, makePhys);
-	}
-
-	@Override
-	public J3dCELLTemporary makeBGWRLDTemporary(int cellId, int wrldFormId, boolean makePhys)
-	{
-		if (cellId == -1)
-			return null;
-
 		try
 		{
 
-			PluginRecord record = esmManager.getWRLDExtBlockCELL(cellId);
+			PluginRecord record = esmManager.getWRLDExtBlockCELL(wrldFormId, x, y);
 
 			if (record != null)
 			{
-				PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(record.getFormID());
+				PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(wrldFormId, x, y);
 
 				if (cellChildren != null)
 				{
-					return new J3dCELLTemporary(this, new Record(record), wrldFormId, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
+					return new J3dCELLTemporary(this, new Record(record), wrldFormId,
+							ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
 				}
 			}
 
@@ -231,26 +223,17 @@ public class J3dCellFactory extends J3dICellFactory
 	@Override
 	public J3dCELLDistant makeBGWRLDDistant(int wrldFormId, int x, int y, boolean makePhys)
 	{
-		int cellId = esmManager.getWRLDExtBlockCELLId(wrldFormId, x, y);
-		return makeBGWRLDDistant(cellId, wrldFormId, makePhys);
-	}
-
-	@Override
-	public J3dCELLDistant makeBGWRLDDistant(int cellId, int wrldFormId, boolean makePhys)
-	{
-		if (cellId == -1)
-			return null;
-
 		try
 		{
 
-			PluginRecord record = esmManager.getWRLDExtBlockCELL(cellId);
+			PluginRecord record = esmManager.getWRLDExtBlockCELL(wrldFormId, x, y);
 			if (record != null)
 			{
-				PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(record.getFormID());
+				PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(wrldFormId, x, y);
 				if (cellChildren != null)
 				{
-					return new J3dCELLDistant(this, new Record(record), wrldFormId, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
+					return new J3dCELLDistant(this, new Record(record), wrldFormId,
+							ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
 				}
 			}
 		}
@@ -280,7 +263,8 @@ public class J3dCellFactory extends J3dICellFactory
 			{
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
-				return new J3dCELLPersistent(null, this, new Record(record), -1, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_PERSISTENT), makePhys, mediaSources);
+				return new J3dCELLPersistent(null, this, new Record(record), -1,
+						ESMUtils.getChildren(cellChildren, PluginGroup.CELL_PERSISTENT), makePhys, mediaSources);
 			}
 		}
 		catch (PluginException e1)
@@ -310,7 +294,8 @@ public class J3dCellFactory extends J3dICellFactory
 			{
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
-				return new J3dCELLTemporary(this, new Record(record), -1, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
+				return new J3dCELLTemporary(this, new Record(record), -1, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY),
+						makePhys, mediaSources);
 			}
 		}
 		catch (PluginException e1)
@@ -340,7 +325,8 @@ public class J3dCellFactory extends J3dICellFactory
 			{
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
-				return new J3dCELLDistant(this, new Record(record), -1, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
+				return new J3dCELLDistant(this, new Record(record), -1, ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY),
+						makePhys, mediaSources);
 			}
 		}
 		catch (PluginException e1)
@@ -374,42 +360,39 @@ public class J3dCellFactory extends J3dICellFactory
 		{
 			int parentFormId = -1;
 			parentFormId = wrld.WNAM.formId;
-			int cellId = esmManager.getWRLDExtBlockCELLId(parentFormId, x, y);
-			if (cellId != -1)
+
+			try
 			{
-				try
+				PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(parentFormId, x, y);
+
+				if (cellChildren != null)
 				{
-					PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(cellId);
-
-					if (cellChildren != null)
+					//note distants are also part of close up
+					for (Record record : ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY))
 					{
-						//note distants are also part of close up
-						for (Record record : ESMUtils.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY))
-						{
-							if (record.getRecordType().equals("LAND"))
-								return record;
-						}
-
-						for (Record record : ESMUtils.getChildren(cellChildren, PluginGroup.CELL_DISTANT))
-						{
-							if (record.getRecordType().equals("LAND"))
-								return record;
-						}
+						if (record.getRecordType().equals("LAND"))
+							return record;
 					}
 
+					for (Record record : ESMUtils.getChildren(cellChildren, PluginGroup.CELL_DISTANT))
+					{
+						if (record.getRecordType().equals("LAND"))
+							return record;
+					}
 				}
-				catch (PluginException e1)
-				{
-					e1.printStackTrace();
-				}
-				catch (DataFormatException e1)
-				{
-					e1.printStackTrace();
-				}
-				catch (IOException e1)
-				{
-					e1.printStackTrace();
-				}
+
+			}
+			catch (PluginException e1)
+			{
+				e1.printStackTrace();
+			}
+			catch (DataFormatException e1)
+			{
+				e1.printStackTrace();
+			}
+			catch (IOException e1)
+			{
+				e1.printStackTrace();
 			}
 		}
 		return null;
