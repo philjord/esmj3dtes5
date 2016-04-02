@@ -1,14 +1,14 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import tools.io.ESMByteConvert;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes5.data.subrecords.BODT;
 import esmmanager.common.data.record.Record;
 import esmmanager.common.data.record.Subrecord;
+import tools.io.ESMByteConvert;
 
 public class RACE extends RECO
 {
@@ -30,24 +30,24 @@ public class RACE extends RECO
 	{
 		super(recordData);
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 
 		Subrecord sr = next(subrecords);
-		EDID = new ZString(sr.getData());
+		EDID = new ZString(sr.getSubrecordData());
 		sr = next(subrecords);
 
-		if (sr.getType().equals("FULL"))
+		if (sr.getSubrecordType().equals("FULL"))
 		{
-			FULL = new FormID(sr.getData());
+			FULL = new FormID(sr.getSubrecordData());
 			sr = next(subrecords);
 		}
 
 		//DESC = new LString(sr.getData());
 		sr = next(subrecords);
 
-		if (sr.getType().equals("SPCT"))
+		if (sr.getSubrecordType().equals("SPCT"))
 		{
-			int sploCount = ESMByteConvert.extractInt(sr.getData(), 0);
+			int sploCount = ESMByteConvert.extractInt(sr.getSubrecordData(), 0);
 			sr = next(subrecords);
 			for (int i = 0; i < sploCount; i++)
 			{
@@ -56,18 +56,18 @@ public class RACE extends RECO
 			}
 		}
 
-		if (sr.getType().equals("WNAM"))
+		if (sr.getSubrecordType().equals("WNAM"))
 		{
-			WNAM = new FormID(sr.getData());
+			WNAM = new FormID(sr.getSubrecordData());
 			sr = next(subrecords);
 		}
 
-		BODT = new BODT(sr.getData());
+		BODT = new BODT(sr.getSubrecordData());
 		sr = next(subrecords);
 
-		if (sr.getType().equals("KSIZ"))
+		if (sr.getSubrecordType().equals("KSIZ"))
 		{
-			int kwdaCount = ESMByteConvert.extractInt(sr.getData(), 0);
+			int kwdaCount = ESMByteConvert.extractInt(sr.getSubrecordData(), 0);
 			sr = next(subrecords);
 			//KWDA FormID * kwdaCount
 			sr = next(subrecords);
@@ -80,7 +80,7 @@ public class RACE extends RECO
 		//MNAM
 		sr = next(subrecords);
 
-		maleSkeleton = new ZString(sr.getData());
+		maleSkeleton = new ZString(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		//MODT
@@ -89,7 +89,7 @@ public class RACE extends RECO
 		//FNAM
 		sr = next(subrecords);
 
-		femaleSkeleton = new ZString(sr.getData());
+		femaleSkeleton = new ZString(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		//MODT
@@ -98,7 +98,7 @@ public class RACE extends RECO
 		//NAM2
 		sr = next(subrecords);
 
-		while (sr.getType().equals("MTNM"))
+		while (sr.getSubrecordType().equals("MTNM"))
 		{
 			//MTNM
 			sr = next(subrecords);
@@ -107,19 +107,19 @@ public class RACE extends RECO
 		//VTCK
 		sr = next(subrecords);
 
-		if (sr.getType().equals("DNAM"))
+		if (sr.getSubrecordType().equals("DNAM"))
 		{
 			//DNAM 
 			sr = next(subrecords);
 		}
 
-		if (sr.getType().equals("HCLF"))
+		if (sr.getSubrecordType().equals("HCLF"))
 		{
 			//HCLF 
 			sr = next(subrecords);
 		}
 
-		if (sr.getType().equals("TINL"))
+		if (sr.getSubrecordType().equals("TINL"))
 		{
 			//TINL 
 			sr = next(subrecords);
@@ -131,7 +131,7 @@ public class RACE extends RECO
 		//UNAM
 		sr = next(subrecords);
 
-		while (sr.getType().equals("ATKD"))
+		while (sr.getSubrecordType().equals("ATKD"))
 		{
 			//ATKD
 			sr = next(subrecords);
@@ -159,7 +159,7 @@ public class RACE extends RECO
 		//MODT
 		sr = next(subrecords);
 
-		GNAM = new FormID(sr.getData());
+		GNAM = new FormID(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		//NAM2

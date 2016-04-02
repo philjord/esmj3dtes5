@@ -8,6 +8,8 @@ import javax.media.j3d.TransformGroup;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
+import esmj3d.j3d.cell.MorphingLandscape;
+import esmj3d.j3d.j3drecords.inst.J3dLAND;
 import nif.NiObjectList;
 import nif.NifFile;
 import nif.NifToJ3d;
@@ -22,8 +24,6 @@ import nif.niobject.bs.BSMultiBoundNode;
 import nif.niobject.bs.BSShaderTextureSet;
 import utils.source.MeshSource;
 import utils.source.TextureSource;
-import esmj3d.j3d.cell.MorphingLandscape;
-import esmj3d.j3d.j3drecords.inst.J3dLAND;
 
 public class Tes5LODLandscape extends MorphingLandscape
 {

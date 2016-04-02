@@ -1,6 +1,6 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.GenericCONT;
 import esmj3d.data.shared.subrecords.FormID;
@@ -18,37 +18,37 @@ public class CONT extends GenericCONT
 
 		super(recordData);
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("OBND"))
+			if (sr.getSubrecordType().equals("OBND"))
 			{
 
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 				FULL2 = new FormID(bs);
 			}
-			else if (sr.getType().equals("DATA"))
+			else if (sr.getSubrecordType().equals("DATA"))
 			{
 
 			}
-			else if (sr.getType().equals("MNAM"))
+			else if (sr.getSubrecordType().equals("MNAM"))
 			{
 				MNAM = bs;
 			}
-			else if (sr.getType().equals("COCT"))
+			else if (sr.getSubrecordType().equals("COCT"))
 			{
 
 			}
-			else if (sr.getType().equals("VMAD"))
+			else if (sr.getSubrecordType().equals("VMAD"))
 			{
 
 			}
-			else if (sr.getType().equals("COED"))
+			else if (sr.getSubrecordType().equals("COED"))
 			{
 
 			}

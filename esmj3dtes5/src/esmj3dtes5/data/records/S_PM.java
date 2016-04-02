@@ -1,6 +1,6 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
@@ -14,26 +14,26 @@ public class S_PM extends RECO
 	public S_PM(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("NAM1")){}
-			else if (sr.getType().equals("MNAM")){}
-			else if (sr.getType().equals("ANAM")){}
-			else if (sr.getType().equals("ONAM")){}
-			else if (sr.getType().equals("FNAM")){}
-			else if (sr.getType().equals("CNAM")){}
-			else if (sr.getType().equals("SNAM")){}
+			else if (sr.getSubrecordType().equals("NAM1")){}
+			else if (sr.getSubrecordType().equals("MNAM")){}
+			else if (sr.getSubrecordType().equals("ANAM")){}
+			else if (sr.getSubrecordType().equals("ONAM")){}
+			else if (sr.getSubrecordType().equals("FNAM")){}
+			else if (sr.getSubrecordType().equals("CNAM")){}
+			else if (sr.getSubrecordType().equals("SNAM")){}
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

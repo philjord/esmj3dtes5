@@ -1,6 +1,6 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
@@ -15,58 +15,58 @@ public class AVIF extends RECO
 	public AVIF(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("DESC"))
+			else if (sr.getSubrecordType().equals("DESC"))
 			{
 			}
-			else if (sr.getType().equals("CNAM"))
+			else if (sr.getSubrecordType().equals("CNAM"))
 			{
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 			}
-			else if (sr.getType().equals("AVSK"))
+			else if (sr.getSubrecordType().equals("AVSK"))
 			{
 			}
-			else if (sr.getType().equals("PNAM"))
+			else if (sr.getSubrecordType().equals("PNAM"))
 			{
 			}
-			else if (sr.getType().equals("FNAM"))
+			else if (sr.getSubrecordType().equals("FNAM"))
 			{
 			}
-			else if (sr.getType().equals("XNAM"))
+			else if (sr.getSubrecordType().equals("XNAM"))
 			{
 			}
-			else if (sr.getType().equals("YNAM"))
+			else if (sr.getSubrecordType().equals("YNAM"))
 			{
 			}
-			else if (sr.getType().equals("HNAM"))
+			else if (sr.getSubrecordType().equals("HNAM"))
 			{
 			}
-			else if (sr.getType().equals("VNAM"))
+			else if (sr.getSubrecordType().equals("VNAM"))
 			{
 			}
-			else if (sr.getType().equals("SNAM"))
+			else if (sr.getSubrecordType().equals("SNAM"))
 			{
 			}
-			else if (sr.getType().equals("INAM"))
+			else if (sr.getSubrecordType().equals("INAM"))
 			{
 			}
-			else if (sr.getType().equals("ANAM"))
+			else if (sr.getSubrecordType().equals("ANAM"))
 			{
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
 		}

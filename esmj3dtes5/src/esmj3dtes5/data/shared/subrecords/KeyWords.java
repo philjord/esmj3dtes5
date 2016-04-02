@@ -2,8 +2,8 @@ package esmj3dtes5.data.shared.subrecords;
 
 import java.util.ArrayList;
 
-import tools.io.ESMByteConvert;
 import esmj3d.data.shared.subrecords.FormID;
+import tools.io.ESMByteConvert;
 
 public class KeyWords
 {

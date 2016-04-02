@@ -1,6 +1,6 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
@@ -15,79 +15,79 @@ public class FACT extends RECO
 	public FACT(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("XNAM"))
+			else if (sr.getSubrecordType().equals("XNAM"))
 			{
 			}
-			else if (sr.getType().equals("DATA"))
+			else if (sr.getSubrecordType().equals("DATA"))
 			{
 			}
-			else if (sr.getType().equals("CRVA"))
+			else if (sr.getSubrecordType().equals("CRVA"))
 			{
 			}
-			else if (sr.getType().equals("VENV"))
+			else if (sr.getSubrecordType().equals("VENV"))
 			{
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 			}
-			else if (sr.getType().equals("VEND"))
+			else if (sr.getSubrecordType().equals("VEND"))
 			{
 			}
-			else if (sr.getType().equals("VENC"))
+			else if (sr.getSubrecordType().equals("VENC"))
 			{
 			}
-			else if (sr.getType().equals("PLVD"))
+			else if (sr.getSubrecordType().equals("PLVD"))
 			{
 			}
-			else if (sr.getType().equals("WAIT"))
+			else if (sr.getSubrecordType().equals("WAIT"))
 			{
 			}
-			else if (sr.getType().equals("STOL"))
+			else if (sr.getSubrecordType().equals("STOL"))
 			{
 			}
-			else if (sr.getType().equals("PLCN"))
+			else if (sr.getSubrecordType().equals("PLCN"))
 			{
 			}
-			else if (sr.getType().equals("CRGR"))
+			else if (sr.getSubrecordType().equals("CRGR"))
 			{
 			}
-			else if (sr.getType().equals("JOUT"))
+			else if (sr.getSubrecordType().equals("JOUT"))
 			{
 			}
-			else if (sr.getType().equals("RNAM"))
+			else if (sr.getSubrecordType().equals("RNAM"))
 			{
 			}
-			else if (sr.getType().equals("MNAM"))
+			else if (sr.getSubrecordType().equals("MNAM"))
 			{
 			}
-			else if (sr.getType().equals("JAIL"))
+			else if (sr.getSubrecordType().equals("JAIL"))
 			{
 			}
-			else if (sr.getType().equals("CITC"))
+			else if (sr.getSubrecordType().equals("CITC"))
 			{
 			}
-			else if (sr.getType().equals("CTDA"))
+			else if (sr.getSubrecordType().equals("CTDA"))
 			{
 			}
-			else if (sr.getType().equals("CIS2"))
+			else if (sr.getSubrecordType().equals("CIS2"))
 			{
 			}
-			else if (sr.getType().equals("FNAM"))
+			else if (sr.getSubrecordType().equals("FNAM"))
 			{
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
 		}

@@ -1,6 +1,7 @@
 package esmj3dtes5.data.records;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.LString;
@@ -31,35 +32,35 @@ public class BPTD extends RECO
 	public BPTD(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 
 		Subrecord sr = next(subrecords);
-		EDID = new ZString(sr.getData());
+		EDID = new ZString(sr.getSubrecordData());
 		sr = next(subrecords);
 
-		if (sr.getType().equals("MODL"))
+		if (sr.getSubrecordType().equals("MODL"))
 		{
-			MODL = new MODL(sr.getData());
+			MODL = new MODL(sr.getSubrecordData());
 			sr = next(subrecords);
-			if (sr.getType().equals("MODT"))
+			if (sr.getSubrecordType().equals("MODT"))
 			{
-				MODL.addMODTSub(sr.getData());
+				MODL.addMODTSub(sr.getSubrecordData());
 				sr = next(subrecords);
 			}
 		}
 
-		while (sr != null && sr.getType().equals("BPTN"))
+		while (sr != null && sr.getSubrecordType().equals("BPTN"))
 		{
 			BodyPart bodyPart = new BodyPart();
 			bodyParts.add(bodyPart);
 
-			bodyPart.BPTN = new LString(sr.getData());
+			bodyPart.BPTN = new LString(sr.getSubrecordData());
 			sr = next(subrecords);
-			bodyPart.BPNN = new ZString(sr.getData());
+			bodyPart.BPNN = new ZString(sr.getSubrecordData());
 			sr = next(subrecords);
-			bodyPart.BPNT = new ZString(sr.getData());
+			bodyPart.BPNT = new ZString(sr.getSubrecordData());
 			sr = next(subrecords);
-			bodyPart.BPNI = new ZString(sr.getData());
+			bodyPart.BPNI = new ZString(sr.getSubrecordData());
 			sr = next(subrecords);
 
 			//BPND
@@ -73,7 +74,7 @@ public class BPTD extends RECO
 
 		}
 
-		if (sr != null && sr.getType().equals("RAGA"))
+		if (sr != null && sr.getSubrecordType().equals("RAGA"))
 		{
 			//RAGA
 		}

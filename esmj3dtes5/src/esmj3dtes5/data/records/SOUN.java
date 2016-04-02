@@ -1,6 +1,6 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.GenericSOUN;
 import esmmanager.common.data.record.Record;
@@ -12,21 +12,21 @@ public class SOUN extends GenericSOUN
 	{
 
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
 			//byte[] bs = sr.getData();
 
-			if (sr.getType().equals("OBND"))
+			if (sr.getSubrecordType().equals("OBND"))
 			{
 
 			}
-			else if (sr.getType().equals("SDSC"))
+			else if (sr.getSubrecordType().equals("SDSC"))
 			{
 
 			}
-			else if (sr.getType().equals("SNDD"))
+			else if (sr.getSubrecordType().equals("SNDD"))
 			{
 
 			}

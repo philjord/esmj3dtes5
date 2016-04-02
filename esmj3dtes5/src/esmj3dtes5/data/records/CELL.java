@@ -1,6 +1,6 @@
 package esmj3dtes5.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.CommonCELL;
 import esmj3d.data.shared.subrecords.FormID;
@@ -30,70 +30,70 @@ public class CELL extends CommonCELL
 	{
 		super(recordData);
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("DATA"))
+			if (sr.getSubrecordType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getType().equals("TVDT"))
+			else if (sr.getSubrecordType().equals("TVDT"))
 			{
 			}
-			else if (sr.getType().equals("MHDT"))
+			else if (sr.getSubrecordType().equals("MHDT"))
 			{
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 				// TES5 FULL is a formId of some sort, blank out the lstring from super
 				FULL = null;
 			}
-			else if (sr.getType().equals("LTMP"))
+			else if (sr.getSubrecordType().equals("LTMP"))
 			{
 				LTMP = new FormID(bs);
 			}
-			else if (sr.getType().equals("XCMO"))
+			else if (sr.getSubrecordType().equals("XCMO"))
 			{
 				XCMO = new FormID(bs);
 			}
-			else if (sr.getType().equals("XCIM"))
+			else if (sr.getSubrecordType().equals("XCIM"))
 			{
 				XCIM = new FormID(bs);
 			}
-			else if (sr.getType().equals("XCAS"))
+			else if (sr.getSubrecordType().equals("XCAS"))
 			{
 				XCAS = new FormID(bs);
 			}
-			else if (sr.getType().equals("XWEM"))
+			else if (sr.getSubrecordType().equals("XWEM"))
 			{
 			}
-			else if (sr.getType().equals("XILL"))
+			else if (sr.getSubrecordType().equals("XILL"))
 			{
 				XILL = new FormID(bs);
 			}
-			else if (sr.getType().equals("LNAM"))
+			else if (sr.getSubrecordType().equals("LNAM"))
 			{
 			}
-			else if (sr.getType().equals("XNAM"))
+			else if (sr.getSubrecordType().equals("XNAM"))
 			{
 			}
-			else if (sr.getType().equals("XWCS"))
+			else if (sr.getSubrecordType().equals("XWCS"))
 			{
 			}
-			else if (sr.getType().equals("XWCU"))
+			else if (sr.getSubrecordType().equals("XWCU"))
 			{
 			}
-			else if (sr.getType().equals("XWCN"))
+			else if (sr.getSubrecordType().equals("XWCN"))
 			{
 			}
-			else if (sr.getType().equals("XLCN"))
+			else if (sr.getSubrecordType().equals("XLCN"))
 			{
 
 			}
-			else if (sr.getType().equals("XEZN"))
+			else if (sr.getSubrecordType().equals("XEZN"))
 			{
 				XEZN = new FormID(bs);
 			}
