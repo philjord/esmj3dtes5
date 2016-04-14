@@ -133,7 +133,7 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 						else*/
 					j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
 				}
-
+				j3dLAND.setLocation(cellLocation);
 				ret = j3dLAND;
 			}
 			else if (record.getRecordType().equals("NAVM"))
