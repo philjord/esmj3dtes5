@@ -101,7 +101,8 @@ public class J3dNPC_ extends J3dRECOTypeCha
 			ArrayList<String> idleAnimations = new ArrayList<String>();
 			//idleAnimations.add(ESConfig.TES_MESH_PATH + "actors\\character\\animations\\mt_idle_a_base.kf");
 
-			idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + "actors\\character\\animations"));
+ 
+			addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + "actors\\character\\animations"));
 
 			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 			addChild(nifCharacter);
