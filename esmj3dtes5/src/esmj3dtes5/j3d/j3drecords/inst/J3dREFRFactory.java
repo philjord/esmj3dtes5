@@ -13,13 +13,13 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
 import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
-import esmj3d.j3d.j3drecords.type.J3dLIGH;
+import esmj3d.j3d.j3drecords.type.J3dGeneralLIGH;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeActionable;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeDynamic;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeStatic;
-import esmj3d.j3d.j3drecords.type.J3dSOUN;
+import esmj3d.j3d.j3drecords.type.J3dGeneralSOUN;
 import esmj3d.j3d.trees.TreeMaker;
 import esmj3dtes5.data.records.ACTI;
 import esmj3dtes5.data.records.ADDN;
@@ -56,7 +56,6 @@ import utils.source.MediaSources;
 public class J3dREFRFactory
 {
 	public static boolean DEBUG_FIRST_LIST_ITEM_ONLY = false;
-	 
 
 	//Note fader = true
 	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
@@ -123,7 +122,8 @@ public class J3dREFRFactory
 		{
 			STAT stat = new STAT(baseRecord);
 
-			if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag) && (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
+			if (stat.isFlagSet(RECO.VisibleWhenDistant_Flag)
+					&& (!stat.isFlagSet(RECO.IsMarker_Flag) || BethRenderSettings.isShowEditorMarkers()))
 			{
 				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
 				//find the lowest model for fun
@@ -316,7 +316,7 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
-			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, mediaSources), true, makePhys);
+			return new J3dRECOStatInst(refr, new J3dGeneralLIGH(new LIGH(baseRecord), makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
@@ -329,7 +329,7 @@ public class J3dREFRFactory
 		{
 			if (!makePhys)
 			{
-				return new J3dRECOStatInst(refr, new J3dSOUN(new SOUN(baseRecord), master, mediaSources.getSoundSource()), false, makePhys);
+				return new J3dRECOStatInst(refr, new J3dGeneralSOUN(new SOUN(baseRecord), master, mediaSources), false, makePhys);
 			}
 		}
 		else if (baseRecord.getRecordType().equals("LVLN"))
