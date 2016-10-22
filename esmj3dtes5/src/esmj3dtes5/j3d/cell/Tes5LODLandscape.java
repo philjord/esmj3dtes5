@@ -66,7 +66,6 @@ public class Tes5LODLandscape extends MorphingLandscape
 						}
 
 						Shape3D shape = new Shape3D();
-						shape.clearCapabilities();
 						shape.setPickable(false);
 						shape.setCollidable(false);
 						shape.setGeometry(baseItsa);
@@ -108,7 +107,6 @@ public class Tes5LODLandscape extends MorphingLandscape
 								}
 
 								Shape3D shape = new Shape3D();
-								shape.clearCapabilities();
 								shape.setGeometry(baseItsa);
 
 								BSLightingShaderProperty lp = getLightingProperty(niTriShape, blocks);

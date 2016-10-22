@@ -65,9 +65,7 @@ public class J3dSTAT extends J3dRECOType
 
 				//add a blank for final fade out	
 				BranchGroup bg = new BranchGroup();
-				bg.clearCapabilities();
 				BranchGroup blank = new BranchGroup();
-				blank.clearCapabilities();
 				bg.addChild(SHOW_FADE_OUT_MARKER ? new Cube(0.1) : blank);
 				myNodes.add(bg);
 
