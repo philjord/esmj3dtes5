@@ -2,8 +2,8 @@ package esmj3dtes5.j3d.j3drecords.type;
 
 import java.util.ArrayList;
 
-import javax.media.j3d.BranchGroup;
-import javax.media.j3d.Node;
+import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Node;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;

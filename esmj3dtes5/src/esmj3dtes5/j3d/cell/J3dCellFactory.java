@@ -3,7 +3,7 @@ package esmj3dtes5.j3d.cell;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-import javax.media.j3d.BranchGroup;
+import org.jogamp.java3d.BranchGroup;
 
 import esmj3d.j3d.cell.AIActorServices;
 import esmj3d.j3d.cell.AICellGeneral;
