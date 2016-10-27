@@ -1,13 +1,12 @@
 package esmj3dtes5.j3d.cell;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.IndexedGeometryArray;
 import org.jogamp.java3d.Shape3D;
 import org.jogamp.java3d.Transform3D;
 import org.jogamp.java3d.TransformGroup;
+import org.jogamp.vecmath.Quat4f;
+import org.jogamp.vecmath.Vector3f;
 
 import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3d.j3d.j3drecords.inst.J3dLAND;
