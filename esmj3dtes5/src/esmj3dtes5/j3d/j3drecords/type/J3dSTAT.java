@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.jogamp.java3d.BranchGroup;
 import org.jogamp.java3d.Node;
+import org.jogamp.java3d.utils.shader.Cube;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
@@ -11,7 +12,6 @@ import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3dtes5.data.records.STAT;
 import nif.j3d.J3dNiAVObject;
 import tools3d.utils.Utils3D;
-import tools3d.utils.leafnode.Cube;
 import tools3d.utils.scenegraph.BetterDistanceLOD;
 import utils.source.MediaSources;
 
