@@ -2,13 +2,13 @@ package esmj3dtes5.data.records;
 
 import java.util.List;
 
+import esmio.common.data.record.Record;
+import esmio.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes5.data.subrecords.BODT;
-import esmmanager.common.data.record.Record;
-import esmmanager.common.data.record.Subrecord;
 
 public class ARMA extends RECO
 {

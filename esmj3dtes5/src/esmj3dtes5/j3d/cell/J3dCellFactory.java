@@ -5,16 +5,16 @@ import java.util.zip.DataFormatException;
 
 import org.jogamp.java3d.BranchGroup;
 
+import esmio.common.PluginException;
+import esmio.common.data.plugin.PluginGroup;
+import esmio.common.data.plugin.PluginRecord;
+import esmio.common.data.record.Record;
+import esmio.loader.WRLDChildren;
+import esmio.utils.ESMUtils;
 import esmj3d.j3d.cell.AIActorServices;
 import esmj3d.j3d.cell.AICellGeneral;
 import esmj3d.j3d.cell.J3dICellFactory;
 import esmj3dtes5.data.records.WRLD;
-import esmmanager.common.PluginException;
-import esmmanager.common.data.plugin.PluginGroup;
-import esmmanager.common.data.plugin.PluginRecord;
-import esmmanager.common.data.record.Record;
-import esmmanager.loader.WRLDChildren;
-import utils.ESMUtils;
 
 public class J3dCellFactory extends J3dICellFactory
 {

@@ -3,14 +3,14 @@ package esmj3dtes5.data;
 import java.util.HashSet;
 import java.util.List;
 
+import esmio.common.data.record.IRecordStore;
+import esmio.common.data.record.Record;
 import esmj3d.data.shared.records.LAND;
 import esmj3d.data.shared.records.LTEX;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.records.TXST;
 import esmj3dtes5.data.records.*;
 import esmj3dtes5.data.subrecords.LVLO;
-import esmmanager.common.data.record.IRecordStore;
-import esmmanager.common.data.record.Record;
 
 public class RecordToRECO
 {
