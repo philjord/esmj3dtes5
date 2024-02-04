@@ -16,6 +16,10 @@ import esmj3d.j3d.cell.AICellGeneral;
 import esmj3d.j3d.cell.J3dICellFactory;
 import esmj3dtes5.data.records.WRLD;
 
+
+
+//https://en.uesp.net/wiki/Skyrim_Mod:Mod_File_Format/WRLD
+	
 public class J3dCellFactory extends J3dICellFactory
 {
 	public J3dCellFactory()
