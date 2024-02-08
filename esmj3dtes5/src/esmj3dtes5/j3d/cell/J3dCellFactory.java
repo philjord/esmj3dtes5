@@ -33,7 +33,7 @@ public class J3dCellFactory extends J3dICellFactory
 		String lodWorldName = "";
 		WRLD wrld = getWRLD(worldFormId);
 		// use parent first
-		if (wrld.WNAM != null && wrld.WNAM.formId != -1)
+		if (wrld.WNAM != null && wrld.WNAM.formId != -1 && (wrld.PNAM & 0x02) != 0 )
 		{
 			WRLD parentWrld = getWRLD(wrld.WNAM.formId);
 			lodWorldName = parentWrld.EDID.str;
@@ -46,7 +46,7 @@ public class J3dCellFactory extends J3dICellFactory
 	}
 
 	@Override
-	public BranchGroup makeLODLandscape(int lodX, int lodY, int scale, String lodWorldName)
+	public BranchGroup makeLODLandscape(int wrldFormId, int lodX, int lodY, int scale, String lodWorldName)
 	{
 		return new Tes5LODLandscape(lodX, lodY, scale, lodWorldName, mediaSources.getMeshSource(), mediaSources.getTextureSource());
 	}
