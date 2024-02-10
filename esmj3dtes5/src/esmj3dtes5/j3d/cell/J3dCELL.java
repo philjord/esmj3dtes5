@@ -119,7 +119,6 @@ public class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			}
 			else if (record.getRecordType().equals("LAND"))
 			{
-				J3dLAND j3dLAND;
 				if (makePhys)
 				{
 					//TODO: parent land record usage removed for speed until a proper need appears, whiterun has pure custom land
