@@ -3,13 +3,18 @@ package esmj3dtes5.j3d.j3drecords.type;
 import java.util.ArrayList;
 
 import org.jogamp.java3d.BranchGroup;
+import org.jogamp.java3d.Link;
 import org.jogamp.java3d.Node;
+import org.jogamp.java3d.SharedGroup;
 import org.jogamp.java3d.utils.shader.Cube;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3dtes5.data.records.STAT;
+import nif.NifJ3dVisRoot;
+import nif.NifToJ3d;
+import nif.character.NifJ3dSkeletonRoot;
 import nif.j3d.J3dNiAVObject;
 import tools3d.utils.Utils3D;
 import tools3d.utils.scenegraph.BetterDistanceLOD;
@@ -38,7 +43,7 @@ public class J3dSTAT extends J3dRECOType
 	 * @param meshSource
 	 * @param textureSource
 	 */
-
+	
 	public J3dSTAT(STAT stat, boolean makePhys, MediaSources mediaSources)
 	{
 		super(stat, stat.MODL.model.str);
@@ -60,8 +65,9 @@ public class J3dSTAT extends J3dRECOType
 
 			if (!stat.isFlagSet(RECO.VisibleWhenDistant_Flag))
 			{
-				J3dNiAVObject node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
-				myNodes.add(node.getRootNode());
+				BranchGroup node = loadNifSharable(stat.MODL.model.str,  mediaSources);
+				if(node != null)
+					myNodes.add(node);				 
 
 				//add a blank for final fade out	
 				BranchGroup bg = new BranchGroup();
@@ -72,28 +78,28 @@ public class J3dSTAT extends J3dRECOType
 			}
 			else
 			{
-				J3dNiAVObject node = J3dRECOType.loadNif(stat.MODL.model.str, makePhys, mediaSources);
-				myNodes.add(node.getRootNode());
+				BranchGroup node = loadNifSharable(stat.MODL.model.str, mediaSources);
+				myNodes.add(node);
 
 				if (stat.lodModel1 != null && stat.lodModel1.length() > 0)
 				{
-					J3dNiAVObject node1 = J3dRECOType.loadNif(stat.lodModel1, makePhys, mediaSources);
-					myNodes.add(node1.getRootNode());
+					BranchGroup node1 = loadNifSharable(stat.lodModel1, mediaSources);
+					myNodes.add(node1);
 
 					if (stat.lodModel2 != null && stat.lodModel2.length() > 0)
 					{
-						J3dNiAVObject node2 = J3dRECOType.loadNif(stat.lodModel2, makePhys, mediaSources);
-						myNodes.add(node2.getRootNode());
+						BranchGroup node2 = loadNifSharable(stat.lodModel2, mediaSources);
+						myNodes.add(node2);
 
 						if (stat.lodModel3 != null && stat.lodModel3.length() > 0)
 						{
-							J3dNiAVObject node3 = J3dRECOType.loadNif(stat.lodModel3, makePhys, mediaSources);
-							myNodes.add(node3.getRootNode());
+							BranchGroup node3 = loadNifSharable(stat.lodModel3, mediaSources);
+							myNodes.add(node3);
 
 							if (stat.lodModel4 != null && stat.lodModel4.length() > 0)
 							{
-								J3dNiAVObject node4 = J3dRECOType.loadNif(stat.lodModel4, makePhys, mediaSources);
-								myNodes.add(node4.getRootNode());
+								BranchGroup node4 = loadNifSharable(stat.lodModel4, mediaSources);
+								myNodes.add(node4);
 							}
 						}
 					}
@@ -105,6 +111,8 @@ public class J3dSTAT extends J3dRECOType
 				//myNodes.add(bg);
 
 			}
+			
+			
 			float[] dists = calcDistances(BethRenderSettings.getItemFade());
 			dl = new BetterDistanceLOD(this, myNodes, dists);
 			addChild(dl);
@@ -113,6 +121,56 @@ public class J3dSTAT extends J3dRECOType
 		}
 
 		//TODO: I ant to call fireIdle about now to be honest
+	}
+	
+	/**
+	 * If teh nif is sharable this will be a BranchGRoup with a link to teh SharedGroup with the nif
+	 * @param nifFileName
+	 * @param makePhys
+	 * @param mediaSources
+	 * @return
+	 */
+	public static BranchGroup loadNifSharable(String nifFileName, MediaSources mediaSources) {
+
+		// start with the shared option check cache
+		if (SHARE_MODELS) {
+			SharedGroup sg = loadedFiles.get(nifFileName);
+			if (sg != null) {
+				hit++;
+				BranchGroup ret = new BranchGroup();
+				ret.addChild(new Link(sg));
+				return ret;
+			}
+		}
+
+		NifJ3dVisRoot nvr = NifToJ3d.loadShapes(nifFileName, mediaSources.getMeshSource(),
+				mediaSources.getTextureSource());
+		if (nvr != null) {
+			J3dNiAVObject j3dNiAVObject = nvr.getVisualRoot();
+
+			if (j3dNiAVObject != null) {
+
+				boolean isSharable = checkTreeForSharable(j3dNiAVObject);
+
+				if (!SHARE_MODELS	|| !isSharable || NifJ3dSkeletonRoot.isSkeleton(nvr.getNiToJ3dData())
+					|| j3dNiAVObject.getJ3dNiControllerManager() != null) {
+					return j3dNiAVObject.getRootNode();
+				} else {
+					// cache miss has already happened
+					SharedGroup sg = new SharedGroup();
+					sg.addChild(j3dNiAVObject);
+					loadedFiles.put(nifFileName, sg);
+					miss++;
+					if (miss % 100 == 0)
+						System.out.println("J3dSTAT hit " + hit + " miss " + miss);
+
+					BranchGroup ret = new BranchGroup();
+					ret.addChild(new Link(sg));
+					return ret;
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override
