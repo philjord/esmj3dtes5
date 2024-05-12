@@ -9,11 +9,10 @@ import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.MODS;
 import esmj3d.data.shared.subrecords.MODT;
 import esmj3d.data.shared.subrecords.OBND;
-import esmj3d.data.shared.subrecords.ZString;
 
 public class STAT extends RECO
 {
-	public ZString EDID;
+	
 
 	public OBND OBND;
 
@@ -43,7 +42,7 @@ public class STAT extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{
@@ -87,9 +86,11 @@ public class STAT extends RECO
 		}
 	}
 
+	@Override
 	public String showDetails()
 	{
-		return "STAT : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model.str;
+		return super.showDetails() + " : " + MODL.model;
 	}
+
 
 }

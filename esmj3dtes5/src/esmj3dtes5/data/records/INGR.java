@@ -7,11 +7,10 @@ import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
 
 public class INGR extends RECO
 {
-	public ZString EDID;
+	
 
 	public FormID FULL;
 
@@ -29,7 +28,7 @@ public class INGR extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{
@@ -94,9 +93,11 @@ public class INGR extends RECO
 		}
 	}
 
+	@Override
 	public String showDetails()
 	{
-		return "STAT : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model.str;
+		return super.showDetails() + " : " + MODL.model;
 	}
+
 
 }

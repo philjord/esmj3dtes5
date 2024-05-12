@@ -8,11 +8,10 @@ import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
 
 public class TREE extends RECO
 {
-	public ZString EDID;
+	
 
 	public LString FULL;
 
@@ -34,7 +33,7 @@ public class TREE extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{
@@ -76,9 +75,11 @@ public class TREE extends RECO
 		}
 	}
 
+	@Override
 	public String showDetails()
 	{
-		return "TREE : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model.str;
+		return super.showDetails() + " : " + MODL.model;
 	}
+
 
 }

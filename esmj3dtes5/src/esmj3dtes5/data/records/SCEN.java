@@ -5,11 +5,11 @@ import java.util.List;
 import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+
 
 public class SCEN extends RECO
 {
-	public ZString EDID;
+	
 
 	public SCEN(Record recordData)
 	{
@@ -22,7 +22,7 @@ public class SCEN extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("VMAD")){}
 			else if (sr.getSubrecordType().equals("FNAM")){}

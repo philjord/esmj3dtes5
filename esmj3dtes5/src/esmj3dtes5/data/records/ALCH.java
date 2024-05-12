@@ -7,11 +7,10 @@ import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
 
 public class ALCH extends RECO
 {
-	public ZString EDID;
+	
 
 	public FormID FULL;
 
@@ -29,7 +28,7 @@ public class ALCH extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{
@@ -93,10 +92,6 @@ public class ALCH extends RECO
 		}
 	}
 
-	public String showDetails()
-	{
-		return "ALCH : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str;
-	}
 
 	public class DATA
 	{

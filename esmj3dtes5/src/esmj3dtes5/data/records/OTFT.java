@@ -7,11 +7,11 @@ import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.FormID;
-import esmj3d.data.shared.subrecords.ZString;
+
 
 public class OTFT extends RECO
 {
-	public ZString EDID;
+	
 
 	public ArrayList<FormID> INAMs = new ArrayList<FormID>();
 
@@ -26,7 +26,7 @@ public class OTFT extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("INAM"))
 			{

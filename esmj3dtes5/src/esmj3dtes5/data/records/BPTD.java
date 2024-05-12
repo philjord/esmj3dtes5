@@ -10,9 +10,10 @@ import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
+
 public class BPTD extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public MODL MODL = null;
 
@@ -22,11 +23,11 @@ public class BPTD extends RECO
 	{
 		public LString BPTN;
 
-		public ZString BPNI;
+		public String BPNI;
 
-		public ZString BPNN;
+		public String BPNN;
 
-		public ZString BPNT;
+		public String BPNT;
 	}
 
 	public BPTD(Record recordData)
@@ -35,7 +36,7 @@ public class BPTD extends RECO
 		List<Subrecord> subrecords = recordData.getSubrecords();
 
 		Subrecord sr = next(subrecords);
-		EDID = new ZString(sr.getSubrecordData());
+		setEDID(sr.getSubrecordData());
 		sr = next(subrecords);
 
 		if (sr.getSubrecordType().equals("MODL"))
@@ -56,11 +57,11 @@ public class BPTD extends RECO
 
 			bodyPart.BPTN = new LString(sr.getSubrecordData());
 			sr = next(subrecords);
-			bodyPart.BPNN = new ZString(sr.getSubrecordData());
+			bodyPart.BPNN = ZString.toString(sr.getSubrecordData());
 			sr = next(subrecords);
-			bodyPart.BPNT = new ZString(sr.getSubrecordData());
+			bodyPart.BPNT = ZString.toString(sr.getSubrecordData());
 			sr = next(subrecords);
-			bodyPart.BPNI = new ZString(sr.getSubrecordData());
+			bodyPart.BPNI = ZString.toString(sr.getSubrecordData());
 			sr = next(subrecords);
 
 			//BPND

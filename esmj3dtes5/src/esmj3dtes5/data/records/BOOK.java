@@ -9,11 +9,10 @@ import esmj3d.data.shared.subrecords.ANAM;
 import esmj3d.data.shared.subrecords.DESC;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
 
 public class BOOK extends RECO
 {
-	public ZString EDID;
+	
 
 	public FormID FULL;
 
@@ -51,7 +50,7 @@ public class BOOK extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{
@@ -117,9 +116,11 @@ public class BOOK extends RECO
 		}
 	}
 
+	@Override
 	public String showDetails()
 	{
-		return "BOOK : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model.str;
+		return super.showDetails() + " : " + MODL.model;
 	}
+
 
 }
